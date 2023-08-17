@@ -11,6 +11,9 @@
     ]
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.2.0",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-slot": "^1.0.2",
     "@redwoodjs/forms": "6.0.7",
     "@redwoodjs/router": "6.0.7",
     "@redwoodjs/web": "6.0.7",
@@ -20,8 +23,10 @@
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.4",
     "tailwind-merge": "^1.14.0",
-    "tailwindcss-animate": "^1.0.6"
+    "tailwindcss-animate": "^1.0.6",
+    "zod": "^3.22.1"
   },
   "devDependencies": {
     "@redwoodjs/vite": "6.0.7",
