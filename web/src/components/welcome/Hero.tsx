@@ -133,8 +133,7 @@ export default function Hero() {
               Welcome to Rendy
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Rendy (prounced rändə) is the best place to find events in your
-              area.
+              Rendy (prounced 'ronday') is the best place to find local events.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
