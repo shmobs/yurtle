@@ -23,7 +23,8 @@ export const getPlaceVibes: QueryResolvers['getPlaceVibes'] = async ({
   `
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-4',
+    model: 'gpt-4-0613',
+    // model: 'gpt-3.5-turbo-0613',
     messages: [
       {
         role: 'system',
@@ -38,6 +39,7 @@ export const getPlaceVibes: QueryResolvers['getPlaceVibes'] = async ({
     /**
      * because we always want structured data back, we can tell GPT that we're looking
      * to use its output to call a function
+     * https://platform.openai.com/docs/guides/gpt/function-calling
      */
     function_call: {
       name: 'returnVibes',
