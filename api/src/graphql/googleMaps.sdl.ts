@@ -1,9 +1,9 @@
 export const schema = gql`
   type GMapsApiSearchNearbyResponseType {
-    html_attributions: [String]!
     results: [GMapsNearbyPlaceType]!
     status: GMapsPlacesSearchStatusType!
     error_message: String
+    html_attributions: [String]!
     info_messages: [String]
     next_page_token: String
   }
@@ -12,7 +12,49 @@ export const schema = gql`
     candidates: [GMapsFindPlaceType]!
     status: GMapsPlacesSearchStatusType!
     error_message: String
+    html_attributions: [String]!
     info_messages: [String]
+  }
+
+  type GMapsApiPlaceDetailsResponseType {
+    result: GMapsPlaceDetailsType!
+    html_attributions: [String]!
+    status: GMapsPlacesSearchStatusType!
+    info_messages: [String]
+  }
+
+  """
+  The Place Details API only returns the fields we specify. This type, therefore, needs to be kept inline with the fields we specify.
+  """
+  type GMapsPlaceDetailsType {
+    # Basic fields
+    address_components: [GMapsAddressComponentType]
+    business_status: String
+    formatted_address: String
+    geometry: GMapsGeometryType
+    icon: String
+    icon_background_color: String
+    name: String
+    place_id: String
+
+    # Contact fields
+    current_opening_hours: GMapsOpeningHoursType
+    formatted_phone_number: String
+    website: String
+
+    # Atmosphere fields
+    dine_in: Boolean
+    editorial_summary: GMapsEditorialSummaryType
+    price_level: Int
+    rating: Float
+    reservable: Boolean
+    serves_beer: Boolean
+    serves_breakfast: Boolean
+    serves_brunch: Boolean
+    serves_dinner: Boolean
+    serves_lunch: Boolean
+    serves_vegetarian_food: Boolean
+    serves_wine: Boolean
   }
 
   """
@@ -29,36 +71,15 @@ export const schema = gql`
   https://developers.google.com/maps/documentation/places/web-service/search-nearby#Place
   """
   type GMapsNearbyPlaceType {
-    # address_components: [GMapsAddressComponentType]
     business_status: String
-    # current_opening_hours: GMapsOpeningHoursType
-    # dine_in: Boolean
-    # editorial_summary: GMapsEditorialSummaryType
-    # formatted_address: String
-    # formatted_phone_number: String
     geometry: GMapsGeometryType
     icon: String
     icon_background_color: String
     icon_mask_base_uri: String
-    # international_phone_number: String
     name: String
-    # opening_hours: GMapsOpeningHoursType
     photos: [GMapsPhotoType]
     place_id: String
-    # price_level: Int
-    # rating: Float
-    # reservable: Boolean
-    # serves_beer: Boolean
-    # serves_breakfast: Boolean
-    # serves_brunch: Boolean
-    # serves_dinner: Boolean
-    # serves_lunch: Boolean
-    # serves_vegetarian_food: Boolean
-    # serves_wine: Boolean
     types: [String]
-    # url: String
-    # website: String
-    # wheelchair_accessible_entrance: Boolean
   }
 
   type GMapsAddressComponentType {

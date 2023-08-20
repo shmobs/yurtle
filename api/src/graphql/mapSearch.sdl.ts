@@ -15,5 +15,12 @@ export const schema = gql`
       """
       input: String!
     ): GMapsApiFindPlaceResponseType! @skipAuth
+
+    placeDetails(
+      """
+      place_id: String! - A textual identifier that uniquely identifies a place, returned from a Place Search.
+      """
+      place_id: String!
+    ): GMapsApiPlaceDetailsResponseType! @skipAuth
   }
 `
