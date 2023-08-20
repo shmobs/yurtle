@@ -1,6 +1,7 @@
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 generator client {
@@ -10,9 +11,34 @@ generator client {
 
 // Define your own datamodels here and run `yarn redwood prisma migrate dev`
 // to create migrations for them and apply to your dev DB.
-// TODO: Please remove the following example:
-model UserExample {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+
+model Business {
+  id          String @id @default(cuid())
+  name        String
+  description String
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  Location  Location[]
+}
+
+model Location {
+  id           String   @id @default(cuid())
+  address      String
+  gmapsPlaceId String
+  businessId   String
+  business     Business @relation(fields: [businessId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([businessId], name: "businessId")
+}
+
+model Event {
+  id          String    @id @default(cuid())
+  name        String
+  type        String
+  description String
+  date        DateTime?
 }
