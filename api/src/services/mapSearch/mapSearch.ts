@@ -1,5 +1,5 @@
 import { fetch } from '@whatwg-node/fetch'
-import { QueryResolvers } from 'types/graphql'
+import { GMapsApiResponseType, QueryResolvers } from 'types/graphql'
 
 export const searchNearby: QueryResolvers['searchNearby'] = async ({
   location,
@@ -19,7 +19,8 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
   const searchUrl = `${rootUrl}?${qsp}&key=${process.env.GOOGLE_MAPS_API_KEY}`
 
   const res = await fetch(searchUrl)
-  console.log(res)
 
-  return res.json()
+  const resContent = (await res.json()) as GMapsApiResponseType
+
+  return resContent
 }
