@@ -6372,7 +6372,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@whatwg-node/fetch@npm:0.9.9, @whatwg-node/fetch@npm:^0.9.0, @whatwg-node/fetch@npm:^0.9.6":
+"@whatwg-node/fetch@npm:0.9.9, @whatwg-node/fetch@npm:^0.9.0, @whatwg-node/fetch@npm:^0.9.6, @whatwg-node/fetch@npm:^0.9.9":
   version: 0.9.9
   resolution: "@whatwg-node/fetch@npm:0.9.9"
   dependencies:
@@ -6855,6 +6855,7 @@ __metadata:
   dependencies:
     "@redwoodjs/api": 6.1.0
     "@redwoodjs/graphql-server": 6.1.0
+    "@whatwg-node/fetch": ^0.9.9
   languageName: unknown
   linkType: soft
 
@@ -17037,56 +17038,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-tailwindcss@npm:^0.5.3":
-  version: 0.5.3
-  resolution: "prettier-plugin-tailwindcss@npm:0.5.3"
+"prettier-plugin-tailwindcss@npm:^0.1.13":
+  version: 0.1.13
+  resolution: "prettier-plugin-tailwindcss@npm:0.1.13"
   peerDependencies:
-    "@ianvs/prettier-plugin-sort-imports": "*"
-    "@prettier/plugin-pug": "*"
-    "@shopify/prettier-plugin-liquid": "*"
-    "@shufo/prettier-plugin-blade": "*"
-    "@trivago/prettier-plugin-sort-imports": "*"
-    prettier: ^3.0
-    prettier-plugin-astro: "*"
-    prettier-plugin-css-order: "*"
-    prettier-plugin-import-sort: "*"
-    prettier-plugin-jsdoc: "*"
-    prettier-plugin-organize-attributes: "*"
-    prettier-plugin-organize-imports: "*"
-    prettier-plugin-style-order: "*"
-    prettier-plugin-svelte: "*"
-  peerDependenciesMeta:
-    "@ianvs/prettier-plugin-sort-imports":
-      optional: true
-    "@prettier/plugin-pug":
-      optional: true
-    "@shopify/prettier-plugin-liquid":
-      optional: true
-    "@shufo/prettier-plugin-blade":
-      optional: true
-    "@trivago/prettier-plugin-sort-imports":
-      optional: true
-    prettier-plugin-astro:
-      optional: true
-    prettier-plugin-css-order:
-      optional: true
-    prettier-plugin-import-sort:
-      optional: true
-    prettier-plugin-jsdoc:
-      optional: true
-    prettier-plugin-marko:
-      optional: true
-    prettier-plugin-organize-attributes:
-      optional: true
-    prettier-plugin-organize-imports:
-      optional: true
-    prettier-plugin-style-order:
-      optional: true
-    prettier-plugin-svelte:
-      optional: true
-    prettier-plugin-twig-melody:
-      optional: true
-  checksum: b0d57aca64eb6608c8606fac2f607be9cb4fa89c313ce71ebaaea7834425525eff4f09f0890152a441deccba9f58e280d7e17c503fb241c42764062223689b93
+    prettier: ">=2.2.0"
+  checksum: 4c86acd69b00c7fe4f98aa25ea4145cc665b4a62c0522752950e91b6a9aab2cf8a37934c39eec3505424fcfa5ca443119aae4f01c17c92655dd76eb7665f8825
   languageName: node
   linkType: hard
 
@@ -18186,7 +18143,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@redwoodjs/core": 6.1.0
-    prettier-plugin-tailwindcss: ^0.5.3
+    prettier-plugin-tailwindcss: ^0.1.13
   languageName: unknown
   linkType: soft
 
