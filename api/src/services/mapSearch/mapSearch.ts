@@ -8,15 +8,16 @@ import {
 
 export const searchNearby: QueryResolvers['searchNearby'] = async ({
   location,
-  radius,
+  // radius,
 }) => {
   // https://developers.google.com/maps/documentation/places/web-service/search-nearby#PlaceSearchRequests
   const rootUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
 
   const options = {
     location: location,
-    radius: radius.toString(),
+    // radius: radius.toString(),
     type: 'restaurant',
+    rankby: 'distance',
     // more options we can add are here: https://developers.google.com/maps/documentation/places/web-service/search-nearby#optional-parameters
   }
 

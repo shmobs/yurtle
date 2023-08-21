@@ -1,4 +1,8 @@
-const LocationPrompt = () => {
+export interface ILocationPromptProps {
+  onLocation: (location: { latitude: number; longitude: number }) => void
+}
+
+const LocationPrompt = ({ onLocation }: ILocationPromptProps) => {
   const [location, setLocation] = React.useState(null)
 
   const getLocation = () => {
@@ -7,6 +11,7 @@ const LocationPrompt = () => {
         (position) => {
           const { latitude, longitude } = position.coords
           setLocation({ latitude, longitude })
+          onLocation({ latitude, longitude })
         },
         (error) => {
           console.log(error)
