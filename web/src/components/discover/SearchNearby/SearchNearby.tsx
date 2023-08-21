@@ -1,4 +1,4 @@
-import LocationPrompt from './LocationPrompt'
+import LocationPrompt from '../LocationPrompt'
 
 const SearchNearby = () => {
   // get user's current location as lat/long
