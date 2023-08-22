@@ -16,6 +16,7 @@ model Business {
   id          String     @id @default(cuid())
   name        String
   description String
+  website     String?
   locations   Location[]
 
   createdAt DateTime @default(now())
@@ -25,15 +26,19 @@ model Business {
 model Location {
   id           String   @id @default(cuid())
   address      String
-  gmapsPlaceId String
+  gmapsPlaceId String   @unique
   businessId   String
   business     Business @relation(fields: [businessId], references: [id])
   events       Event[]
+
+  latitude  Float
+  longitude Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
   @@index([businessId], name: "businessId")
+  @@index([gmapsPlaceId])
 }
 
 enum EventStatus {

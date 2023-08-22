@@ -5,9 +5,13 @@ export const schema = gql`
     gmapsPlaceId: String!
     businessId: String!
     business: Business!
+    events: [Event]!
+
+    latitude: Float
+    longitude: Float
+
     createdAt: DateTime!
     updatedAt: DateTime!
-    events: [Event]!
   }
 
   type Query {
@@ -32,5 +36,7 @@ export const schema = gql`
     updateLocation(id: String!, input: UpdateLocationInput!): Location!
       @requireAuth
     deleteLocation(id: String!): Location! @requireAuth
+
+    importFromGMaps(gmapsPlaceId: String!): Location! @requireAuth
   }
 `

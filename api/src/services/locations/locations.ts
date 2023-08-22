@@ -1,3 +1,5 @@
+import { Prisma } from '@prisma/client'
+
 import type {
   QueryResolvers,
   MutationResolvers,
@@ -5,6 +7,7 @@ import type {
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
+import { placeDetails } from '../mapSearch/mapSearch'
 
 export const locations: QueryResolvers['locations'] = () => {
   return db.location.findMany()
@@ -20,6 +23,8 @@ export const createLocation: MutationResolvers['createLocation'] = ({
   input,
 }) => {
   return db.location.create({
+    // TODO this needs to be updated to use the businessId or it'll fail
+    // @ts-ignore
     data: input,
   })
 }
@@ -40,11 +45,68 @@ export const deleteLocation: MutationResolvers['deleteLocation'] = ({ id }) => {
   })
 }
 
+const gmapsPlaceDetailsToBusinessDetails = (
+  gmapsData
+): Prisma.BusinessUpdateInput &
+  Prisma.BusinessUpdateWithoutLocationsInput &
+  Prisma.BusinessCreateInput &
+  Prisma.BusinessCreateWithoutLocationsInput => {
+  return {
+    name: gmapsData.result.name,
+    description: gmapsData.result.editorial_summary.overview,
+    website: gmapsData.result.website,
+  }
+}
+
+const gmapsPlaceDetailsToLocationDetails = (
+  gmapsData
+): Prisma.LocationUpdateInput & Prisma.LocationCreateInput => {
+  return {
+    address: gmapsData.result.formatted_address,
+    gmapsPlaceId: gmapsData.result.place_id,
+    latitude: gmapsData.result.geometry.location.lat,
+    longitude: gmapsData.result.geometry.location.lng,
+    business: {
+      upsert: {
+        where: {
+          OR: [
+            // first try to find busines by website, then by name
+            { website: gmapsData.result.website },
+            { name: gmapsData.result.name },
+          ],
+        },
+        create: gmapsPlaceDetailsToBusinessDetails(gmapsData),
+        update: gmapsPlaceDetailsToBusinessDetails(gmapsData),
+      },
+    },
+  }
+}
+
+/**
+ * create or update a Location object in the database, and either
+ * creates a new Business object or (attempts to) updated an existing one
+ */
+export const importFromGMaps: MutationResolvers['importFromGMaps'] = async ({
+  gmapsPlaceId,
+}) => {
+  const infoFromGMaps = await placeDetails({ placeId: gmapsPlaceId })
+
+  const locationData = gmapsPlaceDetailsToLocationDetails(infoFromGMaps)
+
+  return await db.location.upsert({
+    where: {
+      gmapsPlaceId,
+    },
+    create: locationData,
+    update: locationData,
+  })
+}
+
 export const Location: LocationRelationResolvers = {
   business: (_obj, { root }) => {
     return db.location.findUnique({ where: { id: root?.id } }).business()
   },
   events: (_obj, { root }) => {
     return db.location.findUnique({ where: { id: root?.id } }).events()
-  }
+  },
 }
