@@ -81,6 +81,9 @@
   .header-secondary {
     @apply text-lg font-semibold;
   }
+  .header-tertiary {
+    @apply text-base font-semibold;
+  }
   .description {
     @apply prose mt-4 text-gray-700;
   }
