@@ -2,12 +2,20 @@ import type {
   FindLocationQuery,
   FindLocationQueryVariables,
 } from 'types/graphql'
+
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 export const QUERY = gql`
   query FindLocationQuery($id: String!) {
     location: location(id: $id) {
       id
+      address
+      gmapsPlaceId
+      business {
+        id
+        name
+        description
+      }
     }
   }
 `

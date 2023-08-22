@@ -2,12 +2,19 @@ import type {
   FindBusinessQuery,
   FindBusinessQueryVariables,
 } from 'types/graphql'
+
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 export const QUERY = gql`
   query FindBusinessQuery($id: String!) {
     business: business(id: $id) {
       id
+      name
+      description
+      locations {
+        id
+        address
+      }
     }
   }
 `
