@@ -67,16 +67,16 @@ const gmapsPlaceDetailsToLocationDetails = (
     latitude: gmapsData.result.geometry.location.lat,
     longitude: gmapsData.result.geometry.location.lng,
     business: {
-      upsert: {
+      connectOrCreate: {
         where: {
+          name: gmapsData.result.name,
           OR: [
-            // first try to find busines by website, then by name
+            // backup identifier
             { website: gmapsData.result.website },
-            { name: gmapsData.result.name },
           ],
         },
         create: gmapsPlaceDetailsToBusinessDetails(gmapsData),
-        update: gmapsPlaceDetailsToBusinessDetails(gmapsData),
+        // update: gmapsPlaceDetailsToBusinessDetails(gmapsData),
       },
     },
   }
@@ -93,13 +93,15 @@ export const importFromGMaps: MutationResolvers['importFromGMaps'] = async ({
 
   const locationData = gmapsPlaceDetailsToLocationDetails(infoFromGMaps)
 
-  return await db.location.upsert({
+  const location = await db.location.upsert({
     where: {
       gmapsPlaceId,
     },
     create: locationData,
     update: locationData,
   })
+
+  return location
 }
 
 export const Location: LocationRelationResolvers = {
