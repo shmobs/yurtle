@@ -13,13 +13,13 @@ generator client {
 // to create migrations for them and apply to your dev DB.
 
 model Business {
-  id          String @id @default(cuid())
+  id          String     @id @default(cuid())
   name        String
   description String
+  locations   Location[]
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
-  Location  Location[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Location {
@@ -28,6 +28,7 @@ model Location {
   gmapsPlaceId String
   businessId   String
   business     Business @relation(fields: [businessId], references: [id])
+  events       Event[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -35,10 +36,25 @@ model Location {
   @@index([businessId], name: "businessId")
 }
 
+enum EventStatus {
+  REQUESTED
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 model Event {
-  id          String    @id @default(cuid())
+  id          String      @id @default(cuid())
   name        String
   type        String
   description String
+  status      EventStatus
   date        DateTime?
+  locationId  String?
+  location    Location?   @relation(fields: [locationId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([locationId], name: "locationId")
 }
