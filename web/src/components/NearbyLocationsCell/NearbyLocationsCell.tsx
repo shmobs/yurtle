@@ -55,8 +55,19 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
+const standardizeLocations = (
+  nearbyLocations: NearbyLocationsQuery['nearbyLocations']
+) => {
+  return nearbyLocations.results.map((location) => {
+    return {
+      gmapsPlaceId: location.place_id,
+      businessName: location.name,
+    }
+  })
+}
+
 export const Success = ({
   nearbyLocations,
 }: CellSuccessProps<NearbyLocationsQuery>) => {
-  return <Locations locations={nearbyLocations} />
+  return <Locations locations={standardizeLocations(nearbyLocations)} />
 }

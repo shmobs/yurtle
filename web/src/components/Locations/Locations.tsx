@@ -1,17 +1,20 @@
-import { NearbyLocationsQuery } from 'types/graphql'
+import LocationCard, { ILocationCardProps } from '../LocationCard/LocationCard'
 
 interface ILocationsProps {
-  locations: NearbyLocationsQuery['nearbyLocations']
+  locations: ILocationCardProps[]
 }
 
 const Locations = ({ locations }: ILocationsProps) => {
   return (
     <ul>
-      {locations.results.map((item) => {
+      {locations.map((location) => {
         return (
-          <li key={item.place_id}>
-            <h2>{item.name}</h2>
-          </li>
+          <LocationCard
+            key={location.id || location.gmapsPlaceId}
+            gmapsPlaceId={location.gmapsPlaceId}
+            businessName={location.businessName}
+            address={location.address}
+          />
         )
       })}
     </ul>
