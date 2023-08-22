@@ -9,7 +9,7 @@ export const schema = gql`
   }
 
   type GMapsApiFindPlaceResponseType {
-    candidates: [GMapsFindPlaceType]!
+    results: [GMapsFindPlaceType]!
     status: GMapsPlacesSearchStatusType!
     error_message: String
     html_attributions: [String]!
