@@ -1,18 +1,20 @@
+import NearbyLocationsCell from 'src/components/NearbyLocationsCell'
+
 import LocationPrompt from '../LocationPrompt'
 
-interface ISearchNearbyProps {
-  onLocation: (location: { latitude: number; longitude: number }) => void
-}
-
-const SearchNearby = ({ onLocation }: ISearchNearbyProps) => {
-  const [location, setLocation] = React.useState(null)
+const SearchNearby = () => {
+  const [location, setLocation] = React.useState<string>(null)
 
   const handleLocation = (loc: { latitude: number; longitude: number }) => {
-    setLocation(loc)
-    onLocation(loc)
+    setLocation(`${loc.latitude},${loc.longitude}`)
   }
   // get user's current location as lat/long
-  return <LocationPrompt onLocation={handleLocation} />
+  return (
+    <>
+      <LocationPrompt onLocation={handleLocation} />
+      {location && <NearbyLocationsCell location={location} />}
+    </>
+  )
 }
 
 export default SearchNearby

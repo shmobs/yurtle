@@ -5,7 +5,7 @@ export interface ILocationPromptProps {
 const LocationPrompt = ({ onLocation }: ILocationPromptProps) => {
   const [location, setLocation] = React.useState(null)
 
-  const getLocation = () => {
+  React.useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -20,11 +20,10 @@ const LocationPrompt = ({ onLocation }: ILocationPromptProps) => {
     } else {
       console.log('Geolocation is not supported by this browser.')
     }
-  }
+  }, [onLocation])
 
   return (
     <div>
-      <button onClick={getLocation}>Get Location</button>
       {location && (
         <div>
           Latitude: {location.latitude} <br />

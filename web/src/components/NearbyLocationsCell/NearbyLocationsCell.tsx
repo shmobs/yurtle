@@ -5,7 +5,7 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import Locations from '../Locations/Locations'
 
 export const QUERY = gql`
-  query NearbyLocationsQuery($location: String!, $radius: Int!) {
+  query NearbyLocationsQuery($location: String!, $radius: Int) {
     nearbyLocations: searchNearby(location: $location, radius: $radius) {
       html_attributions
       status

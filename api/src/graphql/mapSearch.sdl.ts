@@ -6,7 +6,10 @@ export const schema = gql`
     """
     searchNearby(
       location: String!
-      radius: Int!
+      """
+      Leaving this out will do rankby distance.
+      """
+      radius: Int
     ): GMapsApiSearchNearbyResponseType! @skipAuth
 
     findPlace(
