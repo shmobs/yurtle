@@ -44,4 +44,7 @@ export const Location: LocationRelationResolvers = {
   business: (_obj, { root }) => {
     return db.location.findUnique({ where: { id: root?.id } }).business()
   },
+  events: (_obj, { root }) => {
+    return db.location.findUnique({ where: { id: root?.id } }).events()
+  }
 }

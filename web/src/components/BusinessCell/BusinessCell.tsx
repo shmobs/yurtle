@@ -5,6 +5,8 @@ import type {
 
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
+import Business from '../Business'
+
 export const QUERY = gql`
   query FindBusinessQuery($id: String!) {
     business: business(id: $id) {
@@ -32,5 +34,5 @@ export const Failure = ({
 export const Success = ({
   business,
 }: CellSuccessProps<FindBusinessQuery, FindBusinessQueryVariables>) => {
-  return <div>{JSON.stringify(business)}</div>
+  return <Business business={business} />
 }

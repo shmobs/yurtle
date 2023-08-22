@@ -7,6 +7,7 @@ export const schema = gql`
     business: Business!
     createdAt: DateTime!
     updatedAt: DateTime!
+    events: [Event]!
   }
 
   type Query {
