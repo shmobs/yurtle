@@ -12,12 +12,12 @@ export const schema = gql`
       radius: Int
     ): GMapsApiSearchNearbyResponseType! @skipAuth
 
-    findPlace(
+    textSearch(
       """
       input: String! - This must be a place name, address, or category of establishments.
       """
       input: String!
-    ): GMapsApiFindPlaceResponseType! @skipAuth
+    ): GMapsApiTextSearchResponseType! @skipAuth
 
     placeDetails(
       """

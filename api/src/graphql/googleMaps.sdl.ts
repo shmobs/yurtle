@@ -8,8 +8,8 @@ export const schema = gql`
     next_page_token: String
   }
 
-  type GMapsApiFindPlaceResponseType {
-    results: [GMapsFindPlaceType]!
+  type GMapsApiTextSearchResponseType {
+    results: [GMapsTextSearchType]!
     status: GMapsPlacesSearchStatusType!
     error_message: String
     html_attributions: [String]!
@@ -60,7 +60,7 @@ export const schema = gql`
   """
   The Find Place API only returns the fields we specify. This type, therefore, needs to be kept inline with the fields we specify.
   """
-  type GMapsFindPlaceType {
+  type GMapsTextSearchType {
     formatted_address: String
     name: String
     place_id: String

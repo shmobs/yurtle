@@ -1,6 +1,6 @@
 import { fetch } from '@whatwg-node/fetch'
 import {
-  GMapsApiFindPlaceResponseType,
+  GMapsApiTextSearchResponseType,
   GMapsApiPlaceDetailsResponseType,
   GMapsApiSearchNearbyResponseType,
   QueryResolvers,
@@ -36,8 +36,8 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
   return resContent
 }
 
-export const findPlace: QueryResolvers['findPlace'] = async ({ input }) => {
-  // https://developers.google.com/maps/documentation/places/web-service/search-find-place#FindPlaceRequests
+export const textSearch: QueryResolvers['textSearch'] = async ({ input }) => {
+  // https://developers.google.com/maps/documentation/places/web-service/search-find-place#TextSearchRequests
   const rootUrl =
     'https://maps.googleapis.com/maps/api/place/textsearch/json'
   // const rootUrl =
@@ -46,7 +46,7 @@ export const findPlace: QueryResolvers['findPlace'] = async ({ input }) => {
   const options = {
     input: input,
     inputtype: 'textquery',
-    // as this only returns the fields we specify, GMapsFindPlaceType needs to be kept inline with this.
+    // as this only returns the fields we specify, GMapsTextSearchType needs to be kept inline with this.
     fields: 'formatted_address,name,place_id',
     // more options we can add are here: https://developers.google.com/maps/documentation/places/web-service/search-find-place#optional-parameters
   }
@@ -57,7 +57,7 @@ export const findPlace: QueryResolvers['findPlace'] = async ({ input }) => {
 
   const res = await fetch(searchUrl)
 
-  const resContent = (await res.json()) as GMapsApiFindPlaceResponseType
+  const resContent = (await res.json()) as GMapsApiTextSearchResponseType
 
   return resContent
 }
