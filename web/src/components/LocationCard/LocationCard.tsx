@@ -1,3 +1,12 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "src/components/ui/card"
+
 /**
  * This needs to support both what we get back from the Google Places API and what we get back from our own API
  */
@@ -16,10 +25,13 @@ const LocationCard = ({
   businessName,
   address,
 }: ILocationCardProps) => {
+
   return (
     <li key={id || gmapsPlaceId}>
-      <h2>{businessName}</h2>
-      {address && <p>{address}</p>}
+      <Card className="px-3 py-3 h-28">
+        <CardTitle>{businessName}</CardTitle>
+        {address && <CardDescription>{address}</CardDescription>}
+      </Card>
     </li>
   )
 }

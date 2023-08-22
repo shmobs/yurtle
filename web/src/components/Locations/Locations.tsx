@@ -6,7 +6,7 @@ interface ILocationsProps {
 
 const Locations = ({ locations }: ILocationsProps) => {
   return (
-    <ul>
+    <ul className='grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3'>
       {locations.map((location) => {
         return (
           <LocationCard

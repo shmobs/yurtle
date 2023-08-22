@@ -10,6 +10,9 @@
       "defaults"
     ]
   },
+  "scripts": {
+    "shadcn:add": "npx shadcn-ui@latest add"
+  },
   "dependencies": {
     "@headlessui/react": "^1.7.16",
     "@hookform/resolvers": "^3.2.0",
