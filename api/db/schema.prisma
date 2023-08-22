@@ -13,13 +13,13 @@ generator client {
 // to create migrations for them and apply to your dev DB.
 
 model Business {
-  id          String @id @default(cuid())
+  id          String     @id @default(cuid())
   name        String
   description String
+  locations   Location[]
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @default(now()) @updatedAt
-  Location  Location[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Location {
