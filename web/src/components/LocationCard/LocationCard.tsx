@@ -24,7 +24,7 @@ const LocationCard = ({
 }: ILocationCardProps) => {
   return (
     <li key={id || gmapsPlaceId}>
-      <Card className="h-28 px-3 py-3">
+      <Card className="h-28 bg-white px-3 py-3 hover:shadow-md">
         <button
           className="h-full w-full"
           onClick={() => {
