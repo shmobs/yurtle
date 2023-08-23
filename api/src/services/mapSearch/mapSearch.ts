@@ -6,6 +6,8 @@ import {
   QueryResolvers,
 } from 'types/graphql'
 
+import { addRendyLocationIds } from './mapSearchUtils'
+
 export const searchNearby: QueryResolvers['searchNearby'] = async ({
   location,
   radius = undefined,
@@ -33,7 +35,7 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
 
   const resContent = (await res.json()) as GMapsApiSearchNearbyResponseType
 
-  return resContent
+  return await addRendyLocationIds(resContent)
 }
 
 export const textSearch: QueryResolvers['textSearch'] = async ({ input }) => {
@@ -58,7 +60,7 @@ export const textSearch: QueryResolvers['textSearch'] = async ({ input }) => {
 
   const resContent = (await res.json()) as GMapsApiTextSearchResponseType
 
-  return resContent
+  return await addRendyLocationIds(resContent)
 }
 
 export const placeDetails: QueryResolvers['placeDetails'] = async ({

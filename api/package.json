@@ -5,6 +5,7 @@
   "dependencies": {
     "@redwoodjs/api": "6.1.0",
     "@redwoodjs/graphql-server": "6.1.0",
-    "@whatwg-node/fetch": "^0.9.9"
+    "@whatwg-node/fetch": "^0.9.9",
+    "lodash": "^4.17.21"
   }
 }

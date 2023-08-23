@@ -64,6 +64,10 @@ export const schema = gql`
     formatted_address: String
     name: String
     place_id: String
+    """
+    If a matching Location record exists in Prisma, this will be set to the id of that record.
+    """
+    rendyLocationId: String
   }
 
   """
@@ -79,6 +83,10 @@ export const schema = gql`
     name: String
     photos: [GMapsPhotoType]
     place_id: String
+    """
+    If a matching Location record exists in Prisma, this will be set to the id of that record.
+    """
+    rendyLocationId: String
     types: [String]
   }
 

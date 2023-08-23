@@ -32,6 +32,9 @@ const LocationCard = ({
               navigate(routes.location({ id }))
             }
             if (gmapsPlaceId) {
+              console.log(
+                "didn't get an id, but got a gmapsPlaceId, so we should create a record for it"
+              )
               onImportFromGMaps(gmapsPlaceId)
             }
           }}

@@ -14,6 +14,7 @@ export const QUERY = gql`
       next_page_token
       results {
         place_id
+        rendyLocationId
         name
         business_status
         geometry {
@@ -60,6 +61,7 @@ const standardizeLocations = (
 ) => {
   return nearbyLocations.results.map((location) => {
     return {
+      id: location.rendyLocationId,
       gmapsPlaceId: location.place_id,
       businessName: location.name,
     }

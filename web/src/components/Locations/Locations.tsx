@@ -20,6 +20,7 @@ const Locations = ({ locations }: ILocationsProps) => {
         return (
           <LocationCard
             key={location.id || location.gmapsPlaceId}
+            id={location.id}
             gmapsPlaceId={location.gmapsPlaceId}
             onImportFromGMaps={onImportFromGMaps}
             businessName={location.businessName}
