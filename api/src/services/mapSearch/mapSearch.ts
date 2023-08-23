@@ -38,8 +38,7 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
 
 export const textSearch: QueryResolvers['textSearch'] = async ({ input }) => {
   // https://developers.google.com/maps/documentation/places/web-service/search-find-place#TextSearchRequests
-  const rootUrl =
-    'https://maps.googleapis.com/maps/api/place/textsearch/json'
+  const rootUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
   // const rootUrl =
   //   'https://maps.googleapis.com/maps/api/place/findplacefromtext/json'
 
