@@ -95,7 +95,12 @@ export const reverseGeocode: QueryResolvers['reverseGeocode'] = async ({
 }) => {
   const rootUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places'
 
-  const searchUrl = `${rootUrl}/${longitude},${latitude}.json?access_token=${process.env.MAPBOX_API_KEY}`
+  // We can adjust the types to include more - https://docs.mapbox.com/api/search/geocoding/#data-types
+  const types = ['neighborhood', 'place', 'region', 'country']
+
+  const searchUrl = `${rootUrl}/${longitude},${latitude}.json?access_token=${
+    process.env.MAPBOX_API_KEY
+  }&types=${types.join(',')}`
 
   const res = await fetch(searchUrl)
 

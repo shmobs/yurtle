@@ -1,6 +1,6 @@
 import NearbyLocationsCell from 'src/components/NearbyLocationsCell'
 
-import LocationPrompt from '../LocationPrompt'
+import LocationPrompt from '../../LocationContext/LocationPrompt'
 
 const SearchNearby = () => {
   const [location, setLocation] = React.useState<string>(null)
