@@ -4,6 +4,7 @@ import {
   GMapsApiPlaceDetailsResponseType,
   GMapsApiSearchNearbyResponseType,
   QueryResolvers,
+  MapBoxReverseGeocodeResponseType,
 } from 'types/graphql'
 
 import { addRendyLocationIds } from './mapSearchUtils'
@@ -84,6 +85,21 @@ export const placeDetails: QueryResolvers['placeDetails'] = async ({
   const res = await fetch(searchUrl)
 
   const resContent = (await res.json()) as GMapsApiPlaceDetailsResponseType
+
+  return resContent
+}
+
+export const reverseGeocode: QueryResolvers['reverseGeocode'] = async ({
+  longitude,
+  latitude,
+}) => {
+  const rootUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places'
+
+  const searchUrl = `${rootUrl}/${longitude},${latitude}.json?access_token=${process.env.MAPBOX_API_KEY}`
+
+  const res = await fetch(searchUrl)
+
+  const resContent = (await res.json()) as MapBoxReverseGeocodeResponseType
 
   return resContent
 }

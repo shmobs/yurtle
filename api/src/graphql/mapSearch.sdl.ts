@@ -25,5 +25,10 @@ export const schema = gql`
       """
       placeId: String!
     ): GMapsApiPlaceDetailsResponseType! @skipAuth
+
+    reverseGeocode(
+      longitude: Float!
+      latitude: Float!
+    ): MapBoxReverseGeocodeResponseType! @skipAuth
   }
 `
