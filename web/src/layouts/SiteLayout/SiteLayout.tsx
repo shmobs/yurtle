@@ -34,14 +34,6 @@ type SiteLayoutProps = {
 const SiteLayout = ({ children }: SiteLayoutProps) => {
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
       <div className="min-h-full">
         <div className="bg-indigo-600 pb-32">
           <Disclosure
