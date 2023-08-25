@@ -1,5 +1,5 @@
 export const schema = gql`
-  type MapboxReverseGeocodeResponseType {
+  type MapboxGeocodeResponseType {
     type: String
     """
     Format [longitude,latitude]

@@ -4,7 +4,7 @@ import {
   GMapsApiPlaceDetailsResponseType,
   GMapsApiSearchNearbyResponseType,
   QueryResolvers,
-  MapboxReverseGeocodeResponseType,
+  MapboxGeocodeResponseType,
 } from 'types/graphql'
 
 import { addRendyLocationIds } from './mapSearchUtils'
@@ -89,22 +89,42 @@ export const placeDetails: QueryResolvers['placeDetails'] = async ({
   return resContent
 }
 
+const MAPBOX_GEOCODING_ROOT_URL =
+  'https://api.mapbox.com/geocoding/v5/mapbox.places' as const
+
+// We can adjust the types to include more - https://docs.mapbox.com/api/search/geocoding/#data-types
+const MAPBOX_GEOCODING_TYPES = [
+  'neighborhood',
+  'place',
+  'region',
+  'country',
+] as const
+
 export const reverseGeocode: QueryResolvers['reverseGeocode'] = async ({
   longitude,
   latitude,
 }) => {
-  const rootUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places'
-
-  // We can adjust the types to include more - https://docs.mapbox.com/api/search/geocoding/#data-types
-  const types = ['neighborhood', 'place', 'region', 'country']
-
-  const searchUrl = `${rootUrl}/${longitude},${latitude}.json?access_token=${
+  const searchUrl = `${MAPBOX_GEOCODING_ROOT_URL}/${longitude},${latitude}.json?access_token=${
     process.env.MAPBOX_API_KEY
-  }&types=${types.join(',')}`
+  }&types=${MAPBOX_GEOCODING_TYPES.join(',')}`
 
   const res = await fetch(searchUrl)
 
-  const resContent = (await res.json()) as MapboxReverseGeocodeResponseType
+  const resContent = (await res.json()) as MapboxGeocodeResponseType
+
+  return resContent
+}
+
+export const forwardGeocode: QueryResolvers['forwardGeocode'] = async ({
+  searchText,
+}) => {
+  const searchUrl = `${MAPBOX_GEOCODING_ROOT_URL}/${searchText}.json?access_token=${
+    process.env.MAPBOX_API_KEY
+  }&types=${MAPBOX_GEOCODING_TYPES.join(',')}`
+
+  const res = await fetch(searchUrl)
+
+  const resContent = (await res.json()) as MapboxGeocodeResponseType
 
   return resContent
 }

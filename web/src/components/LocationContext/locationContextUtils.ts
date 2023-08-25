@@ -1,4 +1,4 @@
-import { ReverseGeocodeQuery } from 'types/graphql'
+import { ReverseGeocodeQuery, ForwardGeocodeQuery } from 'types/graphql'
 
 export interface ISearchLocationInfo {
   lng: number
@@ -10,19 +10,19 @@ export interface ISearchLocationInfo {
 }
 
 /** The Mapbox API returns data in a rather annoying format, so this maps it to something more useful */
-export const mapboxReverseGeocodeToObject = (
-  data: ReverseGeocodeQuery
+export const mapboxGeocodeToObject = (
+  data: ReverseGeocodeQuery & ForwardGeocodeQuery
 ): ISearchLocationInfo => {
   const locationInfo: ISearchLocationInfo = {
-    lat: data.reverseGeocode.query ? data.reverseGeocode.query[1] : 0,
-    lng: data.reverseGeocode.query ? data.reverseGeocode.query[0] : 0,
+    lat: data.geocode.query ? data.geocode.query[1] : 0,
+    lng: data.geocode.query ? data.geocode.query[0] : 0,
     neighborhood: '',
     place: '',
     region: '',
     country: '',
   }
 
-  data.reverseGeocode.features?.forEach((feature) => {
+  data.geocode.features?.forEach((feature) => {
     if (feature) {
       const type = feature.place_type[0]
       if (type === 'neighborhood') {

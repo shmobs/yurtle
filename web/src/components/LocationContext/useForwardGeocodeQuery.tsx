@@ -1,14 +1,15 @@
 import { useLazyQuery, ApolloError } from '@apollo/client'
-import { ReverseGeocodeQuery } from 'types/graphql'
+import { debounce } from 'lodash'
+import { ForwardGeocodeQuery } from 'types/graphql'
 
 import {
   ISearchLocationInfo,
   mapboxGeocodeToObject,
 } from './locationContextUtils'
 
-const REVERSE_GEOCODE_QUERY = gql`
-  query ReverseGeocodeQuery($lng: Float!, $lat: Float!) {
-    geocode: reverseGeocode(longitude: $lng, latitude: $lat) {
+const FORWARD_GEOCODE_QUERY = gql`
+  query ForwardGeocodeQuery($searchText: String!) {
+    geocode: forwardGeocode(searchText: $searchText) {
       query
       features {
         id
@@ -19,12 +20,12 @@ const REVERSE_GEOCODE_QUERY = gql`
   }
 `
 
-export const useReverseGeocodeQuery = (
+export const useForwardGeocodeQuery = (
   onComplete?: (searchLocInfo: ISearchLocationInfo) => void,
   onError?: (error: ApolloError) => void
 ) => {
-  const [getReverseGeocode, { data, error, loading }] =
-    useLazyQuery<ReverseGeocodeQuery>(REVERSE_GEOCODE_QUERY, {
+  const [getForwardGeocode, { data, error, loading }] =
+    useLazyQuery<ForwardGeocodeQuery>(FORWARD_GEOCODE_QUERY, {
       onCompleted: (data) => {
         onComplete && onComplete(mapboxGeocodeToObject(data))
       },
@@ -33,9 +34,11 @@ export const useReverseGeocodeQuery = (
       },
     })
 
+  const debouncedGetForwardGeocode = debounce(getForwardGeocode, 500)
+
   return {
-    getReverseGeocode,
-    data: data?.reverseGeocode,
+    getForwardGeocode: debouncedGetForwardGeocode,
+    data: data?.geocode,
     error,
     loading,
   }

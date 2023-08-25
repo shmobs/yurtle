@@ -32,6 +32,11 @@ export const schema = gql`
     reverseGeocode(
       longitude: Float!
       latitude: Float!
-    ): MapboxReverseGeocodeResponseType! @skipAuth
+    ): MapboxGeocodeResponseType! @skipAuth
+
+    """
+    Given a search string, find a location
+    """
+    forwardGeocode(searchText: String!): MapboxGeocodeResponseType! @skipAuth
   }
 `
