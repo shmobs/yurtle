@@ -26,9 +26,12 @@ export const schema = gql`
       placeId: String!
     ): GMapsApiPlaceDetailsResponseType! @skipAuth
 
+    """
+    Given a longitude and latitude, return human readable location information.
+    """
     reverseGeocode(
       longitude: Float!
       latitude: Float!
-    ): MapBoxReverseGeocodeResponseType! @skipAuth
+    ): MapboxReverseGeocodeResponseType! @skipAuth
   }
 `

@@ -1,14 +1,14 @@
 export const schema = gql`
-  type MapBoxReverseGeocodeResponseType {
+  type MapboxReverseGeocodeResponseType {
     type: String
     """
     Format [longitude,latitude]
     """
     query: [Float]
-    features: [MapBoxFeatureType]
+    features: [MapboxFeatureType]
   }
 
-  type MapBoxFeatureType {
+  type MapboxFeatureType {
     """
     Format [minX,minY,maxX,maxY]
     """
@@ -17,20 +17,20 @@ export const schema = gql`
     Format [longitude,latitude]
     """
     center: [Float]
-    context: [MapBoxFeatureContextType]
+    context: [MapboxFeatureContextType]
     id: String!
     place_type: [String]!
-    properties: MapBoxFeaturePropertiesType
+    properties: MapboxFeaturePropertiesType
     text: String!
     type: String!
   }
 
-  type MapBoxFeaturePropertiesType {
+  type MapboxFeaturePropertiesType {
     mapbox_id: String!
     wikidata: String
   }
 
-  type MapBoxFeatureContextType {
+  type MapboxFeatureContextType {
     id: String!
     mapbox_id: String!
     text: String!

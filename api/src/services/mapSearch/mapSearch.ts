@@ -4,7 +4,7 @@ import {
   GMapsApiPlaceDetailsResponseType,
   GMapsApiSearchNearbyResponseType,
   QueryResolvers,
-  MapBoxReverseGeocodeResponseType,
+  MapboxReverseGeocodeResponseType,
 } from 'types/graphql'
 
 import { addRendyLocationIds } from './mapSearchUtils'
@@ -104,7 +104,7 @@ export const reverseGeocode: QueryResolvers['reverseGeocode'] = async ({
 
   const res = await fetch(searchUrl)
 
-  const resContent = (await res.json()) as MapBoxReverseGeocodeResponseType
+  const resContent = (await res.json()) as MapboxReverseGeocodeResponseType
 
   return resContent
 }
