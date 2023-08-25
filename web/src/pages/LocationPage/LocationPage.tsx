@@ -1,5 +1,6 @@
 import { MetaTags, useQuery } from '@redwoodjs/web'
-import Location from 'src/components/Location/Location'
+import LocationDetails from 'src/components/Location/Location'
+import { Location, LocationQuery } from 'types/graphql'
 
 interface ILocationPageProps {
   id: string
@@ -30,7 +31,7 @@ const LOCATION_QUERY = gql`
 `
 
 const LocationPage = ({ id }: ILocationPageProps) => {
-  const { data, loading, error } = useQuery(LOCATION_QUERY, { variables: { id } })
+  const { data, loading, error } = useQuery<LocationQuery>(LOCATION_QUERY, { variables: { id } })
 
   if (loading) {
     return <div>Loading...</div>
@@ -43,9 +44,11 @@ const LocationPage = ({ id }: ILocationPageProps) => {
     <>
       <MetaTags title="Location" description="Location page" />
 
-      <h1>LocationPage for location {id}</h1>
-      <p>{JSON.stringify(data)}</p>
-      <Location/>
+      {/* <h1>LocationPage for location {id}</h1>
+      <p>{JSON.stringify(data)}</p> */}
+      {
+        data.location && <LocationDetails location={data.location as Location}/>
+      }
     </>
   )
 }
