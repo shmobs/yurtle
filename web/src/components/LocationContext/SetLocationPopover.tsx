@@ -1,8 +1,6 @@
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { SearchForAreaQuery } from 'types/graphql'
 
-import { Form, useForm } from '@redwoodjs/forms'
-
 import { Button } from 'src/components/ui/button'
 import {
   Command,
@@ -25,10 +23,6 @@ interface ILocationSuggestion {
   label: string
 }
 
-interface IFormSetLocation {
-  searchText: string
-}
-
 interface ISetLocationPopoverProps {
   open: boolean
   setOpen: (open: boolean) => void
@@ -39,8 +33,6 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
     ILocationSuggestion[]
   >([])
   const [value, setValue] = React.useState('')
-
-  const formMethods = useForm<IFormSetLocation>({})
 
   const onGetSearchForArea = (data: SearchForAreaQuery) => {
     setLocationSuggestions(
