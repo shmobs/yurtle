@@ -7,13 +7,14 @@ interface ILocationProps {
 const LocationDetails = ({ location }: ILocationProps) => {
   console.log(location)
   return (
-    <main className="sm:mt-8 relative z-0 mx-auto max-w-4xl flex-1 overflow-y-auto rounded-xl bg-white shadow-lg focus:outline-none xl:order-last">
+    <main className="relative z-0 mx-auto max-w-4xl flex-1 overflow-y-auto rounded-xl bg-white shadow-lg focus:outline-none sm:mt-8 xl:order-last">
       <article>
         <div>
           <div className="relative">
             <img
               className="h-32 w-full object-cover lg:h-48"
-              src={`https://www.bu.edu/dining/files/2021/05/dunkin-donuts-box-1200x675.jpg`}
+              // src={`https://www.bu.edu/dining/files/2021/05/dunkin-donuts-box-1200x675.jpg`}
+              src={`https://source.unsplash.com/1600x900/?${location.business.name}`}
               alt=""
             />
           </div>
@@ -22,7 +23,7 @@ const LocationDetails = ({ location }: ILocationProps) => {
             <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
               <div className="mt-6 sm:mt-14 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                 <div className="mt-6 min-w-0 flex-1 sm:hidden"></div>
-                <div className="mt-6 min-w-0 flex-1 sm:hidden">
+                <div className="mt-16 min-w-0 flex-1 sm:hidden">
                   <h1 className="text-2xl font-bold text-gray-900">
                     {location.business.name}
                   </h1>
@@ -48,8 +49,8 @@ const LocationDetails = ({ location }: ILocationProps) => {
                   About
                 </button>
                 <button
-                  className="whitespace-nowrap border-b-2 hover:border-blue-500 px-1 py-4
-                  text-sm font-medium text-gray-900 transition-all ease-in duration-100"
+                  className="whitespace-nowrap border-b-2 px-1 py-4 text-sm
+                  font-medium text-gray-900 transition-all duration-100 ease-in hover:border-blue-500"
                 >
                   Events
                 </button>
@@ -102,7 +103,7 @@ const LocationDetails = ({ location }: ILocationProps) => {
             </div>
             <div
               id="map"
-              className="relative mt-2 h-72 rounded-lg shadow sm:mt-0 sm:h-full"
+              className="relative mt-2 h-72 rounded-lg shadow sm:mt-0 sm:h-96"
             >
               <img
                 className="rounded-lg"
@@ -115,6 +116,13 @@ const LocationDetails = ({ location }: ILocationProps) => {
                     zoom={13}
                   />
                 )} */}
+              {/* <iframe
+                width="100%"
+                height="100%"
+                loading="lazy"
+                allowFullScreen
+                src={`https://www.google.com/maps/embed/v1/search?q=${location.address}&key=`}
+              ></iframe> */}
               <div
                 className="absolute bottom-0 z-10 w-full rounded-b-lg bg-white
                     p-4 text-center font-sans text-base font-semibold sm:p-3 sm:text-sm"
