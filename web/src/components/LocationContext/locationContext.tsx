@@ -1,6 +1,9 @@
 // Assuming React is globally accessible
 
+import { cn } from 'src/lib/utils'
+
 import SetLocationDialog from './SetLocationDialog'
+import SetLocationPopover from './SetLocationPopover'
 import { useReverseGeocodeQuery } from './useReverseGeocodeQuery'
 
 export interface ISearchLocationInfo {
@@ -90,10 +93,24 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
     <LocationContext.Provider
       value={{ location, setLocation, openLocationPrompt }}
     >
-      <SetLocationDialog
+      <div className="relative z-50">
+        <SetLocationPopover
+          open={locationDialogOpen}
+          setOpen={setLocationDialogOpen}
+        />
+      </div>
+      <div
+        className={cn(
+          locationDialogOpen
+            ? 'visible bg-background/80 backdrop-blur-sm'
+            : 'invisible bg-background/0 backdrop-blur-none',
+          'absolute bottom-0 left-0 right-0 top-0 z-10 transition-all'
+        )}
+      />
+      {/* <SetLocationDialog
         open={locationDialogOpen}
         onOpenChange={setLocationDialogOpen}
-      />
+      /> */}
       {children}
     </LocationContext.Provider>
   )

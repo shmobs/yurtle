@@ -29,12 +29,12 @@ interface IFormSetLocation {
   searchText: string
 }
 
-interface ISetLocationFormProps {
+interface ISetLocationPopoverProps {
   open: boolean
   setOpen: (open: boolean) => void
 }
 
-const SetLocationForm = ({ open, setOpen }: ISetLocationFormProps) => {
+const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
   const [locationSuggestions, setLocationSuggestions] = React.useState<
     ILocationSuggestion[]
   >([])
@@ -70,7 +70,7 @@ const SetLocationForm = ({ open, setOpen }: ISetLocationFormProps) => {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
-        <Command>
+        <Command className="z-50">
           <CommandInput
             placeholder="Seattle, WA"
             onValueChange={(value) => {
@@ -107,4 +107,4 @@ const SetLocationForm = ({ open, setOpen }: ISetLocationFormProps) => {
   )
 }
 
-export default SetLocationForm
+export default SetLocationPopover

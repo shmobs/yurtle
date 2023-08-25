@@ -11,7 +11,7 @@ import {
 import { Input } from 'src/components/ui/input'
 import { Label } from 'src/components/ui/label'
 
-import SetLocationForm from './SetLocationForm'
+import SetLocationPopover from './SetLocationPopover'
 
 interface ISetLocationDialogProps {
   open: boolean
@@ -20,19 +20,8 @@ interface ISetLocationDialogProps {
 const SetLocationDialog = ({ open, onOpenChange }: ISetLocationDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Set Location</DialogTitle>
-          <DialogDescription>
-            Where do you want to search for events?
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <SetLocationForm />
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save</Button>
-        </DialogFooter>
+      <DialogContent>
+        <SetLocationPopover />
       </DialogContent>
     </Dialog>
   )
