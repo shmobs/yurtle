@@ -1,5 +1,6 @@
 // Assuming React is globally accessible
 
+import SetLocationDialog from './SetLocationDialog'
 import { useReverseGeocodeQuery } from './useReverseGeocodeQuery'
 
 export interface ISearchLocationInfo {
@@ -34,6 +35,8 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
   const [location, setLocation] = React.useState<
     ISearchLocationInfo | null | undefined
   >(undefined)
+
+  const [locationDialogOpen, setLocationDialogOpen] = React.useState(false)
 
   const onCompleteGetReverseGeocode = (searchLocInfo: ISearchLocationInfo) => {
     setLocation(searchLocInfo)
@@ -77,10 +80,20 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
     setLocationFromNavigator()
   }, [setLocationFromNavigator])
 
+  React.useEffect(() => {
+    if (location === null) {
+      setLocationDialogOpen(true)
+    }
+  }, [location])
+
   return (
     <LocationContext.Provider
       value={{ location, setLocation, openLocationPrompt }}
     >
+      <SetLocationDialog
+        open={locationDialogOpen}
+        onOpenChange={setLocationDialogOpen}
+      />
       {children}
     </LocationContext.Provider>
   )
