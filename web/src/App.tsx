@@ -6,13 +6,16 @@ import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
 
 import './index.css'
+import { LocationProvider } from './components/LocationContext/locationContext'
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <RedwoodProvider titleTemplate="%PageTitle | %AppTitle">
       <RedwoodApolloProvider>
-        <Toaster />
-        <Routes />
+        <LocationProvider>
+          <Toaster />
+          <Routes />
+        </LocationProvider>
       </RedwoodApolloProvider>
     </RedwoodProvider>
   </FatalErrorBoundary>

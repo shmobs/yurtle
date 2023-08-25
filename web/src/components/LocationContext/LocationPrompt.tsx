@@ -1,3 +1,4 @@
+import { useLocation } from './locationContext'
 import { ISearchLocationInfo } from './locationContextUtils'
 import { useReverseGeocodeQuery } from './useReverseGeocodeQuery'
 
@@ -6,42 +7,7 @@ export interface ILocationPromptProps {
 }
 
 const LocationPrompt = ({ onLocation }: ILocationPromptProps) => {
-  const [location, setLocation] = React.useState<ISearchLocationInfo | null>(
-    null
-  )
-
-  const onCompleteGetReverseGeocode = (searchLocInfo: ISearchLocationInfo) => {
-    setLocation(searchLocInfo)
-    onLocation({
-      latitude: searchLocInfo.lat,
-      longitude: searchLocInfo.lng,
-    })
-  }
-
-  const { getReverseGeocode } = useReverseGeocodeQuery(
-    onCompleteGetReverseGeocode
-  )
-
-  React.useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords
-          getReverseGeocode({
-            variables: {
-              lat: latitude,
-              lng: longitude,
-            },
-          })
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
-    } else {
-      console.log('Geolocation is not supported by this browser.')
-    }
-  }, [getReverseGeocode])
+  const { location } = useLocation()
 
   return (
     <div>
