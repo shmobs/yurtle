@@ -12,6 +12,9 @@ export const schema = gql`
       radius: Int
     ): GMapsApiSearchNearbyResponseType! @skipAuth
 
+    """
+    Return a list of places based on a search string.
+    """
     textSearch(
       """
       input: String! - This must be a place name, address, or category of establishments.
@@ -35,8 +38,13 @@ export const schema = gql`
     ): MapboxGeocodeResponseType! @skipAuth
 
     """
-    Given a search string, find a location
+    Given a search string, find a single location.
     """
     forwardGeocode(searchText: String!): MapboxGeocodeResponseType! @skipAuth
+
+    """
+    Given a search string, find a geographic area.
+    """
+    searchForArea(searchText: String!): MapboxSearchBoxResponseType! @skipAuth
   }
 `

@@ -8,6 +8,23 @@ export const schema = gql`
     features: [MapboxFeatureType]
   }
 
+  type MapboxSearchBoxResponseType {
+    suggestions: [MapboxSuggestionType]
+  }
+
+  """
+  There is more to add to this but it's fuckin late and this is all we will likely need
+  https://docs.mapbox.com/api/search/search-box/
+  """
+  type MapboxSuggestionType {
+    name: String
+    place_formatted: String
+    """
+    Need this to make another query to get any actually useful information, ie geometry
+    """
+    mapbox_id: String
+  }
+
   type MapboxFeatureType {
     """
     Format [minX,minY,maxX,maxY]

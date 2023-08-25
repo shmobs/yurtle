@@ -5,6 +5,7 @@ import {
   GMapsApiSearchNearbyResponseType,
   QueryResolvers,
   MapboxGeocodeResponseType,
+  MapboxSearchBoxResponseType,
 } from 'types/graphql'
 
 import { addRendyLocationIds } from './mapSearchUtils'
@@ -125,6 +126,24 @@ export const forwardGeocode: QueryResolvers['forwardGeocode'] = async ({
   const res = await fetch(searchUrl)
 
   const resContent = (await res.json()) as MapboxGeocodeResponseType
+
+  return resContent
+}
+
+export const searchForArea: QueryResolvers['searchForArea'] = async ({
+  searchText,
+}) => {
+  const rootUrl = 'https://api.mapbox.com/search/searchbox/v1/suggest?q='
+
+  const searchUrl = `${rootUrl}${searchText}&access_token=${
+    process.env.MAPBOX_API_KEY
+  }&session_token=${'9aRLTNekCeum7nbt2b6hvNYuNqCqwbWtoURveQTKRfX7ENCgS3ne3B33sJpzmUP8'}&types=${MAPBOX_GEOCODING_TYPES.join(
+    ','
+  )}`
+
+  const res = await fetch(searchUrl)
+
+  const resContent = (await res.json()) as MapboxSearchBoxResponseType
 
   return resContent
 }
