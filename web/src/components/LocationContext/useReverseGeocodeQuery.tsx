@@ -35,7 +35,7 @@ export const useReverseGeocodeQuery = (
 
   return {
     getReverseGeocode,
-    data: data?.reverseGeocode,
+    data: data?.geocode,
     error,
     loading,
   }

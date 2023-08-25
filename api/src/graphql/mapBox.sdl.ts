@@ -2,9 +2,9 @@ export const schema = gql`
   type MapboxGeocodeResponseType {
     type: String
     """
-    Format [longitude,latitude]
+    Format [longitude,latitude] OR [searchString]
     """
-    query: [Float]
+    query: [String]
     features: [MapboxFeatureType]
   }
 

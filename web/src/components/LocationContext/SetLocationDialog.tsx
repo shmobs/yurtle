@@ -11,6 +11,8 @@ import {
 import { Input } from 'src/components/ui/input'
 import { Label } from 'src/components/ui/label'
 
+import SetLocationForm from './SetLocationForm'
+
 interface ISetLocationDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
@@ -26,12 +28,7 @@ const SetLocationDialog = ({ open, onOpenChange }: ISetLocationDialogProps) => {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Location
-            </Label>
-            <Input id="name" placeholder="Seattle, WA" className="col-span-3" />
-          </div>
+          <SetLocationForm />
         </div>
         <DialogFooter>
           <Button type="submit">Save</Button>
