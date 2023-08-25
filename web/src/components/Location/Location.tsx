@@ -1,3 +1,4 @@
+import { MapPin } from 'lucide-react'
 import { Location } from 'types/graphql'
 
 interface ILocationProps {
@@ -13,7 +14,6 @@ const LocationDetails = ({ location }: ILocationProps) => {
           <div className="relative">
             <img
               className="h-32 w-full object-cover lg:h-48"
-              // src={`https://www.bu.edu/dining/files/2021/05/dunkin-donuts-box-1200x675.jpg`}
               src={`https://source.unsplash.com/1600x900/?${location.business.name}`}
               alt=""
             />
@@ -81,23 +81,7 @@ const LocationDetails = ({ location }: ILocationProps) => {
                   </span>
                 </p> */}
               <p className="mt-2">
-                {/* <LocationMarkerIcon className="mr-2 h-5 w-5 text-gray-400 inline" /> */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-tabler icon-tabler-map-pin mr-2 mt-[2px] inline h-5 w-5 align-top text-gray-400"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
-                  <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
-                </svg>
+                <MapPin className='inline mr-1 h-5 w-5 -mt-1 text-gray-400'/>
                 {location.address}
               </p>
             </div>
