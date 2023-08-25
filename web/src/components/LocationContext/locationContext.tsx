@@ -93,20 +93,11 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
     <LocationContext.Provider
       value={{ location, setLocation, openLocationPrompt }}
     >
-      <div className="relative z-50">
-        <SetLocationPopover
-          open={locationDialogOpen}
-          setOpen={setLocationDialogOpen}
-        />
-      </div>
-      <div
-        className={cn(
-          locationDialogOpen
-            ? 'visible bg-background/80 backdrop-blur-sm'
-            : 'invisible bg-background/0 backdrop-blur-none',
-          'absolute bottom-0 left-0 right-0 top-0 z-10 transition-all'
-        )}
+      <SetLocationPopover
+        open={locationDialogOpen}
+        setOpen={setLocationDialogOpen}
       />
+
       {/* <SetLocationDialog
         open={locationDialogOpen}
         onOpenChange={setLocationDialogOpen}

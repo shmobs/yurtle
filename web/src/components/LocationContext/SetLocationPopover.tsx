@@ -54,56 +54,69 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
   const { getSearchForArea } = useSearchForAreaQuery(onGetSearchForArea)
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[200px] justify-between"
-        >
-          {value
-            ? locationSuggestions.find((framework) => framework.value === value)
-                ?.label
-            : 'Set location...'}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command className="z-50">
-          <CommandInput
-            placeholder="Seattle, WA"
-            onValueChange={(value) => {
-              getSearchForArea({
-                variables: {
-                  searchText: value,
-                },
-              })
-            }}
-          />
-          <CommandEmpty>No locations found.</CommandEmpty>
-          <CommandGroup>
-            {locationSuggestions.map((framework) => (
-              <CommandItem
-                key={framework.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? '' : currentValue)
-                  setOpen(false)
+    <>
+      <div className="relative z-50">
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-[200px] justify-between"
+            >
+              {value
+                ? locationSuggestions.find(
+                    (framework) => framework.value === value
+                  )?.label
+                : 'Set location...'}
+              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[200px] p-0">
+            <Command className="z-50">
+              <CommandInput
+                placeholder="Seattle, WA"
+                onValueChange={(value) => {
+                  getSearchForArea({
+                    variables: {
+                      searchText: value,
+                    },
+                  })
                 }}
-              >
-                <Check
-                  className={cn(
-                    'mr-2 h-4 w-4',
-                    value === framework.value ? 'opacity-100' : 'opacity-0'
-                  )}
-                />
-                {framework.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
+              />
+              <CommandEmpty>No locations found.</CommandEmpty>
+              <CommandGroup>
+                {locationSuggestions.map((framework) => (
+                  <CommandItem
+                    key={framework.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? '' : currentValue)
+                      setOpen(false)
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        'mr-2 h-4 w-4',
+                        value === framework.value ? 'opacity-100' : 'opacity-0'
+                      )}
+                    />
+                    {framework.label}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+      <div
+        className={cn(
+          open
+            ? 'visible bg-background/80 backdrop-blur-sm'
+            : 'invisible bg-background/0 backdrop-blur-none',
+          'absolute bottom-0 left-0 right-0 top-0 z-10 transition-all'
+        )}
+      />
+    </>
   )
 }
 
