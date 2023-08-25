@@ -1,10 +1,11 @@
+import { SearchForAreaQuery } from 'types/graphql'
+
 import { Form, useForm } from '@redwoodjs/forms'
 
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 
-import { ISearchLocationInfo } from './locationContextUtils'
-import { useForwardGeocodeQuery } from './useForwardGeocodeQuery'
+import { useSearchForAreaQuery } from './useSearchForAreaQuery'
 
 interface IFormSetLocation {
   searchText: string
@@ -13,11 +14,11 @@ interface IFormSetLocation {
 const SetLocationForm = () => {
   const formMethods = useForm<IFormSetLocation>({})
 
-  const onGetForwardGeocode = (searchLocInfo: ISearchLocationInfo) => {
-    console.log('onGetForwardGeocode searchLocInfo', searchLocInfo)
+  const onGetSearchForArea = (data: SearchForAreaQuery) => {
+    console.log('set location autofill suggestions', data)
   }
 
-  const { getForwardGeocode } = useForwardGeocodeQuery(onGetForwardGeocode)
+  const { getSearchForArea } = useSearchForAreaQuery(onGetSearchForArea)
 
   return (
     <Form<IFormSetLocation>
@@ -35,7 +36,7 @@ const SetLocationForm = () => {
           placeholder="Seattle, WA"
           className="col-span-3"
           onChange={(e) => {
-            getForwardGeocode({ variables: { searchText: e.target.value } })
+            getSearchForArea({ variables: { searchText: e.target.value } })
           }}
         />
       </div>
