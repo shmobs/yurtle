@@ -5,11 +5,15 @@ export const schema = gql`
     Format [longitude,latitude] OR [searchString]
     """
     query: [String]
-    features: [MapboxFeatureType]
+    features: [MapboxGeocodeFeatureType]
   }
 
   type MapboxSearchBoxResponseType {
     suggestions: [MapboxSuggestionType]
+  }
+
+  type MapboxSuggestionRetrievalResponseType {
+    features: [MapboxSearchBoxFeatureType]
   }
 
   """
@@ -25,7 +29,7 @@ export const schema = gql`
     mapbox_id: String
   }
 
-  type MapboxFeatureType {
+  type MapboxGeocodeFeatureType {
     """
     Format [minX,minY,maxX,maxY]
     """
@@ -40,11 +44,39 @@ export const schema = gql`
     properties: MapboxFeaturePropertiesType
     text: String!
     type: String!
+    geometry: MapboxGeometryType
+  }
+
+  type MapboxSearchBoxFeatureType {
+    geometry: MapboxGeometryType
+    properties: MapboxSearchBoxFeaturePropertiesType
+  }
+
+  type MapboxGeometryType {
+    type: String
+    """
+    In the format [longitude,latitude]
+    """
+    coordinates: [Float]
   }
 
   type MapboxFeaturePropertiesType {
     mapbox_id: String!
     wikidata: String
+  }
+
+  """
+  There is more we can add here, if we want: https://docs.mapbox.com/api/search/search-box/#response-retrieve-a-suggested-feature
+  """
+  type MapboxSearchBoxFeaturePropertiesType {
+    """
+    Format [minX,minY,maxX,maxY]
+    """
+    bbox: [Float]!
+    feature_type: String!
+    mapbox_id: String!
+    name: String!
+    place_formatted: String!
   }
 
   type MapboxFeatureContextType {
@@ -53,5 +85,14 @@ export const schema = gql`
     text: String!
     wikidata: String
     short_code: String
+  }
+
+  """
+  All Mapbox specific queries go here
+  """
+  type Query {
+    mapboxRetrieveSuggestion(
+      mapboxId: String!
+    ): MapboxSuggestionRetrievalResponseType @skipAuth
   }
 `

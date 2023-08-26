@@ -1,4 +1,7 @@
 export const schema = gql`
+  """
+  All general map searching queries go here, regardless of their underlying API.
+  """
   type Query {
     """
     location: String! - The point around which to retrieve place information. This must be specified as latitude,longitude.
