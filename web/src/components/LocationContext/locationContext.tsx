@@ -1,6 +1,3 @@
-// Assuming React is globally accessible
-
-import SetLocationPopover from './SetLocationPopover'
 import { useReverseGeocodeQuery } from './useReverseGeocodeQuery'
 
 export interface ISearchLocationInfo {
@@ -20,7 +17,8 @@ interface ILocationContext {
    */
   location: ISearchLocationInfo | null | undefined
   setLocation: (location: ISearchLocationInfo) => void
-  openLocationPrompt: () => void
+  locationPopoverOpen: boolean
+  setLocationPopoverOpen: (open: boolean) => void
 }
 
 const LocationContext = React.createContext<ILocationContext | undefined>(
@@ -36,7 +34,7 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
     ISearchLocationInfo | null | undefined
   >(undefined)
 
-  const [locationDialogOpen, setLocationDialogOpen] = React.useState(false)
+  const [locationPopoverOpen, setLocationPopoverOpen] = React.useState(false)
 
   const onCompleteGetReverseGeocode = (searchLocInfo: ISearchLocationInfo) => {
     setLocation(searchLocInfo)
@@ -72,39 +70,31 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
     }
   }, [getReverseGeocode])
 
-  const openLocationPrompt = () => {
-    console.log('openLocationPrompt')
-  }
-
   React.useEffect(() => {
     setLocationFromNavigator()
   }, [setLocationFromNavigator])
 
   React.useEffect(() => {
     if (location === null) {
-      setLocationDialogOpen(true)
+      setLocationPopoverOpen(true)
     }
   }, [location])
 
   return (
     <LocationContext.Provider
-      value={{ location, setLocation, openLocationPrompt }}
+      value={{
+        location,
+        setLocation,
+        locationPopoverOpen,
+        setLocationPopoverOpen,
+      }}
     >
-      <SetLocationPopover
-        open={locationDialogOpen}
-        setOpen={setLocationDialogOpen}
-      />
-
-      {/* <SetLocationDialog
-        open={locationDialogOpen}
-        onOpenChange={setLocationDialogOpen}
-      /> */}
       {children}
     </LocationContext.Provider>
   )
 }
 
-export const useLocation = (): ILocationContext => {
+export const useLocationContext = (): ILocationContext => {
   const context = React.useContext(LocationContext)
   if (context === undefined) {
     throw new Error('useLocation must be used within a LocationProvider')

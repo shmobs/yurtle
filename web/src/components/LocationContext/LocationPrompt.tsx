@@ -1,4 +1,4 @@
-import { useLocation } from './locationContext'
+import { useLocation, useLocationContext } from './locationContext'
 import { ISearchLocationInfo } from './locationContextUtils'
 import { useReverseGeocodeQuery } from './useReverseGeocodeQuery'
 
@@ -7,7 +7,7 @@ export interface ILocationPromptProps {
 }
 
 const LocationPrompt = ({ onLocation }: ILocationPromptProps) => {
-  const { location } = useLocation()
+  const { location } = useLocationContext()
 
   return (
     <div>

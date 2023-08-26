@@ -19,6 +19,7 @@ import { cn } from 'src/lib/utils'
 
 import { Skeleton } from '../ui/skeleton'
 
+import { useLocationContext } from './locationContext'
 import { useSearchForAreaQuery } from './useSearchForAreaQuery'
 
 interface ILocationSuggestion {
@@ -26,15 +27,13 @@ interface ILocationSuggestion {
   label: string
 }
 
-interface ISetLocationPopoverProps {
-  open: boolean
-  setOpen: (open: boolean) => void
-}
-
-const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
+const SetLocationPopover = () => {
   const [locationSuggestions, setLocationSuggestions] = React.useState<
     ILocationSuggestion[]
   >([])
+  const { locationPopoverOpen: open, setLocationPopoverOpen: setOpen } =
+    useLocationContext()
+
   const [value, setValue] = React.useState<ILocationSuggestion | undefined>(
     undefined
   )
@@ -71,7 +70,7 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-[325px] justify-between"
+              className="w-[225px] justify-between sm:w-[325px]"
             >
               <Navigation className="mr-4 h-4 w-4 shrink-0 opacity-50" />
               <span className="w-[300px] truncate text-start">
