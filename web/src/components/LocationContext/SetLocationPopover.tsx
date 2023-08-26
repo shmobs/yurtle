@@ -1,5 +1,5 @@
 import { useCommandState } from 'cmdk'
-import { Check, ChevronsUpDown } from 'lucide-react'
+import { Check, Navigation } from 'lucide-react'
 import { SearchForAreaQuery } from 'types/graphql'
 
 import { Button } from 'src/components/ui/button'
@@ -75,13 +75,15 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-[200px] justify-between"
+              className="w-[325px] justify-between"
             >
-              {value ? value.label : 'Set location...'}
-              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              <Navigation className="mr-4 h-4 w-4 shrink-0 opacity-50" />
+              <span className="w-[300px] truncate text-start">
+                {value ? value.label : 'Set location...'}
+              </span>
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[200px] p-0">
+          <PopoverContent className="w-[325px] p-0">
             <Command className="z-50" shouldFilter={false}>
               <CommandInput
                 placeholder="Seattle, WA"
@@ -121,7 +123,9 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
                           : 'opacity-0'
                       )}
                     />
-                    {suggestion.label}
+                    <span className="w-[300px] truncate">
+                      {suggestion.label}
+                    </span>
                   </CommandItem>
                 ))}
               </CommandList>
