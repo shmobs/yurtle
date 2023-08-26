@@ -1,10 +1,7 @@
 import { useLazyQuery, ApolloError } from '@apollo/client'
 import { ReverseGeocodeQuery } from 'types/graphql'
 
-import {
-  ISearchLocationInfo,
-  mapboxGeocodeToObject,
-} from './locationContextUtils'
+import { IParsedLocationInfo, mapboxParseGeocode } from './locationContextUtils'
 
 const REVERSE_GEOCODE_QUERY = gql`
   query ReverseGeocodeQuery($lng: Float!, $lat: Float!) {
@@ -20,13 +17,13 @@ const REVERSE_GEOCODE_QUERY = gql`
 `
 
 export const useReverseGeocodeQuery = (
-  onComplete?: (searchLocInfo: ISearchLocationInfo) => void,
+  onComplete?: (searchLocInfo: IParsedLocationInfo) => void,
   onError?: (error: ApolloError) => void
 ) => {
   const [getReverseGeocode, { data, error, loading }] =
     useLazyQuery<ReverseGeocodeQuery>(REVERSE_GEOCODE_QUERY, {
       onCompleted: (data) => {
-        onComplete && onComplete(mapboxGeocodeToObject(data))
+        onComplete && onComplete(mapboxParseGeocode(data))
       },
       onError: (error) => {
         onError && onError(error)

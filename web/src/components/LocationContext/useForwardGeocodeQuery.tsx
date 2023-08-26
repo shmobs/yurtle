@@ -4,7 +4,7 @@ import { ForwardGeocodeQuery } from 'types/graphql'
 
 import {
   ISearchLocationInfo,
-  mapboxGeocodeToObject,
+  mapboxParseGeocode,
 } from './locationContextUtils'
 
 const FORWARD_GEOCODE_QUERY = gql`
@@ -27,7 +27,7 @@ export const useForwardGeocodeQuery = (
   const [getForwardGeocode, { data, error, loading }] =
     useLazyQuery<ForwardGeocodeQuery>(FORWARD_GEOCODE_QUERY, {
       onCompleted: (data) => {
-        onComplete && onComplete(mapboxGeocodeToObject(data))
+        onComplete && onComplete(mapboxParseGeocode(data))
       },
       onError: (error) => {
         onError && onError(error)

@@ -1,5 +1,8 @@
 import { Check, Navigation } from 'lucide-react'
-import { SearchForAreaQuery } from 'types/graphql'
+import {
+  MapboxRetrieveSuggestionQuery,
+  SearchForAreaQuery,
+} from 'types/graphql'
 
 import { Button } from 'src/components/ui/button'
 import {
@@ -19,7 +22,8 @@ import { cn } from 'src/lib/utils'
 
 import { Skeleton } from '../ui/skeleton'
 
-import { useLocationContext } from './locationContext'
+import { useSearchLocationContext } from './locationContext'
+import { useMapboxRetrieveSuggestionQuery } from './useMapboxRetrieveSuggestionQuery'
 import { useSearchForAreaQuery } from './useSearchForAreaQuery'
 
 interface ILocationSuggestion {
@@ -31,12 +35,43 @@ const SetLocationPopover = () => {
   const [locationSuggestions, setLocationSuggestions] = React.useState<
     ILocationSuggestion[]
   >([])
-  const { locationPopoverOpen: open, setLocationPopoverOpen: setOpen } =
-    useLocationContext()
+  const {
+    searchLocationPopoverOpen: open,
+    setSearchLocationPopoverOpen: setOpen,
+    setSearchLocation,
+  } = useSearchLocationContext()
 
   const [value, setValue] = React.useState<ILocationSuggestion | undefined>(
     undefined
   )
+
+  const onGetMapboxRetrieveSuggestion = (
+    data: MapboxRetrieveSuggestionQuery
+  ) => {
+    const location = data.mapboxRetrieveSuggestion?.features[0]
+    if (location) {
+      setSearchLocation({
+        lat: location.geometry.coordinates[1],
+        lng: location.geometry.coordinates[0],
+        humanReadableName: `${location.properties.name}, ${location.properties.place_formatted}`,
+      })
+    }
+  }
+
+  const { getMapboxRetrieveSuggestion } = useMapboxRetrieveSuggestionQuery(
+    onGetMapboxRetrieveSuggestion
+  )
+
+  // whenever the value is set, we want to get the corresponding geometric information and set it in the context
+  const setValueAndUpdateSearchLocation = (value: ILocationSuggestion) => {
+    setValue(value)
+
+    getMapboxRetrieveSuggestion({
+      variables: {
+        mapboxId: value.value,
+      },
+    })
+  }
 
   const onGetSearchForArea = (data: SearchForAreaQuery) => {
     setLocationSuggestions(
@@ -106,7 +141,7 @@ const SetLocationPopover = () => {
                     key={suggestion.value}
                     onSelect={(_currentValue) => {
                       // for some reason, currentValue is the label and not the value
-                      setValue(suggestion)
+                      setValueAndUpdateSearchLocation(suggestion)
                       setOpen(false)
                     }}
                   >

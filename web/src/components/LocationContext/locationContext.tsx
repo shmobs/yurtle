@@ -1,50 +1,55 @@
+import { IParsedLocationInfo } from './locationContextUtils'
 import { useReverseGeocodeQuery } from './useReverseGeocodeQuery'
 
 export interface ISearchLocationInfo {
   lng: number
   lat: number
-  neighborhood: string
-  place: string
-  region: string
-  country: string
+  humanReadableName: string
 }
 
-interface ILocationContext {
+interface ISearchLocationContext {
   /**
-   * The current location of the user
-   * - `null`: location has not been set
-   * - `undefined`: location is loading
+   * The current searchLocation of the user
+   * - `null`: searchLocation has not been set
+   * - `undefined`: searchLocation is loading
    */
-  location: ISearchLocationInfo | null | undefined
-  setLocation: (location: ISearchLocationInfo) => void
-  locationPopoverOpen: boolean
-  setLocationPopoverOpen: (open: boolean) => void
+  searchLocation: ISearchLocationInfo | null | undefined
+  setSearchLocation: (searchLocation: ISearchLocationInfo) => void
+  searchLocationPopoverOpen: boolean
+  setSearchLocationPopoverOpen: (open: boolean) => void
 }
 
-const LocationContext = React.createContext<ILocationContext | undefined>(
-  undefined
-)
+const SearchLocationContext = React.createContext<
+  ISearchLocationContext | undefined
+>(undefined)
 
 interface ILocationProviderProps {
   children: React.ReactNode
 }
 
 export const LocationProvider = ({ children }: ILocationProviderProps) => {
-  const [location, setLocation] = React.useState<
+  const [searchLocation, setSearchLocation] = React.useState<
     ISearchLocationInfo | null | undefined
   >(undefined)
 
-  const [locationPopoverOpen, setLocationPopoverOpen] = React.useState(false)
+  const [searchLocationPopoverOpen, setSearchLocationPopoverOpen] =
+    React.useState(false)
 
-  const onCompleteGetReverseGeocode = (searchLocInfo: ISearchLocationInfo) => {
-    setLocation(searchLocInfo)
+  const onCompleteGetReverseGeocode = (searchLocInfo: IParsedLocationInfo) => {
+    const { lng, lat, neighborhood, place, region, country } = searchLocInfo
+
+    setSearchLocation({
+      lng: lng,
+      lat: lat,
+      humanReadableName: `${neighborhood}, ${place}, ${region}, ${country}`,
+    })
   }
 
   const { getReverseGeocode } = useReverseGeocodeQuery(
     onCompleteGetReverseGeocode
   )
 
-  const setLocationFromNavigator = React.useCallback(() => {
+  const setSearchLocationFromNavigator = React.useCallback(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -57,45 +62,43 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
           })
         },
         (error) => {
-          setLocation(null)
+          setSearchLocation(null)
           console.log(error)
-          // Here you can handle the error case, maybe showing a dialog to the user
         }
       )
-    } else {
-      setLocation(null)
-      // Here you can handle the case where navigator.geolocation is not available
-      // You mentioned you want a dialog here, so you can set up a placeholder for that
-      console.log('Geolocation is not supported by this browser.')
     }
-  }, [getReverseGeocode])
+
+    if (searchLocation === null) {
+      setSearchLocationPopoverOpen(true)
+    }
+  }, [getReverseGeocode, searchLocation])
 
   React.useEffect(() => {
-    setLocationFromNavigator()
-  }, [setLocationFromNavigator])
+    setSearchLocationFromNavigator()
+  }, [setSearchLocationFromNavigator])
 
   React.useEffect(() => {
-    if (location === null) {
-      setLocationPopoverOpen(true)
+    if (searchLocation === null) {
+      setSearchLocationPopoverOpen(true)
     }
-  }, [location])
+  }, [searchLocation])
 
   return (
-    <LocationContext.Provider
+    <SearchLocationContext.Provider
       value={{
-        location,
-        setLocation,
-        locationPopoverOpen,
-        setLocationPopoverOpen,
+        searchLocation,
+        setSearchLocation,
+        searchLocationPopoverOpen,
+        setSearchLocationPopoverOpen,
       }}
     >
       {children}
-    </LocationContext.Provider>
+    </SearchLocationContext.Provider>
   )
 }
 
-export const useLocationContext = (): ILocationContext => {
-  const context = React.useContext(LocationContext)
+export const useSearchLocationContext = (): ISearchLocationContext => {
+  const context = React.useContext(SearchLocationContext)
   if (context === undefined) {
     throw new Error('useLocation must be used within a LocationProvider')
   }
