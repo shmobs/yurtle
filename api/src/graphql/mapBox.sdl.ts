@@ -41,7 +41,7 @@ export const schema = gql`
     context: [MapboxFeatureContextType]
     id: String!
     place_type: [String]!
-    properties: MapboxFeaturePropertiesType
+    properties: MapboxGeocodeFeaturePropertiesType
     text: String!
     type: String!
     geometry: MapboxGeometryType
@@ -60,7 +60,7 @@ export const schema = gql`
     coordinates: [Float]
   }
 
-  type MapboxFeaturePropertiesType {
+  type MapboxGeocodeFeaturePropertiesType {
     mapbox_id: String!
     wikidata: String
   }
