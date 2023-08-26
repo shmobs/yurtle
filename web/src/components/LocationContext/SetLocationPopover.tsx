@@ -1,3 +1,4 @@
+import { useCommandState } from 'cmdk'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { SearchForAreaQuery } from 'types/graphql'
 
@@ -8,6 +9,8 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
+  CommandLoading,
 } from 'src/components/ui/command'
 import {
   Popover,
@@ -15,6 +18,8 @@ import {
   PopoverTrigger,
 } from 'src/components/ui/popover'
 import { cn } from 'src/lib/utils'
+
+import { Skeleton } from '../ui/skeleton'
 
 import { useSearchForAreaQuery } from './useSearchForAreaQuery'
 
@@ -32,7 +37,11 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
   const [locationSuggestions, setLocationSuggestions] = React.useState<
     ILocationSuggestion[]
   >([])
-  const [value, setValue] = React.useState('')
+  const [value, setValue] = React.useState<ILocationSuggestion | undefined>(
+    undefined
+  )
+  console.log('locationSuggestions', locationSuggestions)
+  console.log('value', value)
 
   const onGetSearchForArea = (data: SearchForAreaQuery) => {
     setLocationSuggestions(
@@ -43,12 +52,24 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
     )
   }
 
-  const { getSearchForArea } = useSearchForAreaQuery(onGetSearchForArea)
+  const { getSearchForArea, loading: searchLoading } =
+    useSearchForAreaQuery(onGetSearchForArea)
+
+  // only allow for closing the popover once a location has been selected
+  const onOpenChange = (open: boolean) => {
+    if (value) {
+      setOpen(open)
+    } else {
+      if (open) {
+        setOpen(open)
+      }
+    }
+  }
 
   return (
     <>
       <div className="relative z-50">
-        <Popover open={open} onOpenChange={setOpen}>
+        <Popover open={open} onOpenChange={onOpenChange}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
@@ -56,16 +77,12 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
               aria-expanded={open}
               className="w-[200px] justify-between"
             >
-              {value
-                ? locationSuggestions.find(
-                    (framework) => framework.value === value
-                  )?.label
-                : 'Set location...'}
+              {value ? value.label : 'Set location...'}
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-[200px] p-0">
-            <Command className="z-50">
+            <Command className="z-50" shouldFilter={false}>
               <CommandInput
                 placeholder="Seattle, WA"
                 onValueChange={(value) => {
@@ -76,26 +93,38 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
                   })
                 }}
               />
-              <CommandEmpty>No locations found.</CommandEmpty>
-              <CommandGroup>
-                {locationSuggestions.map((framework) => (
+              <CommandList>
+                {searchLoading && (
+                  <CommandLoading>
+                    <CommandItem>
+                      <Skeleton className="h-4 w-full" />
+                    </CommandItem>
+                  </CommandLoading>
+                )}
+                {!searchLoading && (
+                  <CommandEmpty>No locations found.</CommandEmpty>
+                )}
+                {locationSuggestions.map((suggestion) => (
                   <CommandItem
-                    key={framework.value}
-                    onSelect={(currentValue) => {
-                      setValue(currentValue === value ? '' : currentValue)
+                    key={suggestion.value}
+                    onSelect={(_currentValue) => {
+                      // for some reason, currentValue is the label and not the value
+                      setValue(suggestion)
                       setOpen(false)
                     }}
                   >
                     <Check
                       className={cn(
                         'mr-2 h-4 w-4',
-                        value === framework.value ? 'opacity-100' : 'opacity-0'
+                        value?.value === suggestion.value
+                          ? 'opacity-100'
+                          : 'opacity-0'
                       )}
                     />
-                    {framework.label}
+                    {suggestion.label}
                   </CommandItem>
                 ))}
-              </CommandGroup>
+              </CommandList>
             </Command>
           </PopoverContent>
         </Popover>
