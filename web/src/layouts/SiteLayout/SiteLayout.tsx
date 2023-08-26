@@ -46,7 +46,8 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
               <>
                 <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
                   <div className="flex h-16 items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
-                    <div className="flex items-center px-2 lg:px-0">
+                    {/* Logo + desktop nav */}
+                    <div className="flex w-10 items-center px-2 lg:px-0">
                       <div className="flex-shrink-0">
                         <img
                           className="block h-8 w-8"
@@ -74,10 +75,12 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
                         </div>
                       </div>
                     </div>
+                    {/* Location picker */}
                     <div className="flex flex-1 justify-center px-2 lg:ml-6 lg:justify-end">
                       <SetLocationPopover />
                     </div>
-                    <div className="flex lg:hidden">
+                    {/* Mobile nav */}
+                    <div className="flex w-10 lg:hidden">
                       {/* Mobile menu button */}
                       <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-indigo-600 p-2 text-indigo-200 hover:bg-indigo-500 hover:bg-opacity-75 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
                         <span className="absolute -inset-0.5" />
@@ -95,6 +98,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
                         )}
                       </Disclosure.Button>
                     </div>
+                    {/* User button (desktop) */}
                     <div className="hidden lg:ml-4 lg:block">
                       <div className="flex items-center">
                         <button
