@@ -14,8 +14,8 @@ export const mapboxGeocodeToObject = (
   data: ReverseGeocodeQuery & ForwardGeocodeQuery
 ): ISearchLocationInfo => {
   const locationInfo: ISearchLocationInfo = {
-    lat: data.geocode.query ? data.geocode.query[1] : 0,
-    lng: data.geocode.query ? data.geocode.query[0] : 0,
+    lng: data.geocode.query ? parseFloat(data.geocode.query[0]) : 0,
+    lat: data.geocode.query ? parseFloat(data.geocode.query[1]) : 0,
     neighborhood: '',
     place: '',
     region: '',

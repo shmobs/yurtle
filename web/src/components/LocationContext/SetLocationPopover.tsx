@@ -38,8 +38,6 @@ const SetLocationPopover = ({ open, setOpen }: ISetLocationPopoverProps) => {
   const [value, setValue] = React.useState<ILocationSuggestion | undefined>(
     undefined
   )
-  console.log('locationSuggestions', locationSuggestions)
-  console.log('value', value)
 
   const onGetSearchForArea = (data: SearchForAreaQuery) => {
     setLocationSuggestions(

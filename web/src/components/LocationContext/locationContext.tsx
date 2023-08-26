@@ -1,8 +1,5 @@
 // Assuming React is globally accessible
 
-import { cn } from 'src/lib/utils'
-
-import SetLocationDialog from './SetLocationDialog'
 import SetLocationPopover from './SetLocationPopover'
 import { useReverseGeocodeQuery } from './useReverseGeocodeQuery'
 
