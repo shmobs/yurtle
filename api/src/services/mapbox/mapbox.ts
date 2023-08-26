@@ -1,4 +1,7 @@
-import { MapboxGeocodeResponseType, QueryResolvers } from 'types/graphql'
+import {
+  MapboxSuggestionRetrievalResponseType,
+  QueryResolvers,
+} from 'types/graphql'
 
 export const mapboxRetrieveSuggestion: QueryResolvers['mapboxRetrieveSuggestion'] =
   async ({ mapboxId }) => {
@@ -10,7 +13,8 @@ export const mapboxRetrieveSuggestion: QueryResolvers['mapboxRetrieveSuggestion'
 
     const res = await fetch(retrieveUrl)
 
-    const resContent = (await res.json()) as MapboxGeocodeResponseType
+    const resContent =
+      (await res.json()) as MapboxSuggestionRetrievalResponseType
 
     return resContent
   }
