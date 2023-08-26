@@ -1,4 +1,3 @@
-import { useCommandState } from 'cmdk'
 import { Check, Navigation } from 'lucide-react'
 import { SearchForAreaQuery } from 'types/graphql'
 
@@ -6,7 +5,6 @@ import { Button } from 'src/components/ui/button'
 import {
   Command,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
