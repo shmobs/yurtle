@@ -28,9 +28,17 @@ interface ILocationProviderProps {
 }
 
 export const LocationProvider = ({ children }: ILocationProviderProps) => {
-  const [searchLocation, setSearchLocation] = React.useState<
+  const [searchLocation, setSearchLocationRaw] = React.useState<
     ISearchLocationInfo | null | undefined
-  >(undefined)
+  >(null)
+
+  // same as setSearchLocationRaw, but console logs
+  const setSearchLocation = (
+    searchLocation: ISearchLocationInfo | null | undefined
+  ) => {
+    console.log('setting search location', searchLocation)
+    setSearchLocationRaw(searchLocation)
+  }
 
   const [searchLocationPopoverOpen, setSearchLocationPopoverOpen] =
     React.useState(false)

@@ -1,4 +1,4 @@
-import { Check, Navigation } from 'lucide-react'
+import { Navigation } from 'lucide-react'
 import {
   MapboxRetrieveSuggestionQuery,
   SearchForAreaQuery,
@@ -42,22 +42,6 @@ const SetLocationPopover = () => {
     searchLocation,
   } = useSearchLocationContext()
 
-  // null means it hasn't been set, undefined means it's loading
-  const [value, setValue] = React.useState<
-    ILocationSuggestion | null | undefined
-  >(null)
-
-  React.useEffect(() => {
-    if (searchLocation === null || searchLocation === undefined) {
-      setValue(searchLocation)
-    } else {
-      setValue({
-        value: '',
-        label: searchLocation.humanReadableName,
-      })
-    }
-  }, [setValue, searchLocation])
-
   const onGetMapboxRetrieveSuggestion = (
     data: MapboxRetrieveSuggestionQuery
   ) => {
@@ -68,6 +52,7 @@ const SetLocationPopover = () => {
         lng: location.geometry.coordinates[0],
         humanReadableName: `${location.properties.name}, ${location.properties.place_formatted}`,
       })
+      setOpen(false)
     }
   }
 
@@ -77,8 +62,6 @@ const SetLocationPopover = () => {
 
   // whenever the value is set, we want to get the corresponding geometric information and set it in the context
   const setValueAndUpdateSearchLocation = (value: ILocationSuggestion) => {
-    setValue(value)
-
     getMapboxRetrieveSuggestion({
       variables: {
         mapboxId: value.value,
@@ -100,7 +83,7 @@ const SetLocationPopover = () => {
 
   // only allow for closing the popover once a location has been selected
   const onOpenChange = (open: boolean) => {
-    if (value) {
+    if (searchLocation) {
       setOpen(open)
     } else {
       if (open) {
@@ -110,8 +93,8 @@ const SetLocationPopover = () => {
   }
 
   const isPopoverButtonDisabled =
-    value === undefined || // it's loading
-    value === null // it hasn't been set
+    searchLocation === undefined || // it's loading
+    searchLocation === null // it hasn't been set
 
   return (
     <>
@@ -127,11 +110,11 @@ const SetLocationPopover = () => {
             >
               <Navigation className="mr-4 h-4 w-4 shrink-0 opacity-50" />
               <span className="w-[300px] truncate text-start">
-                {value === null
+                {searchLocation === null
                   ? 'Set location to continue'
-                  : value === undefined
+                  : searchLocation === undefined
                   ? 'Loading...'
-                  : value.label}
+                  : searchLocation.humanReadableName}
               </span>
             </Button>
           </PopoverTrigger>
@@ -164,17 +147,16 @@ const SetLocationPopover = () => {
                     onSelect={(_currentValue) => {
                       // for some reason, currentValue is the label and not the value
                       setValueAndUpdateSearchLocation(suggestion)
-                      setOpen(false)
                     }}
                   >
-                    <Check
+                    {/* <Check
                       className={cn(
                         'mr-2 h-4 w-4',
                         value?.value === suggestion.value
                           ? 'opacity-100'
                           : 'opacity-0'
                       )}
-                    />
+                    /> */}
                     <span className="w-[300px] truncate">
                       {suggestion.label}
                     </span>
