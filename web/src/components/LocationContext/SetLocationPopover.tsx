@@ -138,7 +138,7 @@ const SetLocationPopover = () => {
                     </CommandItem>
                   </CommandLoading>
                 )}
-                {!searchLoading && (
+                {!searchLoading && open && (
                   <CommandEmpty>No locations found.</CommandEmpty>
                 )}
                 {locationSuggestions.map((suggestion) => (
