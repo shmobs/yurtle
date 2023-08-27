@@ -34,17 +34,20 @@ const LocationDetails = ({ location }: ILocationProps) => {
                   <span className="align-middle">{location.business.name}</span>
                 </div>
               </div>
-              <p className="mt-2">
+              {
+                location.business.website &&
+                <p className="mt-2">
                 <IconExternalLink className="mr-2 inline h-5 w-5 text-gray-400" />
                 <span className="align-middle">
                   <a
-                    href={location.business.website?.split('?')[0] || '#'}
+                    href={location.business.website}
                     className="text-indigo-600 hover:underline"
                   >
-                    {location.business.website || 'www.example.com'}
+                    {location.business.website.replace("https://", "").replace("http://", "").split('/')[0]}
                   </a>
                 </span>
               </p>
+              }
               <p className="mt-2">
                 <IconInfoSquare className="-mt-1 mr-1 inline h-5 w-5 text-gray-400" />
                 {location.business.description}

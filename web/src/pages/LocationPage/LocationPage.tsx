@@ -19,6 +19,7 @@ const LOCATION_QUERY = gql`
         id
         name
         description
+        website
       }
       events {
         id
