@@ -1,18 +1,21 @@
+import { useSearchLocationContext } from 'src/components/LocationContext/locationContext'
+import Locations from 'src/components/Locations/Locations'
 import NearbyLocationsCell from 'src/components/NearbyLocationsCell'
 
-import LocationPrompt from '../LocationPrompt'
-
 const SearchNearby = () => {
-  const [location, setLocation] = React.useState<string>(null)
+  const { searchLocation } = useSearchLocationContext()
 
-  const handleLocation = (loc: { latitude: number; longitude: number }) => {
-    setLocation(`${loc.latitude},${loc.longitude}`)
-  }
   // get user's current location as lat/long
   return (
     <>
-      <LocationPrompt onLocation={handleLocation} />
-      {location && <NearbyLocationsCell location={location} />}
+      {searchLocation ? (
+        <NearbyLocationsCell
+          // TODO fix the location type so that it instead accepts lat and lng
+          location={`${searchLocation.lat},${searchLocation.lng}`}
+        />
+      ) : (
+        <Locations />
+      )}
     </>
   )
 }
