@@ -39,11 +39,24 @@ const SetLocationPopover = () => {
     searchLocationPopoverOpen: open,
     setSearchLocationPopoverOpen: setOpen,
     setSearchLocation,
+    searchLocation,
   } = useSearchLocationContext()
 
-  const [value, setValue] = React.useState<ILocationSuggestion | undefined>(
-    undefined
-  )
+  // null means it hasn't been set, undefined means it's loading
+  const [value, setValue] = React.useState<
+    ILocationSuggestion | null | undefined
+  >(null)
+
+  React.useEffect(() => {
+    if (searchLocation === null || searchLocation === undefined) {
+      setValue(searchLocation)
+    } else {
+      setValue({
+        value: '',
+        label: searchLocation.humanReadableName,
+      })
+    }
+  }, [setValue, searchLocation])
 
   const onGetMapboxRetrieveSuggestion = (
     data: MapboxRetrieveSuggestionQuery
@@ -96,6 +109,10 @@ const SetLocationPopover = () => {
     }
   }
 
+  const isPopoverButtonDisabled =
+    value === undefined || // it's loading
+    value === null // it hasn't been set
+
   return (
     <>
       <div className="relative z-50">
@@ -106,10 +123,15 @@ const SetLocationPopover = () => {
               role="combobox"
               aria-expanded={open}
               className="w-[225px] justify-between sm:w-[325px]"
+              disabled={isPopoverButtonDisabled}
             >
               <Navigation className="mr-4 h-4 w-4 shrink-0 opacity-50" />
               <span className="w-[300px] truncate text-start">
-                {value ? value.label : 'Set location...'}
+                {value === null
+                  ? 'Set location to continue'
+                  : value === undefined
+                  ? 'Loading...'
+                  : value.label}
               </span>
             </Button>
           </PopoverTrigger>

@@ -49,7 +49,7 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
     onCompleteGetReverseGeocode
   )
 
-  const setSearchLocationFromNavigator = React.useCallback(() => {
+  const getSearchLocation = React.useCallback(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -63,25 +63,22 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
         },
         (error) => {
           setSearchLocation(null)
-          console.log(error)
+          setSearchLocationPopoverOpen(true) // Open the popover when there's an error
+          console.log("error in getSearchLocation's getCurrentPosition", error)
         }
       )
+    } else {
+      setSearchLocation(null)
+      setSearchLocationPopoverOpen(true) // Open the popover when geolocation is not available
     }
-
-    if (searchLocation === null) {
-      setSearchLocationPopoverOpen(true)
-    }
-  }, [getReverseGeocode, searchLocation])
-
-  React.useEffect(() => {
-    setSearchLocationFromNavigator()
-  }, [setSearchLocationFromNavigator])
+  }, [getReverseGeocode])
 
   React.useEffect(() => {
-    if (searchLocation === null) {
-      setSearchLocationPopoverOpen(true)
+    if (searchLocation === null && !searchLocationPopoverOpen) {
+      setSearchLocation(undefined) // undefined reflects loading
+      getSearchLocation()
     }
-  }, [searchLocation])
+  }, [getSearchLocation, searchLocation, searchLocationPopoverOpen])
 
   return (
     <SearchLocationContext.Provider
