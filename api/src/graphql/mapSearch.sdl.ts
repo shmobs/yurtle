@@ -1,4 +1,7 @@
 export const schema = gql`
+  """
+  All general map searching queries go here, regardless of their underlying API.
+  """
   type Query {
     """
     location: String! - The point around which to retrieve place information. This must be specified as latitude,longitude.
@@ -12,6 +15,9 @@ export const schema = gql`
       radius: Int
     ): GMapsApiSearchNearbyResponseType! @skipAuth
 
+    """
+    Return a list of places based on a search string.
+    """
     textSearch(
       """
       input: String! - This must be a place name, address, or category of establishments.
@@ -25,5 +31,23 @@ export const schema = gql`
       """
       placeId: String!
     ): GMapsApiPlaceDetailsResponseType! @skipAuth
+
+    """
+    Given a longitude and latitude, return human readable location information.
+    """
+    reverseGeocode(
+      longitude: Float!
+      latitude: Float!
+    ): MapboxGeocodeResponseType! @skipAuth
+
+    """
+    Given a search string, find a single location.
+    """
+    forwardGeocode(searchText: String!): MapboxGeocodeResponseType! @skipAuth
+
+    """
+    Given a search string, find a geographic area.
+    """
+    searchForArea(searchText: String!): MapboxSearchBoxResponseType! @skipAuth
   }
 `

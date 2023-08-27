@@ -5,7 +5,7 @@ import LocationCard, { ILocationCardProps } from '../LocationCard/LocationCard'
 import useImportFromGMapsMutation from './useImportFromGMapsMutation'
 
 interface ILocationsProps {
-  locations: ILocationCardProps[]
+  locations?: ILocationCardProps[]
 }
 
 const Locations = ({ locations }: ILocationsProps) => {
@@ -14,20 +14,30 @@ const Locations = ({ locations }: ILocationsProps) => {
       navigate(routes.location({ id: newLocation.id }))
     },
   })
+
   return (
     <ul className="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
-      {locations.map((location) => {
-        return (
-          <LocationCard
-            key={location.id || location.gmapsPlaceId}
-            id={location.id}
-            gmapsPlaceId={location.gmapsPlaceId}
-            onImportFromGMaps={onImportFromGMaps}
-            businessName={location.businessName}
-            address={location.address}
-          />
-        )
-      })}
+      {locations ? (
+        locations.map((location) => {
+          return (
+            <LocationCard
+              key={location.id || location.gmapsPlaceId}
+              id={location.id}
+              gmapsPlaceId={location.gmapsPlaceId}
+              onImportFromGMaps={onImportFromGMaps}
+              businessName={location.businessName}
+              address={location.address}
+            />
+          )
+        })
+      ) : (
+        <>
+          <LocationCard />
+          <LocationCard />
+          <LocationCard />
+          <LocationCard />
+        </>
+      )}
     </ul>
   )
 }

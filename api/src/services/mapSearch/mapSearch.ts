@@ -4,6 +4,8 @@ import {
   GMapsApiPlaceDetailsResponseType,
   GMapsApiSearchNearbyResponseType,
   QueryResolvers,
+  MapboxGeocodeResponseType,
+  MapboxSearchBoxResponseType,
 } from 'types/graphql'
 
 import { addRendyLocationIds } from './mapSearchUtils'
@@ -84,6 +86,64 @@ export const placeDetails: QueryResolvers['placeDetails'] = async ({
   const res = await fetch(searchUrl)
 
   const resContent = (await res.json()) as GMapsApiPlaceDetailsResponseType
+
+  return resContent
+}
+
+const MAPBOX_GEOCODING_ROOT_URL =
+  'https://api.mapbox.com/geocoding/v5/mapbox.places' as const
+
+// We can adjust the types to include more - https://docs.mapbox.com/api/search/geocoding/#data-types
+const MAPBOX_GEOCODING_TYPES = [
+  'neighborhood',
+  'place',
+  'region',
+  'country',
+] as const
+
+export const reverseGeocode: QueryResolvers['reverseGeocode'] = async ({
+  longitude,
+  latitude,
+}) => {
+  const searchUrl = `${MAPBOX_GEOCODING_ROOT_URL}/${longitude},${latitude}.json?access_token=${
+    process.env.MAPBOX_API_KEY
+  }&types=${MAPBOX_GEOCODING_TYPES.join(',')}`
+
+  const res = await fetch(searchUrl)
+
+  const resContent = (await res.json()) as MapboxGeocodeResponseType
+
+  return resContent
+}
+
+export const forwardGeocode: QueryResolvers['forwardGeocode'] = async ({
+  searchText,
+}) => {
+  const searchUrl = `${MAPBOX_GEOCODING_ROOT_URL}/${searchText}.json?access_token=${
+    process.env.MAPBOX_API_KEY
+  }&types=${MAPBOX_GEOCODING_TYPES.join(',')}`
+
+  const res = await fetch(searchUrl)
+
+  const resContent = (await res.json()) as MapboxGeocodeResponseType
+
+  return resContent
+}
+
+export const searchForArea: QueryResolvers['searchForArea'] = async ({
+  searchText,
+}) => {
+  const rootUrl = 'https://api.mapbox.com/search/searchbox/v1/suggest?q='
+
+  const searchUrl = `${rootUrl}${searchText}&access_token=${
+    process.env.MAPBOX_API_KEY
+  }&session_token=${'9aRLTNekCeum7nbt2b6hvNYuNqCqwbWtoURveQTKRfX7ENCgS3ne3B33sJpzmUP8'}&types=${MAPBOX_GEOCODING_TYPES.join(
+    ','
+  )}`
+
+  const res = await fetch(searchUrl)
+
+  const resContent = (await res.json()) as MapboxSearchBoxResponseType
 
   return resContent
 }

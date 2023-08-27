@@ -2,6 +2,8 @@ import { navigate, routes } from '@redwoodjs/router'
 
 import { Card, CardDescription, CardTitle } from 'src/components/ui/card'
 
+import { Skeleton } from '../ui/skeleton'
+
 /**
  * This needs to support both what we get back from the Google Places API and what we get back from our own API
  */
@@ -11,7 +13,8 @@ export interface ILocationCardProps {
   /** This must be included if `id` is not included. We use it to create the record for it if it doesn't yet exist. */
   gmapsPlaceId?: string
   onImportFromGMaps?: (placeId: string) => void
-  businessName: string
+  /** Leaving this out will render the card as a loading skeleton */
+  businessName?: string
   address?: string
 }
 
@@ -24,24 +27,28 @@ const LocationCard = ({
 }: ILocationCardProps) => {
   return (
     <li key={id || gmapsPlaceId}>
-      <Card className="h-28 bg-white px-3 py-3 hover:shadow-md">
-        <button
-          className="h-full w-full"
-          onClick={() => {
-            if (id) {
-              navigate(routes.location({ id }))
-            }
-            if (gmapsPlaceId) {
-              console.log(
-                "didn't get an id, but got a gmapsPlaceId, so we should create a record for it"
-              )
-              onImportFromGMaps(gmapsPlaceId)
-            }
-          }}
-        >
-          <CardTitle>{businessName}</CardTitle>
-          {address && <CardDescription>{address}</CardDescription>}
-        </button>
+      <Card className="h-28 bg-white hover:shadow-md">
+        {businessName ? (
+          <button
+            className="h-full w-full px-3 py-3"
+            onClick={() => {
+              if (id) {
+                navigate(routes.location({ id }))
+              }
+              if (gmapsPlaceId) {
+                console.log(
+                  "didn't get an id, but got a gmapsPlaceId, so we should create a record for it"
+                )
+                onImportFromGMaps(gmapsPlaceId)
+              }
+            }}
+          >
+            <CardTitle>{businessName}</CardTitle>
+            {address && <CardDescription>{address}</CardDescription>}
+          </button>
+        ) : (
+          <Skeleton className="h-full w-full" />
+        )}
       </Card>
     </li>
   )
