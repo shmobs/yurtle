@@ -2,8 +2,10 @@ import { Fragment } from 'react'
 
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { createSlot } from 'react-view-slot'
 
 import SetLocationPopover from 'src/components/LocationContext/SetLocationPopover'
+import { cn } from 'src/lib/utils'
 
 const user = {
   name: 'Tom Cook',
@@ -24,9 +26,7 @@ const userNavigation = [
   { name: 'Sign out', href: '#' },
 ]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+export const HeaderSlot = createSlot('header')
 
 type SiteLayoutProps = {
   children?: React.ReactNode
@@ -60,7 +60,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
                             <a
                               key={item.name}
                               href={item.href}
-                              className={classNames(
+                              className={cn(
                                 item.current
                                   ? 'bg-indigo-700 text-white'
                                   : 'text-white hover:bg-indigo-500 hover:bg-opacity-75',
@@ -137,7 +137,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
                                   {({ active }) => (
                                     <a
                                       href={item.href}
-                                      className={classNames(
+                                      className={cn(
                                         active ? 'bg-gray-100' : '',
                                         'block px-4 py-2 text-sm text-gray-700'
                                       )}
@@ -162,7 +162,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
                         key={item.name}
                         as="a"
                         href={item.href}
-                        className={classNames(
+                        className={cn(
                           item.current
                             ? 'bg-indigo-700 text-white'
                             : 'text-white hover:bg-indigo-500 hover:bg-opacity-75',
@@ -220,7 +220,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
           <header className="py-10">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <h1 className="text-3xl font-bold tracking-tight text-white">
-                Dashboard
+                <HeaderSlot />
               </h1>
             </div>
           </header>
@@ -235,6 +235,24 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
         </main>
       </div>
     </>
+  )
+}
+
+/**
+ * This is a simple header that can be used in the `HeaderSlot`.
+ */
+export const SimpleHeader = ({
+  title,
+  id,
+}: {
+  title: string
+  /** Optional, pass this when you need to override the header slot - ie when triggering a rerender without changing the title */
+  id?: string
+}) => {
+  return (
+    <HeaderSlot.Plug id={id ? id : title}>
+      <span>{title}</span>
+    </HeaderSlot.Plug>
   )
 }
 

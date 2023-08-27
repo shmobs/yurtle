@@ -20981,6 +20981,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-view-slot@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "react-view-slot@npm:1.0.1"
+  dependencies:
+    lodash.sortby: ^4.7.0
+  peerDependencies:
+    react: ^16.8
+  checksum: 057fd3a0ee31d41b09a0b78beffcc0405f889fb115c428cd55f6bb1b1cecb6c118f90df0908488e073c9a00c184a0c609a349991549bb328055ea588258a4f40
+  languageName: node
+  linkType: hard
+
 "react@npm:18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
@@ -24562,6 +24573,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-hook-form: ^7.45.4
+    react-view-slot: ^1.0.1
     tailwind-merge: ^1.14.0
     tailwindcss: ^3.3.3
     tailwindcss-animate: ^1.0.6
