@@ -59,7 +59,6 @@ const LocationDetails = ({ location }: ILocationProps) => {
           </div>
         </div>
 
-        {/* Details */}
         <div className="mx-auto mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="">
@@ -89,10 +88,10 @@ const LocationDetails = ({ location }: ILocationProps) => {
               id="map"
               className="relative mt-2 h-72 rounded-lg shadow sm:mt-0 sm:h-96"
             >
-              <img
+              {/* <img
                 className="rounded-lg"
                 src="https://i.imgur.com/oFypSZG.jpg"
-              ></img>
+              ></img> */}
               {/* {mapBoxReset && (
                   <MapBox
                     lat={event.Address[0].latitude}
@@ -107,6 +106,10 @@ const LocationDetails = ({ location }: ILocationProps) => {
                 allowFullScreen
                 src={`https://www.google.com/maps/embed/v1/search?q=${location.address}&key=`}
               ></iframe> */}
+              <iframe width="100%"
+                height="100%"
+                loading="lazy"
+                allowFullScreen src={`https://maps.google.com/maps?width=520&height=400&hl=en&q=${location.address}&t=&z=12&ie=UTF8&iwloc=B&output=embed`}></iframe>
               <div
                 className="absolute bottom-0 z-10 w-full rounded-b-lg bg-white
                     p-4 text-center font-sans text-base font-semibold sm:p-3 sm:text-sm"
