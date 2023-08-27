@@ -105,7 +105,9 @@ const SetLocationPopover = () => {
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-[225px] justify-between sm:w-[325px]"
+              className={cn(
+                'w-[225px] justify-between border-indigo-900 bg-indigo-800 text-indigo-300 sm:w-[325px]'
+              )}
               disabled={isPopoverButtonDisabled}
             >
               <Navigation className="mr-4 h-4 w-4 shrink-0 opacity-50" />
