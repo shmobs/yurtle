@@ -4,27 +4,10 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { createSlot } from 'react-view-slot'
 
+import { routes, useMatch } from '@redwoodjs/router'
+
 import SetLocationPopover from 'src/components/LocationContext/SetLocationPopover'
 import { cn } from 'src/lib/utils'
-
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
 
 export const HeaderSlot = createSlot('header')
 
@@ -33,6 +16,27 @@ type SiteLayoutProps = {
 }
 
 const SiteLayout = ({ children }: SiteLayoutProps) => {
+  const user = {
+    name: 'Tom Cook',
+    email: 'tom@example.com',
+    imageUrl:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  }
+  const navigation = [
+    {
+      name: 'Nearby Venues',
+      href: routes.searchNearby(),
+      current: useMatch(routes.searchNearby()).match,
+    },
+    { name: 'Team', href: '#', current: false },
+    { name: 'Projects', href: '#', current: false },
+  ]
+  const userNavigation = [
+    { name: 'Your Profile', href: '#' },
+    { name: 'Settings', href: '#' },
+    { name: 'Sign out', href: '#' },
+  ]
+
   return (
     <>
       <div className="min-h-full">
@@ -46,7 +50,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
                 <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
                   <div className="flex h-16 items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
                     {/* Logo + desktop nav */}
-                    <div className="flex w-10 items-center px-2 lg:px-0">
+                    <div className="flex w-10 items-center px-2 sm:w-full lg:px-0">
                       <div className="flex-shrink-0">
                         <img
                           className="block h-8 w-8"
