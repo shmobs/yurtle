@@ -6,11 +6,8 @@ import { SimpleHeader } from 'src/layouts/SiteLayout/SiteLayout'
 const SearchNearbyPage = () => {
   return (
     <>
-      <MetaTags
-        title="Nearby Businesses"
-        description="Nearby Businesses page"
-      />
-      <SimpleHeader title="Nearby Businesses" />
+      <MetaTags title="Nearby Venues" description="Nearby Venues page" />
+      <SimpleHeader title="Nearby Venues" />
       <SearchNearby />
     </>
   )
