@@ -1,6 +1,7 @@
 import { MetaTags } from '@redwoodjs/web'
 
 import { useSearchLocationContext } from 'src/components/LocationContext/locationContext'
+import SearchBox from 'src/components/SearchBox/SearchBox'
 import TextSeachCell from 'src/components/TextSearchCell'
 import { SimpleHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
@@ -22,6 +23,8 @@ const SearchForVenuePage = ({ searchQuery }: ISearchForVenuePageProps) => {
       <MetaTags title={title} description="Search for venue page" />
 
       <SimpleHeader title={title} />
+
+      <SearchBox />
 
       {searchQuery && searchLocation && (
         <TextSeachCell
