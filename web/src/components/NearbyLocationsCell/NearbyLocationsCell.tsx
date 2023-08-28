@@ -17,6 +17,7 @@ export const QUERY = gql`
         rendyLocationId
         name
         business_status
+        mapboxStaticImageUrl
         geometry {
           location {
             lat
@@ -64,6 +65,7 @@ const standardizeLocations = (
       id: location.rendyLocationId,
       gmapsPlaceId: location.place_id,
       businessName: location.name,
+      backgroundImageUrl: location.mapboxStaticImageUrl,
     }
   })
 }

@@ -16,6 +16,7 @@ export interface ILocationCardProps {
   /** Leaving this out will render the card as a loading skeleton */
   businessName?: string
   address?: string
+  backgroundImageUrl?: string
 }
 
 const LocationCard = ({
@@ -24,13 +25,17 @@ const LocationCard = ({
   onImportFromGMaps,
   businessName,
   address,
+  backgroundImageUrl,
 }: ILocationCardProps) => {
   return (
     <li key={id || gmapsPlaceId}>
-      <Card className="h-28 bg-white hover:shadow-md">
+      <Card
+        className="h-32 overflow-hidden text-white hover:shadow-md"
+        style={{ backgroundImage: `url('${backgroundImageUrl}')` }}
+      >
         {businessName ? (
           <button
-            className="h-full w-full px-3 py-3"
+            className="h-full w-full bg-black/0 px-3 py-3 transition hover:bg-black/40"
             onClick={() => {
               if (id) {
                 navigate(routes.location({ id }))
