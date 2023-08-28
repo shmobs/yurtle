@@ -64,10 +64,15 @@ export const schema = gql`
     formatted_address: String
     name: String
     place_id: String
+    geometry: GMapsGeometryType
     """
     If a matching Location record exists in Prisma, this will be set to the id of that record.
     """
     rendyLocationId: String
+    """
+    This field gets added so that the frontend can display a mapbox static image for each result.
+    """
+    mapboxStaticImageUrl: String!
   }
 
   """

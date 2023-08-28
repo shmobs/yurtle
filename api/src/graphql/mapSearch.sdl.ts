@@ -20,9 +20,13 @@ export const schema = gql`
     """
     textSearch(
       """
-      input: String! - This must be a place name, address, or category of establishments.
+      query: String! - This must be a place name, address, or category of establishments.
       """
-      input: String!
+      query: String!
+      """
+      location: String! - The point around which to retrieve place information. This must be specified as latitude,longitude.
+      """
+      location: String!
     ): GMapsApiTextSearchResponseType! @skipAuth
 
     placeDetails(

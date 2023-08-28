@@ -1,4 +1,4 @@
-import type { NearbyLocationsQuery } from 'types/graphql'
+import type { TextSearchQuery, TextSearchQueryVariables } from 'types/graphql'
 
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
@@ -6,19 +6,18 @@ import { ILocationCardProps } from 'src/components/LocationCard'
 import Locations from 'src/components/Locations'
 
 export const QUERY = gql`
-  query NearbyLocationsQuery($location: String!, $radius: Int) {
-    nearbyLocations: searchNearby(location: $location, radius: $radius) {
+  query TextSearchQuery($query: String!, $location: String!) {
+    textSearch(query: $query, location: $location) {
       html_attributions
       status
       error_message
       info_messages
-      next_page_token
       results {
         place_id
         rendyLocationId
-        name
-        business_status
         mapboxStaticImageUrl
+        name
+        formatted_address
         geometry {
           location {
             lat
@@ -35,16 +34,6 @@ export const QUERY = gql`
             }
           }
         }
-        icon
-        icon_background_color
-        icon_mask_base_uri
-        photos {
-          height
-          html_attributions
-          photo_reference
-          width
-        }
-        types
       }
     }
   }
@@ -54,12 +43,14 @@ export const Loading = () => <Locations />
 
 export const Empty = () => <Locations locations={[]} />
 
-export const Failure = ({ error }: CellFailureProps) => (
+export const Failure = ({
+  error,
+}: CellFailureProps<TextSearchQueryVariables>) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
 const standardizeLocations = (
-  nearbyLocations: NearbyLocationsQuery['nearbyLocations']
+  nearbyLocations: TextSearchQuery['textSearch']
 ): ILocationCardProps[] => {
   return nearbyLocations.results.map((location) => {
     return {
@@ -71,8 +62,6 @@ const standardizeLocations = (
   })
 }
 
-export const Success = ({
-  nearbyLocations,
-}: CellSuccessProps<NearbyLocationsQuery>) => {
-  return <Locations locations={standardizeLocations(nearbyLocations)} />
+export const Success = ({ textSearch }: CellSuccessProps<TextSearchQuery>) => {
+  return <Locations locations={standardizeLocations(textSearch)} />
 }
