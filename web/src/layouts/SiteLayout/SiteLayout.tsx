@@ -257,7 +257,7 @@ export const SimpleHeader = ({
   id?: string
 }) => {
   return (
-    <HeaderSlot.Plug id={id ? id : title}>
+    <HeaderSlot.Plug id={id ? id : title} deps={[id, title]}>
       <span>{title}</span>
     </HeaderSlot.Plug>
   )

@@ -9,22 +9,26 @@ interface ISearchForVenuePageProps {
   searchQuery?: string
 }
 
-const SearchForVenuePage = ({ searchQuery }: ISearchForVenuePageProps) => {
+const SearchForVenuePage = ({
+  searchQuery: searchQueryRaw,
+}: ISearchForVenuePageProps) => {
   const { searchLocation } = useSearchLocationContext()
 
   // the searchQuery comes in HTML encoded, so we need to decode it
-  searchQuery = searchQuery ? decodeURIComponent(searchQuery) : undefined
+  const searchQuery = searchQueryRaw
+    ? decodeURIComponent(searchQueryRaw)
+    : undefined
 
   const title = searchQuery
     ? `Search results for '${searchQuery}'`
     : 'Search for Venue'
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <MetaTags title={title} description="Search for venue page" />
 
       <SimpleHeader title={title} />
 
-      <SearchBox />
+      <SearchBox initialValue={searchQuery} />
 
       {searchQuery && searchLocation && (
         <TextSeachCell
@@ -32,7 +36,7 @@ const SearchForVenuePage = ({ searchQuery }: ISearchForVenuePageProps) => {
           location={`${searchLocation.lat},${searchLocation.lng}`}
         />
       )}
-    </>
+    </div>
   )
 }
 

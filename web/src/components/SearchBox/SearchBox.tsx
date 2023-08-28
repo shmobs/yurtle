@@ -10,7 +10,11 @@ interface IFormSearch {
   searchQuery: string
 }
 
-const SearchBox = () => {
+interface ISearchBoxProps {
+  initialValue?: string
+}
+
+const SearchBox = ({ initialValue }: ISearchBoxProps) => {
   const formMethods = useForm<IFormSearch>()
   const { searchLocation } = useSearchLocationContext()
 
@@ -20,15 +24,18 @@ const SearchBox = () => {
     fieldRef.current?.focus()
   }, [fieldRef])
 
-  const onSubmit = (data: IFormSearch) => {
-    console.log('onSubmit data', data)
-    navigate(
-      routes.searchForVenueWithQuery({ searchQuery: data.searchQuery || '' })
-    )
+  const onSubmit = ({ searchQuery }: IFormSearch) => {
+    if (searchQuery) {
+      navigate(routes.searchForVenueWithQuery({ searchQuery }))
+    }
   }
 
   return (
-    <Form<IFormSearch> onSubmit={onSubmit} formMethods={formMethods}>
+    <Form<IFormSearch>
+      className="flex w-full max-w-sm items-center space-x-2"
+      onSubmit={onSubmit}
+      formMethods={formMethods}
+    >
       {/* <Input
         name="searchQuery"
         ref={fieldRef}
@@ -40,6 +47,7 @@ const SearchBox = () => {
         ref={fieldRef}
         placeholder="Search for a venue"
         disabled={!searchLocation}
+        defaultValue={initialValue}
       />
       <Button type="submit">Search</Button>
     </Form>
