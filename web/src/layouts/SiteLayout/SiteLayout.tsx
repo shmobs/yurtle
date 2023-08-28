@@ -33,7 +33,6 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
       href: routes.searchForVenue(),
       current: useMatch(routes.searchForVenue()).match,
     },
-    { name: 'Projects', href: '#', current: false },
   ]
   const userNavigation = [
     { name: 'Your Profile', href: '#' },
