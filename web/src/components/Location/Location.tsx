@@ -1,6 +1,14 @@
+import {
+  IconBuilding,
+  IconInfoSquare,
+  IconLink,
+  IconMapPin,
+} from '@tabler/icons-react'
 import { Location } from 'types/graphql'
+
+import { Link } from '@redwoodjs/router'
+
 import MapView from '../Mapbox/Map'
-import { IconBuilding, IconExternalLink, IconInfoSquare, IconMapPin } from '@tabler/icons-react'
 
 interface ILocationProps {
   location: Location
@@ -31,23 +39,36 @@ const LocationDetails = ({ location }: ILocationProps) => {
               <div className="flex">
                 <div className="mr-3">
                   <IconBuilding className="mr-2 inline h-5 w-5 text-gray-400" />
-                  <span className="align-middle">{location.business.name}</span>
+                  <span className="align-middle">
+                    <Link
+                      to={`/business/${location.business.id}`}
+                      className="hover:text-indigo-600 hover:underline"
+                    >
+                      {location.business.name}
+                    </Link>
+                  </span>
                 </div>
               </div>
-              {
-                location.business.website &&
+              {location.business.website && (
                 <p className="mt-2">
-                <IconExternalLink className="mr-2 inline h-5 w-5 text-gray-400" />
-                <span className="align-middle">
-                  <a
-                    href={location.business.website}
-                    className="text-indigo-600 hover:underline"
-                  >
-                    {location.business.website.replace("https://", "").replace("http://", "").split('/')[0]}
-                  </a>
-                </span>
-              </p>
-              }
+                  <IconLink className="mr-2 inline h-5 w-5 text-gray-400" />
+                  <span className="align-middle">
+                    <a
+                      href={location.business.website}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-indigo-600 hover:underline"
+                    >
+                      {
+                        location.business.website
+                          .replace('https://', '')
+                          .replace('http://', '')
+                          .split('/')[0]
+                      }
+                    </a>
+                  </span>
+                </p>
+              )}
               <p className="mt-2">
                 <IconInfoSquare className="-mt-1 mr-1 inline h-5 w-5 text-gray-400" />
                 {location.business.description}

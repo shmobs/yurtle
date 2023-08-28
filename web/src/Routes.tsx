@@ -16,7 +16,7 @@ const Routes = () => {
     <Router>
       <Route path="/" page={WelcomePage} name="welcome" />
       <Set wrap={SiteLayout}>
-        <Route path="/business" page={BusinessPage} name="business" />
+        <Route path="/business/{id}" page={BusinessPage} name="business" />
         <Route path="/location/{id}" page={LocationPage} name="location" />
         <Route path="/search-nearby" page={SearchNearbyPage} name="searchNearby" />
         <Route notfound page={NotFoundPage} />

@@ -1,3 +1,4 @@
+import { fetch } from '@whatwg-node/fetch'
 import {
   MapboxSuggestionRetrievalResponseType,
   QueryResolvers,
