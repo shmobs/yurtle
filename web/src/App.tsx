@@ -10,6 +10,7 @@ import Routes from 'src/Routes'
 import { LocationProvider } from './components/LocationContext/locationContext'
 
 import './index.css'
+import "mapbox-gl/dist/mapbox-gl.css"
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>

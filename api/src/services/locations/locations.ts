@@ -53,7 +53,9 @@ const gmapsPlaceDetailsToBusinessDetails = (
   Prisma.BusinessCreateWithoutLocationsInput => {
   return {
     name: gmapsData.result.name,
-    description: gmapsData.result.editorial_summary.overview,
+    description: gmapsData.result.editorial_summary
+      ? gmapsData.result.editorial_summary.overview
+      : 'No description available', // provide a default value if `editorial_summary` is undefined
     website: gmapsData.result.website,
   }
 }
