@@ -30,12 +30,12 @@ const LocationCard = ({
   return (
     <li key={id || gmapsPlaceId}>
       <Card
-        className="h-32 bg-slate-800 text-white hover:shadow-md"
+        className="h-32 overflow-hidden text-white hover:shadow-md"
         style={{ backgroundImage: `url('${backgroundImageUrl}')` }}
       >
         {businessName ? (
           <button
-            className="h-full w-full px-3 py-3"
+            className="h-full w-full bg-black/0 px-3 py-3 transition hover:bg-black/40"
             onClick={() => {
               if (id) {
                 navigate(routes.location({ id }))
