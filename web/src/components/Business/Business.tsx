@@ -48,7 +48,7 @@ const Business = ({ business }: IBusinessProps) => {
                   </div>
                   <button
                     className={cn(
-                      'h-[34px] cursor-pointer px-[2px] py-2',
+                      'h-[34px] cursor-pointer px-[2px] py-2 hover:text-indigo-600',
                       loc.id === selectedLocation.id
                         ? 'border-b-2 border-indigo-600'
                         : ''
