@@ -106,7 +106,8 @@ const SetLocationPopover = () => {
               role="combobox"
               aria-expanded={open}
               className={cn(
-                'w-[225px] justify-between border-indigo-900 bg-indigo-800 text-indigo-300 sm:w-[325px]'
+                'w-[225px] justify-between sm:w-[325px]',
+                !open && 'border-indigo-900 bg-indigo-800 text-indigo-300'
               )}
               disabled={isPopoverButtonDisabled}
             >
