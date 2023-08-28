@@ -1,5 +1,4 @@
 import { Prisma } from '@prisma/client'
-
 import type {
   QueryResolvers,
   MutationResolvers,
@@ -7,6 +6,7 @@ import type {
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
+
 import { placeDetails } from '../mapSearch/mapSearch'
 
 export const locations: QueryResolvers['locations'] = () => {

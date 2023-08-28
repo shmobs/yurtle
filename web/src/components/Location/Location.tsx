@@ -1,6 +1,7 @@
 import { Location } from 'types/graphql'
 import MapView from '../Mapbox/Map'
-import { IconBuilding, IconExternalLink, IconInfoSquare, IconMapPin } from '@tabler/icons-react'
+import { IconBuilding, IconInfoSquare, IconLink, IconMapPin } from '@tabler/icons-react'
+import { Link } from '@redwoodjs/router'
 
 interface ILocationProps {
   location: Location
@@ -31,13 +32,20 @@ const LocationDetails = ({ location }: ILocationProps) => {
               <div className="flex">
                 <div className="mr-3">
                   <IconBuilding className="mr-2 inline h-5 w-5 text-gray-400" />
-                  <span className="align-middle">{location.business.name}</span>
+                  <span className="align-middle">
+                  <Link
+                    to={`/business/${location.business.id}`}
+                    className="hover:text-indigo-600 hover:underline"
+                  >
+                    {location.business.name}
+                  </Link>
+                  </span>
                 </div>
               </div>
               {
                 location.business.website &&
                 <p className="mt-2">
-                <IconExternalLink className="mr-2 inline h-5 w-5 text-gray-400" />
+                <IconLink className="mr-2 inline h-5 w-5 text-gray-400" />
                 <span className="align-middle">
                   <a
                     href={location.business.website}
