@@ -1,7 +1,6 @@
 import { navigate, routes } from '@redwoodjs/router'
 
 import { Card, CardDescription, CardTitle } from 'src/components/ui/card'
-import { cn } from 'src/lib/utils'
 
 import { Skeleton } from '../ui/skeleton'
 
