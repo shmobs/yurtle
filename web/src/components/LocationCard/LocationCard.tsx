@@ -1,6 +1,7 @@
 import { navigate, routes } from '@redwoodjs/router'
 
 import { Card, CardDescription, CardTitle } from 'src/components/ui/card'
+import { cn } from 'src/lib/utils'
 
 import { Skeleton } from '../ui/skeleton'
 
@@ -16,6 +17,7 @@ export interface ILocationCardProps {
   /** Leaving this out will render the card as a loading skeleton */
   businessName?: string
   address?: string
+  backgroundImageUrl?: string
 }
 
 const LocationCard = ({
@@ -24,10 +26,14 @@ const LocationCard = ({
   onImportFromGMaps,
   businessName,
   address,
+  backgroundImageUrl,
 }: ILocationCardProps) => {
   return (
     <li key={id || gmapsPlaceId}>
-      <Card className="h-28 bg-white hover:shadow-md">
+      <Card
+        className="h-32 bg-slate-800 text-white hover:shadow-md"
+        style={{ backgroundImage: `url('${backgroundImageUrl}')` }}
+      >
         {businessName ? (
           <button
             className="h-full w-full px-3 py-3"

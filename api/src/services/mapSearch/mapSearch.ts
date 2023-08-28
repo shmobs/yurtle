@@ -8,7 +8,7 @@ import {
   MapboxSearchBoxResponseType,
 } from 'types/graphql'
 
-import { addRendyLocationIds } from './mapSearchUtils'
+import { addMapboxStaticImages, addRendyLocationIds } from './mapSearchUtils'
 
 export const searchNearby: QueryResolvers['searchNearby'] = async ({
   location,
@@ -37,7 +37,12 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
 
   const resContent = (await res.json()) as GMapsApiSearchNearbyResponseType
 
-  return await addRendyLocationIds(resContent)
+  const withRendyLocationIds = await addRendyLocationIds(resContent)
+  const withMapboxStaticImages = await addMapboxStaticImages(
+    withRendyLocationIds
+  )
+
+  return withMapboxStaticImages
 }
 
 export const textSearch: QueryResolvers['textSearch'] = async ({ input }) => {

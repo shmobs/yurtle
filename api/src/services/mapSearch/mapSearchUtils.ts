@@ -44,3 +44,21 @@ export async function addRendyLocationIds<T extends GmapsApiResponseType>(
 
   return responseCopy
 }
+
+export async function addMapboxStaticImages<T extends GmapsApiResponseType>(
+  apiResponse: T
+): Promise<T> {
+  // Create a deep copy of apiResponse
+  const responseCopy = _.cloneDeep(apiResponse)
+
+  // for each item in response.results, add a mapboxStaticImageUrl
+  // the format is: https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/${lng},${lat},12.5,0/300x200@2x?access_token=${MAPBOX_API_KEY}
+  // https://docs.mapbox.com/playground/static/
+  responseCopy.results = responseCopy.results.map((result) => {
+    const mapboxStaticImageUrl = `https://api.mapbox.com/styles/v1/rendyapp/cllu728xe005601r980xs80oy/static/${result.geometry.location.lng},${result.geometry.location.lat},14,0/300x200@2x?attribution=false&logo=false&access_token=${process.env.MAPBOX_API_KEY}`
+    result.mapboxStaticImageUrl = mapboxStaticImageUrl
+    return result
+  })
+
+  return responseCopy
+}

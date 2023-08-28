@@ -27,6 +27,7 @@ const Locations = ({ locations }: ILocationsProps) => {
               onImportFromGMaps={onImportFromGMaps}
               businessName={location.businessName}
               address={location.address}
+              backgroundImageUrl={location.backgroundImageUrl}
             />
           )
         })
