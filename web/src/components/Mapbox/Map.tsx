@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from 'react'
 
-import mapboxgl from "mapbox-gl"
+import mapboxgl from 'mapbox-gl'
 
 mapboxgl.accessToken = process.env.MAPBOX_PUBLIC_KEY
 
@@ -11,21 +11,33 @@ interface IMapViewProps {
 }
 
 const MapView: React.FC<IMapViewProps> = ({ lat, long, zoom }) => {
+  const mapContainer = useRef(null)
+  const map = useRef(null)
+
   useEffect(() => {
-    var map = new mapboxgl.Map({
-      container: "map", // container id
-      style: "mapbox://styles/mapbox/streets-v11", //stylesheet location
-      center: [long, lat],
-      zoom: zoom
-    })
+    if (map.current) {
+      // if the map is already initialized, just change the center
+      map.current.setCenter([long, lat])
+    } else {
+      // initialize the map
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [long, lat],
+        zoom: zoom,
+      })
 
-    map.addControl(new mapboxgl.FullscreenControl())
+      map.current.addControl(new mapboxgl.FullscreenControl())
+    }
 
-    var marker1 = new mapboxgl.Marker({ color: "black" })
+    new mapboxgl.Marker({ color: 'black' })
       .setLngLat([long, lat])
-      .addTo(map)
-  }, [])
-  return <div></div>
+      .addTo(map.current)
+  }, [lat, long, zoom])
+
+  return (
+    <div ref={mapContainer} style={{ width: '100%', height: '100%' }}></div>
+  )
 }
 
 export default MapView

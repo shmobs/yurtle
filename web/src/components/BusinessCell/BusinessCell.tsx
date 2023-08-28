@@ -16,6 +16,8 @@ export const QUERY = gql`
       locations {
         id
         address
+        latitude
+        longitude
       }
     }
   }
