@@ -49,7 +49,11 @@ const LocationCard = ({
             }}
           >
             <CardTitle>{businessName}</CardTitle>
-            {address && <CardDescription>{address}</CardDescription>}
+            {address && (
+              <CardDescription className="mt-2 text-xs text-white/80">
+                {address}
+              </CardDescription>
+            )}
           </button>
         ) : (
           <Skeleton className="h-full w-full" />

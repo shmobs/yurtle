@@ -53,11 +53,14 @@ const standardizeLocations = (
   nearbyLocations: TextSearchQuery['textSearch']
 ): ILocationCardProps[] => {
   return nearbyLocations.results.map((location) => {
+    // the formatted address string is hella long, so just grab the first part of it, which is likely the street address
+    const addressTrimmed = location.formatted_address.split(',')[0]
     return {
       id: location.rendyLocationId,
       gmapsPlaceId: location.place_id,
       businessName: location.name,
       backgroundImageUrl: location.mapboxStaticImageUrl,
+      address: addressTrimmed,
     }
   })
 }

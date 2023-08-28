@@ -28,7 +28,11 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
       href: routes.searchNearby(),
       current: useMatch(routes.searchNearby()).match,
     },
-    { name: 'Team', href: '#', current: false },
+    {
+      name: 'Search',
+      href: routes.searchForVenue(),
+      current: useMatch(routes.searchForVenue()).match,
+    },
     { name: 'Projects', href: '#', current: false },
   ]
   const userNavigation = [
