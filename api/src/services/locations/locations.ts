@@ -72,10 +72,11 @@ const gmapsPlaceDetailsToLocationDetails = (
       connectOrCreate: {
         where: {
           name: gmapsData.result.name,
-          OR: [
-            // backup identifier
-            { website: gmapsData.result.website },
-          ],
+          // TODO for some reason this breaks it
+          // OR: [
+          //   // backup identifier
+          //   { website: gmapsData.result.website },
+          // ],
         },
         create: gmapsPlaceDetailsToBusinessDetails(gmapsData),
         // update: gmapsPlaceDetailsToBusinessDetails(gmapsData),

@@ -4,7 +4,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { createSlot } from 'react-view-slot'
 
-import { routes, useMatch } from '@redwoodjs/router'
+import { routes, useMatch, Link } from '@redwoodjs/router'
 
 import SetLocationPopover from 'src/components/LocationContext/SetLocationPopover'
 import { cn } from 'src/lib/utils'
@@ -61,9 +61,9 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
                       <div className="hidden lg:ml-10 lg:block">
                         <div className="flex space-x-4">
                           {navigation.map((item) => (
-                            <a
+                            <Link
                               key={item.name}
-                              href={item.href}
+                              to={item.href}
                               className={cn(
                                 item.current
                                   ? 'bg-indigo-700 text-white'
@@ -73,7 +73,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
                               aria-current={item.current ? 'page' : undefined}
                             >
                               {item.name}
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       </div>
