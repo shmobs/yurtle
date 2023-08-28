@@ -1,5 +1,4 @@
 import { Prisma } from '@prisma/client'
-
 import type {
   QueryResolvers,
   MutationResolvers,
@@ -7,6 +6,7 @@ import type {
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
+
 import { placeDetails } from '../mapSearch/mapSearch'
 
 export const locations: QueryResolvers['locations'] = () => {
@@ -70,10 +70,11 @@ const gmapsPlaceDetailsToLocationDetails = (
       connectOrCreate: {
         where: {
           name: gmapsData.result.name,
-          OR: [
-            // backup identifier
-            { website: gmapsData.result.website },
-          ],
+          // TODO for some reason this breaks it
+          // OR: [
+          //   // backup identifier
+          //   { website: gmapsData.result.website },
+          // ],
         },
         create: gmapsPlaceDetailsToBusinessDetails(gmapsData),
         // update: gmapsPlaceDetailsToBusinessDetails(gmapsData),
