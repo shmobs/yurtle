@@ -22,7 +22,11 @@ const Location = ({ location }: ILocationProps) => {
   return (
     <>
       <MetaTags title="Location" description="Location page" />
-      <SimpleHeader title={location.address} />
+      <SimpleHeader
+        title={location.business.name}
+        subtitle={location.address}
+        subtitleIsAddress
+      />
 
       <main className="relative z-0 flex-1 overflow-y-auto rounded bg-white focus:outline-none xl:order-last">
         <article>

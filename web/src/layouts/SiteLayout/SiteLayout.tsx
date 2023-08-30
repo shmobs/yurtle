@@ -256,15 +256,34 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
  */
 export const SimpleHeader = ({
   title,
+  subtitle,
+  subtitleIsAddress,
   id,
 }: {
   title: string
+  subtitle?: string
+  subtitleIsAddress?: boolean
   /** Optional, pass this when you need to override the header slot - ie when triggering a rerender without changing the title */
   id?: string
 }) => {
   return (
     <HeaderSlot.Plug id={id ? id : title} deps={[id, title]}>
       <span>{title}</span>
+      {subtitle && (
+        <span className="mt-2 block text-sm font-normal tracking-wide">
+          {subtitle && subtitleIsAddress ? (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={`https://maps.apple.com/?q=${title}`}
+            >
+              {subtitle}
+            </a>
+          ) : (
+            subtitle
+          )}
+        </span>
+      )}
     </HeaderSlot.Plug>
   )
 }
