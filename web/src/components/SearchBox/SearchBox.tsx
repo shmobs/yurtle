@@ -45,11 +45,13 @@ const SearchBox = ({ initialValue }: ISearchBoxProps) => {
       <TextField
         name="searchQuery"
         ref={fieldRef}
-        placeholder="Search for a venue"
+        placeholder={searchLocation ? 'Search for a venue' : 'Loading...'}
         disabled={!searchLocation}
         defaultValue={initialValue}
       />
-      <Button type="submit">Search</Button>
+      <Button type="submit" disabled={!searchLocation}>
+        Search
+      </Button>
     </Form>
   )
 }
