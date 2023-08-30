@@ -33,7 +33,7 @@ const Location = ({ location }: ILocationProps) => {
           <div>
             <div
               id="map"
-              className="relative h-56 w-full overflow-clip rounded-t-md border-l-2 border-r-2 border-t-2 border-white shadow sm:h-96"
+              className="relative h-36 w-full overflow-clip border-t-2 border-white shadow sm:h-96 sm:rounded-t-md sm:border-l-2 sm:border-r-2"
             >
               <MapView
                 lat={location.latitude}
@@ -44,8 +44,9 @@ const Location = ({ location }: ILocationProps) => {
             <div className="-gray-700 absolute top-0"></div>
           </div>
 
-          <div className="mx-auto mt-2 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="mx-auto mt-2 max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div>
+              {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2"> */}
               <div className="">
                 {/* <div className="flex">
                   <div className="mr-3">
@@ -80,26 +81,15 @@ const Location = ({ location }: ILocationProps) => {
                     </span>
                   </p>
                 )} */}
-                <p className="text-sm">{location.business.description}</p>
+                <p className="text-sm sm:text-base">
+                  {location.business.description}
+                </p>
                 {/* <p className="mt-2">
                   <IconMapPin className="-mt-1 mr-1 inline h-5 w-5 text-gray-400" />
                   {location.address}
                 </p> */}
               </div>
             </div>
-          </div>
-
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <dl className="grid grid-cols-1 gap-x-4 gap-y-8 pb-24 sm:grid-cols-2">
-              <div className="sm:col-span-2">
-                <dt className="text-lg font-bold text-gray-900">Events</dt>
-                <dd
-                  className={`mt-1 max-w-prose space-y-5 text-sm text-gray-900`}
-                >
-                  {/* {location.events.map(event => {})} */}
-                </dd>
-              </div>
-            </dl>
           </div>
         </article>
       </main>
