@@ -55,7 +55,7 @@ const LocationCard = ({
           >
             <CardTitle>{businessName}</CardTitle>
             {address && (
-              <CardDescription className="mt-2 text-xs text-white/80">
+              <CardDescription className="mt-2 text-xs text-white">
                 {address}
               </CardDescription>
             )}
