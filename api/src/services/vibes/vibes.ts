@@ -9,7 +9,7 @@ export const getPlaceVibes: QueryResolvers['getPlaceVibes'] = async ({
   gmapsPlaceId,
   vibeCount = 5,
 }) => {
-  const placeInfo = await placeDetails({ placeId: gmapsPlaceId })
+  const placeInfo = await placeDetails({ gmapsPlaceId: gmapsPlaceId })
 
   const prompt = `
   Given a venue with the following details: ${JSON.stringify(

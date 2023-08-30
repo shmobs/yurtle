@@ -33,7 +33,7 @@ export const schema = gql`
       """
       place_id: String! - A textual identifier that uniquely identifies a place, returned from a Place Search.
       """
-      placeId: String!
+      gmapsPlaceId: String!
     ): GMapsApiPlaceDetailsResponseType! @skipAuth
 
     """

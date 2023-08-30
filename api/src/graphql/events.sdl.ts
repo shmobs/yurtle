@@ -13,6 +13,7 @@ export const schema = gql`
   }
 
   enum EventStatus {
+    SUGGESTED
     REQUESTED
     DRAFT
     PUBLISHED

@@ -42,6 +42,7 @@ model Location {
 }
 
 enum EventStatus {
+  SUGGESTED
   REQUESTED
   DRAFT
   PUBLISHED

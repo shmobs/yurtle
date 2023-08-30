@@ -81,13 +81,13 @@ export const textSearch: QueryResolvers['textSearch'] = async ({
 }
 
 export const placeDetails: QueryResolvers['placeDetails'] = async ({
-  placeId,
+  gmapsPlaceId,
 }) => {
   // https://developers.google.com/maps/documentation/places/web-service/details#PlaceDetailsRequests
   const rootUrl = 'https://maps.googleapis.com/maps/api/place/details/json'
 
   const options = {
-    place_id: placeId,
+    place_id: gmapsPlaceId,
     // as this only returns the fields we specify, GMapsPlaceDetailsType needs to be kept inline with this.
     fields:
       'address_component,business_status,formatted_address,geometry,icon,icon_background_color,name,place_id,current_opening_hours,formatted_phone_number,website,dine_in,editorial_summary,price_level,rating,reservable,serves_beer,serves_breakfast,serves_brunch,serves_dinner,serves_lunch,serves_vegetarian_food,serves_wine',

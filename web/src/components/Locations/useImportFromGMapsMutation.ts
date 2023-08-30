@@ -4,8 +4,8 @@ import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 const IMPORT_FROM_GMAPS_MUTATION = gql`
-  mutation ImportFromGMapsMutation($placeId: String!) {
-    location: importFromGMaps(gmapsPlaceId: $placeId) {
+  mutation ImportFromGMapsMutation($gmapsPlaceId: String!) {
+    location: importFromGMaps(gmapsPlaceId: $gmapsPlaceId) {
       id
     }
   }
@@ -28,8 +28,8 @@ const useImportFromGMapsMutation = ({
       },
     })
 
-  const onImport = (placeId: string) => {
-    importFromGMaps({ variables: { placeId } })
+  const onImport = (gmapsPlaceId: string) => {
+    importFromGMaps({ variables: { gmapsPlaceId } })
   }
 
   return { onImport, loading, error }

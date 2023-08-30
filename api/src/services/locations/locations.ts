@@ -92,7 +92,7 @@ const gmapsPlaceDetailsToLocationDetails = (
 export const importFromGMaps: MutationResolvers['importFromGMaps'] = async ({
   gmapsPlaceId,
 }) => {
-  const infoFromGMaps = await placeDetails({ placeId: gmapsPlaceId })
+  const infoFromGMaps = await placeDetails({ gmapsPlaceId: gmapsPlaceId })
 
   const locationData = gmapsPlaceDetailsToLocationDetails(infoFromGMaps)
 

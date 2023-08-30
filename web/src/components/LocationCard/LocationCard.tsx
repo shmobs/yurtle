@@ -12,7 +12,7 @@ export interface ILocationCardProps {
   id?: string
   /** This must be included if `id` is not included. We use it to create the record for it if it doesn't yet exist. */
   gmapsPlaceId?: string
-  onImportFromGMaps?: (placeId: string) => void
+  onImportFromGMaps?: (gmapsPlaceId: string) => void
   /** Leaving this out will render the card as a loading skeleton */
   businessName?: string
   address?: string
