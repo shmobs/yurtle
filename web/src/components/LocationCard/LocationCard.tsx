@@ -31,7 +31,12 @@ const LocationCard = ({
     <li key={id || gmapsPlaceId}>
       <Card
         className="h-32 overflow-hidden text-white hover:shadow-md"
-        style={{ backgroundImage: `url('${backgroundImageUrl}')` }}
+        style={{
+          backgroundImage: `url('${backgroundImageUrl}')`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
       >
         {businessName ? (
           <button
