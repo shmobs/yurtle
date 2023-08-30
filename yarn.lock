@@ -7864,6 +7864,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/geojson@npm:*":
+  version: 7946.0.10
+  resolution: "@types/geojson@npm:7946.0.10"
+  checksum: 4abba554467494c1496a60622c2cb6f8c7f80b0dbb909ff898812a9f67799fd1b254802d7d266361974bd8b0c9ef32a7686183aac83b20c437f6d0eee89cd0a1
+  languageName: node
+  linkType: hard
+
 "@types/graceful-fs@npm:^4.1.3":
   version: 4.1.6
   resolution: "@types/graceful-fs@npm:4.1.6"
@@ -8014,6 +8021,15 @@ __metadata:
   version: 4.0.2
   resolution: "@types/long@npm:4.0.2"
   checksum: 42ec66ade1f72ff9d143c5a519a65efc7c1c77be7b1ac5455c530ae9acd87baba065542f8847522af2e3ace2cc999f3ad464ef86e6b7352eece34daf88f8c924
+  languageName: node
+  linkType: hard
+
+"@types/mapbox-gl@npm:^2.7.13":
+  version: 2.7.13
+  resolution: "@types/mapbox-gl@npm:2.7.13"
+  dependencies:
+    "@types/geojson": "*"
+  checksum: 9a22d32815a8dfc11779aa456c61564033d895fab8a1ad814de6ea1f3e1e24013bb23eecefbd1811e89babe8aecb420a004b4701549621f8b9467439d935dc2b
   languageName: node
   linkType: hard
 
@@ -24990,6 +25006,7 @@ __metadata:
     "@redwoodjs/vite": 6.1.0
     "@redwoodjs/web": 6.1.0
     "@tailwindcss/typography": ^0.5.9
+    "@types/mapbox-gl": ^2.7.13
     "@types/node": ^20.5.0
     autoprefixer: ^10.4.15
     class-variance-authority: ^0.7.0

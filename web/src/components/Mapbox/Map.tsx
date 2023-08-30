@@ -21,8 +21,10 @@ const MapView: React.FC<IMapViewProps> = ({ lat, long, zoom }) => {
     } else {
       // initialize the map
       map.current = new mapboxgl.Map({
+        attributionControl: false,
         container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v11',
+        // style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/rendyapp/cllu728xe005601r980xs80oy',
         center: [long, lat],
         zoom: zoom,
       })

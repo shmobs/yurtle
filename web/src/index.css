@@ -90,3 +90,7 @@
     @apply prose mt-4 text-gray-700;
   }
 }
+
+.mapboxgl-ctrl-logo {
+    display: none !important;
+}
