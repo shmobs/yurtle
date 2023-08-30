@@ -1,6 +1,5 @@
 import { LocationQuery } from 'types/graphql'
 
-import { Link } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
 import PlaceVibesCell from 'src/components/PlaceVibesCell'
@@ -27,7 +26,7 @@ const Location = ({ location }: ILocationProps) => {
         <div>
           <div
             id="map"
-            className="relative h-36 w-full overflow-clip border-t-2 border-white shadow sm:h-96 sm:rounded-t-md sm:border-l-2 sm:border-r-2"
+            className="relative h-36 w-full overflow-clip border-t-2 border-white shadow sm:h-56 sm:rounded-t-md sm:border-l-2 sm:border-r-2"
           >
             <MapView
               lat={location.latitude}
@@ -85,7 +84,9 @@ const Location = ({ location }: ILocationProps) => {
             </div>
           </div>
         </div>
-        <PlaceVibesCell gmapsPlaceId={location.gmapsPlaceId} />
+        <div className="mt-5 overflow-visible sm:mb-36">
+          <PlaceVibesCell gmapsPlaceId={location.gmapsPlaceId} />
+        </div>
       </main>
     </>
   )

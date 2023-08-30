@@ -10,6 +10,10 @@ interface IVibesProps {
 const Vibes = ({ placeVibes }: IVibesProps) => {
   return (
     <div className="h-full w-full">
+      <h3 className="mb-2 text-center text-lg leading-5 sm:text-2xl">
+        Curated for this venue by the <br className="hidden sm:block" />
+        Valuable Insights Based Event Suggestor
+      </h3>
       <HorizontalSnapScroll
         items={placeVibes.map((vibe) => {
           return (
