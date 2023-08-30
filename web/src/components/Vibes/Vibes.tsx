@@ -13,10 +13,7 @@ const Vibes = ({ placeVibes }: IVibesProps) => {
       <HorizontalSnapScroll
         items={placeVibes.map((vibe) => {
           return (
-            <Card
-              key={vibe.eventName}
-              className="relative h-60 w-64 overflow-y-scroll sm:h-72 sm:w-96"
-            >
+            <Card key={vibe.eventName} className="relative">
               <div className="relative z-10 h-full w-full bg-indigo-900/60 p-5 text-white">
                 <CardTitle className="text-base sm:text-xl">
                   {vibe.eventName}
