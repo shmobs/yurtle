@@ -53,7 +53,7 @@ model Event {
   id          String      @id @default(cuid())
   name        String
   type        String
-  description String
+  description String      @db.Text
   status      EventStatus
   date        DateTime?
   locationId  String?

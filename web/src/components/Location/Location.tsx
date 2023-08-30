@@ -85,7 +85,7 @@ const Location = ({ location }: ILocationProps) => {
           </div>
         </div>
         <div className="mt-5 overflow-visible sm:mb-36">
-          <PlaceVibesCell gmapsPlaceId={location.gmapsPlaceId} />
+          <PlaceVibesCell locationId={location.id} />
         </div>
       </main>
     </>

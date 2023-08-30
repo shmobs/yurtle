@@ -18,24 +18,24 @@ const Vibes = ({ placeVibes }: IVibesProps) => {
         items={placeVibes.map((vibe) => {
           return (
             <Card
-              key={vibe.eventName}
+              key={vibe.name}
               className="relative h-full w-full overflow-clip"
             >
               <div className="relative z-10 h-full w-full overflow-y-scroll bg-indigo-900/60 p-5 text-white">
                 <CardTitle className="text-base sm:text-xl">
-                  {vibe.eventName}
+                  {vibe.name}
                 </CardTitle>
                 <CardDescription className="mb-2 italic text-white sm:mb-6">
-                  {vibe.eventType}
+                  {vibe.type}
                 </CardDescription>
                 <CardDescription className="prose font-light tracking-wide text-white sm:text-base sm:font-normal">
-                  {vibe.eventDescription}
+                  {vibe.description}
                 </CardDescription>
               </div>
               <div
                 className="absolute left-0 top-0 z-0 h-full w-full blur-sm"
                 style={{
-                  backgroundImage: `url('https://source.unsplash.com/250x250/?${vibe.eventName}')`,
+                  backgroundImage: `url('https://source.unsplash.com/250x250/?${vibe.name}')`,
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',

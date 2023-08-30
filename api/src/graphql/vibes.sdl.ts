@@ -11,6 +11,6 @@ export const schema = gql`
     locationId: String! - ID of the location to get vibes for.
     vibeCount: Int - Number of suggestions to return. Default is 3.
     """
-    getPlaceVibes(locationId: String!, vibeCount: Int): [Event]! @skipAuth
+    getPlaceVibes(locationId: String!, vibeCount: Int): [Event!]! @skipAuth
   }
 `

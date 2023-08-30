@@ -7,8 +7,8 @@ export const schema = gql`
     business: Business!
     events: [Event]!
 
-    latitude: Float
-    longitude: Float
+    latitude: Float!
+    longitude: Float!
 
     createdAt: DateTime!
     updatedAt: DateTime!
@@ -16,7 +16,7 @@ export const schema = gql`
 
   type Query {
     locations: [Location!]! @requireAuth
-    location(id: String!): Location @requireAuth
+    location(id: String!): Location! @requireAuth
   }
 
   input CreateLocationInput {
