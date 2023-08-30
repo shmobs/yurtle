@@ -57,6 +57,7 @@ const MapView: React.FC<IMapViewProps> = ({ lat, long, zoom }) => {
         style: 'mapbox://styles/rendyapp/cllx64zfy007j01rc34he2scb',
         center: [long, lat],
         zoom: zoom,
+        dragPan: false,
       })
     }
 

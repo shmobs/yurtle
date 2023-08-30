@@ -29,7 +29,7 @@ const Location = ({ location }: ILocationProps) => {
           <div>
             <div
               id="map"
-              className="relative h-72 w-full overflow-clip rounded-t-md border-l-2 border-r-2 border-t-2 border-white shadow sm:h-96"
+              className="relative h-56 w-full overflow-clip rounded-t-md border-l-2 border-r-2 border-t-2 border-white shadow sm:h-96"
             >
               <MapView
                 lat={location.latitude}
