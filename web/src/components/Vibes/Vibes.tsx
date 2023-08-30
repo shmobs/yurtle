@@ -15,14 +15,16 @@ const Vibes = ({ placeVibes }: IVibesProps) => {
           return (
             <Card
               key={vibe.eventName}
-              className="relative h-60 w-64 overflow-y-scroll"
+              className="relative h-60 w-64 overflow-y-scroll sm:h-72 sm:w-96"
             >
-              <div className="relative z-10 h-full w-full bg-indigo-900/40 p-5 text-white">
-                <CardTitle className="text-base">{vibe.eventName}</CardTitle>
-                <CardDescription className="mb-2 italic text-white">
+              <div className="relative z-10 h-full w-full bg-indigo-900/60 p-5 text-white">
+                <CardTitle className="text-base sm:text-xl">
+                  {vibe.eventName}
+                </CardTitle>
+                <CardDescription className="mb-2 italic text-white sm:mb-6">
                   {vibe.eventType}
                 </CardDescription>
-                <CardDescription className="prose font-light tracking-wide text-white">
+                <CardDescription className="prose font-light tracking-wide text-white sm:text-base sm:font-normal">
                   {vibe.eventDescription}
                 </CardDescription>
               </div>
