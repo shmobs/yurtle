@@ -24,12 +24,12 @@ const Location = ({ location }: ILocationProps) => {
       <MetaTags title="Location" description="Location page" />
       <SimpleHeader title={location.address} />
 
-      <main className="relative z-0 mx-auto flex-1 overflow-y-auto rounded bg-white focus:outline-none xl:order-last">
+      <main className="relative z-0 flex-1 overflow-y-auto rounded bg-white focus:outline-none xl:order-last">
         <article>
           <div>
             <div
               id="map"
-              className="relative mt-2 h-72 rounded-lg shadow sm:mt-0 sm:h-96"
+              className="relative h-72 w-full rounded-lg shadow sm:h-96"
             >
               <MapView
                 lat={location.latitude}

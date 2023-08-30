@@ -13,9 +13,10 @@ export const HeaderSlot = createSlot('header')
 
 type SiteLayoutProps = {
   children?: React.ReactNode
+  withoutPadding?: boolean
 }
 
-const SiteLayout = ({ children }: SiteLayoutProps) => {
+const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
   const user = {
     name: 'Tom Cook',
     email: 'tom@example.com',
@@ -235,7 +236,12 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
 
         <main className="-mt-32">
           <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-            <div className="min-h-[300px] rounded-lg bg-white px-5 py-6 shadow sm:px-6">
+            <div
+              className={cn(
+                'min-h-[300px] rounded-lg bg-white shadow ',
+                !withoutPadding && 'px-5 py-6 sm:px-6'
+              )}
+            >
               {children}
             </div>
           </div>
