@@ -1,11 +1,11 @@
-import { QueryResolvers, Event } from 'types/graphql'
+import { QueryResolvers } from 'types/graphql'
 
 import { generateAndStoreVibes, retrieveVibes } from './vibeUtils'
 
 export const getPlaceVibes: QueryResolvers['getPlaceVibes'] = async ({
   locationId,
   vibeCount = 3 as number,
-}): Promise<Event[]> => {
+}) => {
   const existingVibes = await retrieveVibes({
     locationId,
     vibeCount: vibeCount as number, // idk why this is necessary

@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client'
 import OpenAI from 'openai'
-import { Event, VibeType } from 'types/graphql'
+import { VibeType } from 'types/graphql'
 
 import { db } from 'src/lib/db'
 
@@ -24,7 +24,7 @@ export const retrieveVibes = async ({
   locationId,
   vibeCount,
   randomize = true,
-}: IRetrieveVibes): Promise<Event[] | null> => {
+}: IRetrieveVibes) => {
   const location = await db.location.findUnique({
     where: { id: locationId },
     include: {
