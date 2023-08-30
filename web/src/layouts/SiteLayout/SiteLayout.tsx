@@ -28,8 +28,11 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
       href: routes.searchNearby(),
       current: useMatch(routes.searchNearby()).match,
     },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
+    {
+      name: 'Search',
+      href: routes.searchForVenue(),
+      current: useMatch(routes.searchForVenue()).match,
+    },
   ]
   const userNavigation = [
     { name: 'Your Profile', href: '#' },
@@ -254,7 +257,7 @@ export const SimpleHeader = ({
   id?: string
 }) => {
   return (
-    <HeaderSlot.Plug id={id ? id : title}>
+    <HeaderSlot.Plug id={id ? id : title} deps={[id, title]}>
       <span>{title}</span>
     </HeaderSlot.Plug>
   )

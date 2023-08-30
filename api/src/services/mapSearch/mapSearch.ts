@@ -45,17 +45,22 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
   return withMapboxStaticImages
 }
 
-export const textSearch: QueryResolvers['textSearch'] = async ({ input }) => {
+export const textSearch: QueryResolvers['textSearch'] = async ({
+  query,
+  location,
+}) => {
   // https://developers.google.com/maps/documentation/places/web-service/search-find-place#TextSearchRequests
   const rootUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json'
   // const rootUrl =
   //   'https://maps.googleapis.com/maps/api/place/findplacefromtext/json'
 
   const options = {
-    input: input,
+    query,
+    location,
     inputtype: 'textquery',
     // as this only returns the fields we specify, GMapsTextSearchType needs to be kept inline with this.
     fields: 'formatted_address,name,place_id',
+    rankby: 'distance',
     // more options we can add are here: https://developers.google.com/maps/documentation/places/web-service/search-find-place#optional-parameters
   }
 
@@ -67,7 +72,12 @@ export const textSearch: QueryResolvers['textSearch'] = async ({ input }) => {
 
   const resContent = (await res.json()) as GMapsApiTextSearchResponseType
 
-  return await addRendyLocationIds(resContent)
+  const withRendyLocationIds = await addRendyLocationIds(resContent)
+  const withMapboxStaticImages = await addMapboxStaticImages(
+    withRendyLocationIds
+  )
+
+  return await addRendyLocationIds(withMapboxStaticImages)
 }
 
 export const placeDetails: QueryResolvers['placeDetails'] = async ({
