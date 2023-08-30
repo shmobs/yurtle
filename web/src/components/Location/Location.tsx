@@ -44,10 +44,10 @@ const Location = ({ location }: ILocationProps) => {
             <div className="-gray-700 absolute top-0"></div>
           </div>
 
-          <div className="mx-auto mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
+          <div className="mx-auto mt-2 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="">
-                <div className="flex">
+                {/* <div className="flex">
                   <div className="mr-3">
                     <IconBuilding className="mr-2 inline h-5 w-5 text-gray-400" />
                     <span className="align-middle">
@@ -59,8 +59,8 @@ const Location = ({ location }: ILocationProps) => {
                       </Link>
                     </span>
                   </div>
-                </div>
-                {location.business.website && (
+                </div> */}
+                {/* {location.business.website && (
                   <p className="mt-2">
                     <IconLink className="mr-2 inline h-5 w-5 text-gray-400" />
                     <span className="align-middle">
@@ -79,15 +79,12 @@ const Location = ({ location }: ILocationProps) => {
                       </a>
                     </span>
                   </p>
-                )}
-                <p className="mt-2">
-                  <IconInfoSquare className="-mt-1 mr-1 inline h-5 w-5 text-gray-400" />
-                  {location.business.description}
-                </p>
-                <p className="mt-2">
+                )} */}
+                <p className="text-sm">{location.business.description}</p>
+                {/* <p className="mt-2">
                   <IconMapPin className="-mt-1 mr-1 inline h-5 w-5 text-gray-400" />
                   {location.address}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>

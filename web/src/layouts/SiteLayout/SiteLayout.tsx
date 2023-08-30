@@ -43,8 +43,8 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
 
   return (
     <>
-      <div className="min-h-full">
-        <div className="bg-indigo-600 pb-32">
+      <div className="flex h-full flex-col">
+        <div className="bg-indigo-600">
           <Disclosure
             as="nav"
             className="border-b border-indigo-300 border-opacity-25 bg-indigo-600 lg:border-none"
@@ -234,11 +234,11 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
           </header>
         </div>
 
-        <main className="-mt-32">
-          <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+        <main className="flex-grow">
+          <div className="mx-auto h-full max-w-7xl sm:px-6 sm:pb-12 lg:px-8">
             <div
               className={cn(
-                'min-h-[300px] rounded-lg bg-white shadow ',
+                'min-h-full bg-white sm:min-h-[300px] sm:rounded-lg sm:shadow',
                 !withoutPadding && 'px-5 py-6 sm:px-6'
               )}
             >
