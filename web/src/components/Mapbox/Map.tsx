@@ -58,6 +58,8 @@ const MapView: React.FC<IMapViewProps> = ({ lat, long, zoom }) => {
         center: [long, lat],
         zoom: zoom,
         dragPan: false,
+        scrollZoom: false,
+        touchZoomRotate: true,
       })
     }
 

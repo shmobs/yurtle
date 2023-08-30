@@ -8,9 +8,9 @@ export const schema = gql`
   type Query {
     """
     Valuable Insights Based Event Suggester
-    gmapsPlaceId: String! - Google Maps place identifier.
-    vibeCount: Int - Number of suggestions to return. Default is 5.
+    locationId: String! - ID of the location to get vibes for.
+    vibeCount: Int - Number of suggestions to return. Default is 3.
     """
-    getPlaceVibes(gmapsPlaceId: String!, vibeCount: Int): [VibeType]! @skipAuth
+    getPlaceVibes(locationId: String!, vibeCount: Int): [Event]! @skipAuth
   }
 `
