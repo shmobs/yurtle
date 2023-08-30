@@ -6,9 +6,9 @@ interface IHorizontalSnapScrollProps {
 
 const HorizontalSnapScroll = ({ items }: IHorizontalSnapScrollProps) => {
   return (
-    <div className="flex snap-x snap-mandatory overflow-x-scroll">
+    <div className="flex snap-x snap-mandatory gap-6 overflow-x-scroll">
       {items.map((item, index) => (
-        <div key={index} className="w-full flex-none snap-start">
+        <div key={index} className="shrink-0 snap-start">
           {item}
         </div>
       ))}

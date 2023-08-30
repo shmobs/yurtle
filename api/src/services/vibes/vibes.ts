@@ -6,10 +6,10 @@ const openai = new OpenAI()
 import { placeDetails } from '../mapSearch/mapSearch'
 
 export const getPlaceVibes: QueryResolvers['getPlaceVibes'] = async ({
-  placeId,
+  gmapsPlaceId,
   vibeCount = 5,
 }) => {
-  const placeInfo = await placeDetails({ placeId })
+  const placeInfo = await placeDetails({ placeId: gmapsPlaceId })
 
   const prompt = `
   Given a venue with the following details: ${JSON.stringify(
