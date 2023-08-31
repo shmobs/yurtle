@@ -6,6 +6,8 @@ import type {
 
 import { db } from 'src/lib/db'
 
+// ARI: YOU ARE ABOUT TO UPDATE THE EVENTS SERVICE SO THAT IT TAKES IN A LOCATION ID AND ARRAY OF EVENTS STATUSES TO RETURN
+
 export const events: QueryResolvers['events'] = () => {
   return db.event.findMany()
 }
