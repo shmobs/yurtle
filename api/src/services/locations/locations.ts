@@ -13,10 +13,16 @@ export const locations: QueryResolvers['locations'] = () => {
   return db.location.findMany()
 }
 
-export const location: QueryResolvers['location'] = ({ id }) => {
-  return db.location.findUnique({
+export const location: QueryResolvers['location'] = async ({ id }) => {
+  const location = await db.location.findUnique({
     where: { id },
   })
+
+  if (!location) {
+    throw new Error(`Location with id ${id} not found`)
+  }
+
+  return location
 }
 
 export const createLocation: MutationResolvers['createLocation'] = ({
@@ -108,10 +114,22 @@ export const importFromGMaps: MutationResolvers['importFromGMaps'] = async ({
 }
 
 export const Location: LocationRelationResolvers = {
-  business: (_obj, { root }) => {
-    return db.location.findUnique({ where: { id: root?.id } }).business()
+  business: async (_obj, { root }) => {
+    const maybeBusiness = await db.location
+      .findUnique({ where: { id: root?.id } })
+      .business()
+    if (!maybeBusiness) {
+      throw new Error(`Business with id ${root?.id} not found`)
+    }
+    return maybeBusiness
   },
-  events: (_obj, { root }) => {
-    return db.location.findUnique({ where: { id: root?.id } }).events()
+  events: async (_obj, { root }) => {
+    const maybeEvents = await db.location
+      .findUnique({ where: { id: root?.id } })
+      .events({ orderBy: { status: 'asc', date: 'asc' } })
+    if (!maybeEvents) {
+      throw new Error(`Events with id ${root?.id} not found`)
+    }
+    return maybeEvents
   },
 }
