@@ -5,6 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { createSlot } from 'react-view-slot'
 
 import { routes, useMatch, Link } from '@redwoodjs/router'
+import { MetaTags } from '@redwoodjs/web'
 
 import SetLocationPopover from 'src/components/LocationContext/SetLocationPopover'
 import { cn } from 'src/lib/utils'
@@ -267,24 +268,27 @@ export const SimpleHeader = ({
   id?: string
 }) => {
   return (
-    <HeaderSlot.Plug id={id ? id : title} deps={[id, title]}>
-      <span>{title}</span>
-      {subtitle && (
-        <span className="mt-2 block text-sm font-normal tracking-wide">
-          {subtitle && subtitleIsAddress ? (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://maps.apple.com/?q=${title}`}
-            >
-              {subtitle}
-            </a>
-          ) : (
-            subtitle
-          )}
-        </span>
-      )}
-    </HeaderSlot.Plug>
+    <>
+      <MetaTags title={title} />
+      <HeaderSlot.Plug id={id ? id : title} deps={[id, title]}>
+        <span>{title}</span>
+        {subtitle && (
+          <span className="mt-2 block text-sm font-normal tracking-wide">
+            {subtitle && subtitleIsAddress ? (
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://maps.apple.com/?q=${title}`}
+              >
+                {subtitle}
+              </a>
+            ) : (
+              subtitle
+            )}
+          </span>
+        )}
+      </HeaderSlot.Plug>
+    </>
   )
 }
 

@@ -22,6 +22,7 @@ export const QUERY = gql`
       events {
         id
         name
+        description
       }
       latitude
       longitude

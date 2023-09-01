@@ -1,6 +1,6 @@
 import { PlusIcon } from 'lucide-react'
 
-import { Link } from '@redwoodjs/router'
+import { Link, routes } from '@redwoodjs/router'
 
 import { cn } from 'src/lib/utils'
 
@@ -13,7 +13,7 @@ interface IDraftEventLinkProps {
 const DraftEventLink = ({ eventId }: IDraftEventLinkProps) => (
   <div className="absolute inset-0 z-50 hidden group-hover:block group-focus:block">
     <Link
-      to="#"
+      to={routes.event({ id: eventId })}
       className="flex h-full w-full items-center justify-center bg-indigo-900/60 text-center text-white backdrop-blur-sm"
     >
       <div>

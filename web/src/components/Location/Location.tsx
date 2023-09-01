@@ -15,7 +15,6 @@ const Location = ({ location }: ILocationProps) => {
   console.log(location)
   return (
     <>
-      <MetaTags title="Location" description="Location page" />
       <SimpleHeader
         title={location.business.name}
         subtitle={location.address}

@@ -11,7 +11,7 @@ export const schema = gql`
 
   type Query {
     businesses: [Business!]! @requireAuth
-    business(id: String!): Business @requireAuth
+    business(id: String!): Business! @requireAuth
   }
 
   input CreateBusinessInput {

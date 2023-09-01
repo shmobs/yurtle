@@ -16,6 +16,7 @@ const Routes = () => {
     <Router>
       <Route path="/" page={WelcomePage} name="welcome" />
       <Set wrap={SiteLayout}>
+        <Route path="/event/{id}" page={EventPage} name="event" />
         <Route path="/business/{id}" page={BusinessPage} name="business" />
         <Route path="/search-nearby" page={SearchNearbyPage} name="searchNearby" />
         <Route path="/search-for-venue" page={SearchForVenuePage} name="searchForVenue" />
