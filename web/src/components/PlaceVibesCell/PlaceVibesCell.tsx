@@ -10,6 +10,7 @@ export const QUERY = gql`
       locationId: $locationId
       minVibeCount: $minVibeCount
     ) {
+      id
       name
       type
       description

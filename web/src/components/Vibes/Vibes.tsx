@@ -11,10 +11,12 @@ const Vibes = ({ placeVibes }: IVibesProps) => {
   const placeVibeCards = placeVibes.map((vibe) => {
     return (
       <EventCard
-        key={vibe.name}
+        key={vibe.id}
+        eventId={vibe.id}
         name={vibe.name}
         type={vibe.type}
         description={vibe.description}
+        isDraft
       />
     )
   })
