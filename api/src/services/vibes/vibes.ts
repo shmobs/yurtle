@@ -4,11 +4,11 @@ import { generateAndStoreVibes, retrieveVibes } from './vibeUtils'
 
 export const getPlaceVibes: QueryResolvers['getPlaceVibes'] = async ({
   locationId,
-  vibeCount = 3 as number,
+  minVibeCount = 3 as number,
 }) => {
   const existingVibes = await retrieveVibes({
     locationId,
-    vibeCount: vibeCount as number, // idk why this is necessary
+    minVibeCount: minVibeCount as number,
   })
 
   if (existingVibes) {
@@ -16,11 +16,11 @@ export const getPlaceVibes: QueryResolvers['getPlaceVibes'] = async ({
   }
 
   // if this place doesn't have enough vibes, generate some and store them in the database, then return them
-  await generateAndStoreVibes({ locationId, vibeCount: vibeCount as number })
+  await generateAndStoreVibes({ locationId, vibeCount: minVibeCount as number })
 
   const vibesToReturn = await retrieveVibes({
     locationId,
-    vibeCount: vibeCount as number, // idk why this is necessary
+    minVibeCount: minVibeCount as number,
   })
 
   // if we still don't have enough vibes, return an empty array (this should never happen)

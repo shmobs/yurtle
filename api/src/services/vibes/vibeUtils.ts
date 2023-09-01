@@ -8,7 +8,7 @@ import { placeDetails } from '../mapSearch/mapSearch'
 
 interface IRetrieveVibes {
   locationId: string
-  vibeCount: number
+  minVibeCount: number
   randomize?: boolean
 }
 
@@ -22,8 +22,7 @@ interface IRetrieveVibes {
  */
 export const retrieveVibes = async ({
   locationId,
-  vibeCount,
-  randomize = true,
+  minVibeCount,
 }: IRetrieveVibes) => {
   const location = await db.location.findUnique({
     where: { id: locationId },
@@ -36,18 +35,8 @@ export const retrieveVibes = async ({
   })
 
   // if this place already has at least as many vibes as we're asking for, return a random subset
-  if (location?.events && location?.events.length >= vibeCount) {
-    if (randomize) {
-      const randomVibes = location.events
-        .sort(() => 0.5 - Math.random())
-        .slice(0, vibeCount)
-
-      return randomVibes
-    } else {
-      const mostRecentVibes = location.events.slice(0, vibeCount)
-
-      return mostRecentVibes
-    }
+  if (location?.events && location?.events.length >= minVibeCount) {
+    return location.events
   } else {
     return null
   }

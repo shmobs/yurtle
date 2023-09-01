@@ -9,11 +9,11 @@ export const schema = gql`
     """
     Valuable Insights Based Event Suggester
     locationId: String! - ID of the location to get vibes for.
-    vibeCount: Int - Number of suggestions to return. Default is 3.
+    minVibeCount: Int - Number of suggestions to generate if none exist. Default is 3.
 
     Use this to always get back a list of vibes, even if none have been generated yet
     """
-    getPlaceVibes(locationId: String!, vibeCount: Int): [Event!]! @skipAuth
+    getPlaceVibes(locationId: String!, minVibeCount: Int): [Event!]! @skipAuth
   }
 
   """

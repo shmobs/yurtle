@@ -127,7 +127,7 @@ export const Location: LocationRelationResolvers = {
   events: async (_obj, { root }) => {
     const maybeEvents = await db.location
       .findUnique({ where: { id: root?.id } })
-      .events({ orderBy: { status: 'asc', date: 'asc' } })
+      .events({ orderBy: [{ status: 'asc' }, { date: 'asc' }] })
     if (!maybeEvents) {
       throw new Error(`Events with id ${root?.id} not found`)
     }

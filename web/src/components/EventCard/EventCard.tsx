@@ -19,7 +19,7 @@ const EventCard = ({ name, type, description }: IEventCardProps) => {
         </CardDescription>
       </div>
       <div
-        className="absolute left-0 top-0 z-0 h-full w-full blur-sm"
+        className="absolute left-0 top-0 z-0 h-full w-full blur-[2px]"
         style={{
           backgroundImage: `url('https://source.unsplash.com/250x250/?${name}')`,
           backgroundPosition: 'center',

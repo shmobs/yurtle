@@ -5,8 +5,11 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import Vibes from '../Vibes/Vibes'
 
 export const QUERY = gql`
-  query GetPlaceVibesQuery($locationId: String!, $vibeCount: Int) {
-    placeVibes: getPlaceVibes(locationId: $locationId, vibeCount: $vibeCount) {
+  query GetPlaceVibesQuery($locationId: String!, $minVibeCount: Int) {
+    placeVibes: getPlaceVibes(
+      locationId: $locationId
+      minVibeCount: $minVibeCount
+    ) {
       name
       type
       description
