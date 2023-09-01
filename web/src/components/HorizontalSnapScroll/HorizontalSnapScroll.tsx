@@ -13,7 +13,7 @@ const HorizontalSnapScroll = ({ items }: IHorizontalSnapScrollProps) => {
         <div
           key={index}
           className={cn(
-            'h-60 w-[17rem] shrink-0 snap-start pl-[1rem] sm:h-56',
+            'h-72 w-[17rem] shrink-0 snap-start pl-[1rem] sm:h-56',
             index === 0
               ? 'sm:w-[29rem] sm:pl-[6rem]'
               : 'sm:w-[26rem] sm:pl-[3rem]'

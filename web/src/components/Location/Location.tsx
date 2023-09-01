@@ -1,9 +1,10 @@
 import { LocationQuery } from 'types/graphql'
 
 import PlaceVibesCell from 'src/components/PlaceVibesCell'
-import { SimpleHeader } from 'src/layouts/SiteLayout/SiteLayout'
+import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
 import MapView from '../Mapbox/Map'
+import SectionHeader from '../SectionHeader/SectionHeader'
 
 interface ILocationProps {
   location: LocationQuery['location']
@@ -13,7 +14,7 @@ const Location = ({ location }: ILocationProps) => {
   console.log(location)
   return (
     <>
-      <SimpleHeader
+      <SimplePageHeader
         title={location.business.name}
         subtitle={location.address}
         subtitleIsAddress
@@ -31,19 +32,17 @@ const Location = ({ location }: ILocationProps) => {
           />
         </div>
 
-        <h3 className="ml-2 mt-2 text-xl">Venue Description</h3>
-        <p className="mx-4 text-sm sm:mx-6 sm:text-base">
-          {location.business.description}
-        </p>
+        <SectionHeader
+          title="Venue Description"
+          subtitle={location.business.description}
+        />
 
         <section>
-          <div className="mx-2 mt-5 ">
-            <h3 className="text-xl">Curated event suggestions</h3>
-            <p className="mx-4 mb-3 text-sm leading-5 sm:text-base">
-              We&apos;ve curated these for this venue. To request one, just tap
-              on it!
-            </p>
-          </div>
+          <SectionHeader
+            title="Curated event suggestions"
+            subtitle="We've curated these for this venue. To request one, just tap on it!"
+          />
+
           <div className="mt-1 overflow-visible sm:mb-36">
             <PlaceVibesCell locationId={location.id} />
           </div>

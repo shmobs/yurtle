@@ -1,7 +1,7 @@
 import { useSearchLocationContext } from 'src/components/LocationContext/locationContext'
 import SearchBox from 'src/components/SearchBox/SearchBox'
 import TextSeachCell from 'src/components/TextSearchCell'
-import { SimpleHeader } from 'src/layouts/SiteLayout/SiteLayout'
+import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
 interface ISearchForVenuePageProps {
   searchQuery?: string
@@ -22,7 +22,7 @@ const SearchForVenuePage = ({
     : 'Search for Venue'
   return (
     <div className="flex flex-col gap-2">
-      <SimpleHeader title={title} />
+      <SimplePageHeader title={title} />
 
       <SearchBox initialValue={searchQuery} />
 

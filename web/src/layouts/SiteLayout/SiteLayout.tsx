@@ -255,7 +255,7 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
 /**
  * This is a simple header that can be used in the `HeaderSlot`.
  */
-export const SimpleHeader = ({
+export const SimplePageHeader = ({
   title,
   subtitle,
   subtitleIsAddress,

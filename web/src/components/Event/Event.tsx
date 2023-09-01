@@ -1,15 +1,26 @@
-import { FindEventQuery } from 'types/graphql'
+import { EventQuery } from 'types/graphql'
 
-import { SimpleHeader } from 'src/layouts/SiteLayout/SiteLayout'
+import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
+
+import MapView from '../Mapbox/Map'
 
 interface IEventProps {
-  event: FindEventQuery['event']
+  event: EventQuery['event']
 }
 
 const Event = ({ event }: IEventProps) => {
+  const { name, type, description, location } = event
   return (
     <>
-      <SimpleHeader title={event.name} />
+      <SimplePageHeader title={name} subtitle={type} />
+      <div>
+        <p className="text-base text-gray-500">{description}</p>
+      </div>
+      <span>{location.business.name}</span>
+      <span>{location.address}</span>
+      <div className="mt-10 h-56 w-full overflow-clip rounded-md">
+        <MapView lat={location.latitude} long={location.longitude} zoom={17} />
+      </div>
     </>
   )
 }

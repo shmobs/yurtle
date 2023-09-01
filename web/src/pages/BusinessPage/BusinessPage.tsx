@@ -4,7 +4,7 @@ import { useQuery } from '@redwoodjs/web'
 
 import Business from 'src/components/Business/Business'
 import { Skeleton } from 'src/components/ui/skeleton'
-import { SimpleHeader } from 'src/layouts/SiteLayout/SiteLayout'
+import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
 interface IBusinessPageProps {
   id: string
@@ -83,7 +83,7 @@ const BusinessPage = ({ id }: IBusinessPageProps) => {
   }
   return (
     <>
-      <SimpleHeader title={data?.business.name || ''} />
+      <SimplePageHeader title={data?.business.name || ''} />
       {data?.business && <Business business={data.business} />}
     </>
   )

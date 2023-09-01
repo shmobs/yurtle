@@ -7,7 +7,7 @@ export const schema = gql`
     status: EventStatus!
     date: DateTime
     locationId: String
-    location: Location
+    location: Location!
     createdAt: DateTime!
     updatedAt: DateTime!
   }

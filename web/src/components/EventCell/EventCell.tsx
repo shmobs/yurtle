@@ -1,11 +1,11 @@
-import type { FindEventQuery, FindEventQueryVariables } from 'types/graphql'
+import type { EventQuery, EventQueryVariables } from 'types/graphql'
 
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 import Event from 'src/components/Event'
 
 export const QUERY = gql`
-  query FindEventQuery($id: String!) {
+  query EventQuery($id: String!) {
     event: event(id: $id) {
       id
       name
@@ -15,6 +15,8 @@ export const QUERY = gql`
       date
       location {
         id
+        latitude
+        longitude
         address
         website
         business {
@@ -30,14 +32,12 @@ export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
 
-export const Failure = ({
-  error,
-}: CellFailureProps<FindEventQueryVariables>) => (
+export const Failure = ({ error }: CellFailureProps<EventQueryVariables>) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
 export const Success = ({
   event,
-}: CellSuccessProps<FindEventQuery, FindEventQueryVariables>) => {
+}: CellSuccessProps<EventQuery, EventQueryVariables>) => {
   return <Event event={event} />
 }

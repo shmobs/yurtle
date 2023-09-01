@@ -3,13 +3,13 @@ import React, { useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import ReactDOM from 'react-dom'
 
-mapboxgl.accessToken = process.env.MAPBOX_PUBLIC_KEY
+mapboxgl.accessToken = process.env.MAPBOX_PUBLIC_KEY || ''
 
 const MapMarker = () => (
   <svg
     width="22px"
-    height="27px"
-    viewBox="0 0 22 27"
+    height="40px"
+    viewBox="0 0 22 40"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -38,14 +38,14 @@ interface IMapViewProps {
 }
 
 const MapView: React.FC<IMapViewProps> = ({ lat, long, zoom }) => {
-  const mapContainer = useRef(null)
-  const map = useRef(null)
+  const mapContainer = useRef<HTMLElement>(null)
+  const map = useRef<mapboxgl.Map>(null)
 
   const markerDiv = document.createElement('div')
   ReactDOM.render(<MapMarker />, markerDiv)
 
   useEffect(() => {
-    if (map.current) {
+    if (map.current && mapContainer.current) {
       // if the map is already initialized, just change the center
       map.current.setCenter([long, lat])
     } else {
