@@ -1,5 +1,3 @@
-import { MetaTags } from '@redwoodjs/web'
-
 import { useSearchLocationContext } from 'src/components/LocationContext/locationContext'
 import SearchBox from 'src/components/SearchBox/SearchBox'
 import TextSeachCell from 'src/components/TextSearchCell'
@@ -24,8 +22,6 @@ const SearchForVenuePage = ({
     : 'Search for Venue'
   return (
     <div className="flex flex-col gap-2">
-      <MetaTags title={title} description="Search for venue page" />
-
       <SimpleHeader title={title} />
 
       <SearchBox initialValue={searchQuery} />

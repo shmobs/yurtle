@@ -1,15 +1,16 @@
 import { FindEventQuery } from 'types/graphql'
 
+import { SimpleHeader } from 'src/layouts/SiteLayout/SiteLayout'
+
 interface IEventProps {
   event: FindEventQuery['event']
 }
 
 const Event = ({ event }: IEventProps) => {
   return (
-    <div>
-      <h2>{'Event'}</h2>
-      <p>{'Find me in ./web/src/components/Event/Event.tsx'}</p>
-    </div>
+    <>
+      <SimpleHeader title={event.name} />
+    </>
   )
 }
 

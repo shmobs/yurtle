@@ -1,6 +1,6 @@
 import { FindBusinessQuery } from 'types/graphql'
 
-import { MetaTags, useQuery } from '@redwoodjs/web'
+import { useQuery } from '@redwoodjs/web'
 
 import Business from 'src/components/Business/Business'
 import { Skeleton } from 'src/components/ui/skeleton'
@@ -83,8 +83,6 @@ const BusinessPage = ({ id }: IBusinessPageProps) => {
   }
   return (
     <>
-      <MetaTags title="Business" description="Business page" />
-
       <SimpleHeader title={data?.business.name || ''} />
       {data?.business && <Business business={data.business} />}
     </>

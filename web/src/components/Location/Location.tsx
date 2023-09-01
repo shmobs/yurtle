@@ -1,7 +1,5 @@
 import { LocationQuery } from 'types/graphql'
 
-import { MetaTags } from '@redwoodjs/web'
-
 import PlaceVibesCell from 'src/components/PlaceVibesCell'
 import { SimpleHeader } from 'src/layouts/SiteLayout/SiteLayout'
 

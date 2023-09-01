@@ -23,7 +23,7 @@ export const schema = gql`
   type Query {
     events(locationId: String!, eventStatuses: [EventStatus!]!): [Event!]!
       @requireAuth
-    event(id: String!): Event @requireAuth
+    event(id: String!): Event! @requireAuth
   }
 
   input CreateEventInput {
