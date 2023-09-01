@@ -1,4 +1,3 @@
-import { Prisma } from '@prisma/client'
 import { MutationResolvers, QueryResolvers } from 'types/graphql'
 
 import { generateAndStoreVibes, retrieveVibes } from './vibeUtils'
