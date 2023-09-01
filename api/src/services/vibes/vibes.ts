@@ -1,4 +1,5 @@
-import { QueryResolvers } from 'types/graphql'
+import { Prisma } from '@prisma/client'
+import { MutationResolvers, QueryResolvers } from 'types/graphql'
 
 import { generateAndStoreVibes, retrieveVibes } from './vibeUtils'
 
@@ -32,4 +33,16 @@ export const getPlaceVibes: QueryResolvers['getPlaceVibes'] = async ({
   }
 
   return vibesToReturn
+}
+
+// @ts-expect-error generateAndStoreVibes optionally returns the newly generated vibes, but we're passing the param for it to do so, so we know it will return the vibes and not a boolean
+export const generatePlaceVibes: MutationResolvers['generatePlaceVibes'] = ({
+  locationId,
+  vibeCount = 3 as number,
+}) => {
+  return generateAndStoreVibes({
+    locationId,
+    vibeCount: vibeCount as number,
+    returnNewVibes: true,
+  })
 }

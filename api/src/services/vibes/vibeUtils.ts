@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client'
 import OpenAI from 'openai'
-import { VibeType } from 'types/graphql'
+import { Vibe, Event } from 'types/graphql'
 
 import { db } from 'src/lib/db'
 
@@ -56,6 +56,11 @@ export const retrieveVibes = async ({
 interface IGenerateAndStoreVibes {
   locationId: string
   vibeCount: number
+  /**
+   * If `true`, returns the newly generated vibes.
+   * Note that it needs to do a database lookup to get the newly generated vibes, so use it only if you need to.
+   */
+  returnNewVibes?: boolean
 }
 
 /**
@@ -66,7 +71,8 @@ interface IGenerateAndStoreVibes {
 export const generateAndStoreVibes = async ({
   locationId,
   vibeCount,
-}: IGenerateAndStoreVibes): Promise<boolean> => {
+  returnNewVibes = false,
+}: IGenerateAndStoreVibes) => {
   const location = await db.location.findUnique({
     where: { id: locationId },
     select: { gmapsPlaceId: true },
@@ -111,7 +117,24 @@ export const generateAndStoreVibes = async ({
 
   await db.event.createMany({
     data: suggestedEvents,
+    skipDuplicates: true,
   })
+
+  if (returnNewVibes) {
+    return await db.event.findMany({
+      where: {
+        OR: suggestedEvents.map((event) => {
+          return {
+            name: event.name,
+            type: event.type,
+            description: event.description,
+            status: 'SUGGESTED',
+            locationId,
+          }
+        }),
+      },
+    })
+  }
 
   return true
 }
@@ -119,7 +142,7 @@ export const generateAndStoreVibes = async ({
 const getVibesFromGPT = async (
   locationInfo: string,
   vibeCount: number
-): Promise<VibeType[]> => {
+): Promise<Vibe[]> => {
   const openai = new OpenAI()
 
   const prompt = `
@@ -195,7 +218,7 @@ const getVibesFromGPT = async (
       // confirm GPT returned the right data type
       const functionArgsStr = responseMessage.function_call.arguments
       const functionArgs = JSON.parse(functionArgsStr)
-      const functionArgsArray = functionArgs.vibes as VibeType[]
+      const functionArgsArray = functionArgs.vibes as Vibe[]
       if (functionArgsArray.length !== vibeCount) {
         throw new Error(
           `GPT returned the wrong number of vibes. Expected ${vibeCount}, got ${functionArgsArray.length}`

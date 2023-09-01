@@ -62,5 +62,7 @@ model Event {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
+  // We will likely want to add more indexes to support more performant retreival of events, particularly when getting newly created Vibes
   @@index([locationId], name: "locationId")
+  @@index([status], name: "status")
 }

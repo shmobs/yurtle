@@ -17,6 +17,7 @@ export const events: QueryResolvers['events'] = ({
         in: eventStatuses,
       },
     },
+    orderBy: { status: 'asc', date: 'asc' },
   })
 }
 
