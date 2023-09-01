@@ -35,16 +35,16 @@ const Location = ({ location }: ILocationProps) => {
         </div>
 
         <h3 className="ml-2 mt-2 text-xl">Venue Description</h3>
-        <p className="px-4 text-sm sm:px-6 sm:text-base lg:px-8">
+        <p className="mx-4 text-sm sm:mx-6 sm:text-base">
           {location.business.description}
         </p>
 
         <section>
-          <div className="mx-2 mt-2 ">
+          <div className="mx-2 mt-5 ">
             <h3 className="text-xl">Curated event suggestions</h3>
-            <p className=" mb-1 text-sm leading-5">
-              We&apos;ve curated event suggestions for this venue. To request
-              one, just tap on it!
+            <p className="mx-4 mb-3 text-sm leading-5 sm:text-base">
+              We&apos;ve curated these for this venue. To request one, just tap
+              on it!
             </p>
           </div>
           <div className="mt-1 overflow-visible sm:mb-36">
