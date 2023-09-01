@@ -3,6 +3,7 @@ import type {
   QueryResolvers,
   MutationResolvers,
   LocationRelationResolvers,
+  GMapsApiPlaceDetailsResponseType,
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
@@ -29,8 +30,7 @@ export const createLocation: MutationResolvers['createLocation'] = ({
   input,
 }) => {
   return db.location.create({
-    // TODO this needs to be updated to use the businessId or it'll fail
-    // @ts-ignore
+    // @ts-expect-error TODO this needs to be updated to use the businessId or it'll fail
     data: input,
   })
 }
@@ -52,7 +52,7 @@ export const deleteLocation: MutationResolvers['deleteLocation'] = ({ id }) => {
 }
 
 const gmapsPlaceDetailsToBusinessDetails = (
-  gmapsData
+  gmapsData: GMapsApiPlaceDetailsResponseType
 ): Prisma.BusinessUpdateInput &
   Prisma.BusinessUpdateWithoutLocationsInput &
   Prisma.BusinessCreateInput &
@@ -67,13 +67,14 @@ const gmapsPlaceDetailsToBusinessDetails = (
 }
 
 const gmapsPlaceDetailsToLocationDetails = (
-  gmapsData
+  gmapsData: GMapsApiPlaceDetailsResponseType
 ): Prisma.LocationUpdateInput & Prisma.LocationCreateInput => {
   return {
     address: gmapsData.result.formatted_address,
     gmapsPlaceId: gmapsData.result.place_id,
     latitude: gmapsData.result.geometry.location.lat,
     longitude: gmapsData.result.geometry.location.lng,
+    website: gmapsData.result.website,
     business: {
       connectOrCreate: {
         where: {

@@ -5,6 +5,7 @@ export const schema = gql`
     gmapsPlaceId: String!
     businessId: String!
     business: Business!
+    website: String
     events: [Event]!
 
     latitude: Float!

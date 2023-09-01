@@ -15,7 +15,7 @@ generator client {
 model Business {
   id          String     @id @default(cuid())
   name        String     @unique
-  description String     @db.Text
+  description String?    @db.Text
   website     String?    @db.Text
   locations   Location[]
 
@@ -26,6 +26,7 @@ model Business {
 model Location {
   id           String   @id @default(cuid())
   address      String   @db.Text
+  website      String?  @db.Text
   gmapsPlaceId String   @unique
   businessId   String
   business     Business @relation(fields: [businessId], references: [id])

@@ -30,12 +30,12 @@ export const schema = gql`
     # Basic fields
     address_components: [GMapsAddressComponentType]
     business_status: String
-    formatted_address: String
-    geometry: GMapsGeometryType
+    formatted_address: String!
+    geometry: GMapsGeometryType!
     icon: String
     icon_background_color: String
-    name: String
-    place_id: String
+    name: String!
+    place_id: String!
 
     # Contact fields
     current_opening_hours: GMapsOpeningHoursType
@@ -61,10 +61,10 @@ export const schema = gql`
   The Find Place API only returns the fields we specify. This type, therefore, needs to be kept inline with the fields we specify.
   """
   type GMapsTextSearchType {
-    formatted_address: String
-    name: String
-    place_id: String
-    geometry: GMapsGeometryType
+    formatted_address: String!
+    name: String!
+    place_id: String!
+    geometry: GMapsGeometryType!
     """
     If a matching Location record exists in Prisma, this will be set to the id of that record.
     """
@@ -118,8 +118,8 @@ export const schema = gql`
   }
 
   type GMapsGeometryType {
-    location: GMapsLatLngLiteralType
-    viewport: GMapsBoundsType
+    location: GMapsLatLngLiteralType!
+    viewport: GMapsBoundsType!
   }
 
   type GMapsLatLngLiteralType {
