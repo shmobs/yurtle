@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client'
 import OpenAI from 'openai'
-import { Vibe, Event } from 'types/graphql'
+import { Vibe } from 'types/graphql'
 
 import { db } from 'src/lib/db'
 
