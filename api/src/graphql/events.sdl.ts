@@ -21,7 +21,8 @@ export const schema = gql`
   }
 
   type Query {
-    events: [Event!]! @requireAuth
+    events(locationId: String!, eventStatuses: [EventStatus!]!): [Event!]!
+      @requireAuth
     event(id: String!): Event @requireAuth
   }
 
