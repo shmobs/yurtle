@@ -39,10 +39,18 @@ const Location = ({ location }: ILocationProps) => {
           {location.business.description}
         </p>
 
-        <h3 className="ml-2 mt-2 text-xl">Events at this venue</h3>
-        <div className="mt-1 overflow-visible sm:mb-36">
-          <PlaceVibesCell locationId={location.id} />
-        </div>
+        <section>
+          <div className="mx-2 mt-2 ">
+            <h3 className="text-xl">Curated event suggestions</h3>
+            <p className=" mb-1 text-sm leading-5">
+              We&apos;ve curated event suggestions for this venue. To request
+              one, just tap on it!
+            </p>
+          </div>
+          <div className="mt-1 overflow-visible sm:mb-36">
+            <PlaceVibesCell locationId={location.id} />
+          </div>
+        </section>
       </main>
     </>
   )
