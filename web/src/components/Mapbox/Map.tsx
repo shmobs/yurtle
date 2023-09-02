@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
 import mapboxgl from 'mapbox-gl'
-import { createRoot } from 'react-dom/client'
 import { renderToString } from 'react-dom/server'
 
 mapboxgl.accessToken = process.env.MAPBOX_PUBLIC_KEY || ''
