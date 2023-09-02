@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 
 import mapboxgl from 'mapbox-gl'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
+import { renderToString } from 'react-dom/server'
 
 mapboxgl.accessToken = process.env.MAPBOX_PUBLIC_KEY || ''
 
@@ -37,23 +38,31 @@ interface IMapViewProps {
   zoom: number
 }
 
-const MapView: React.FC<IMapViewProps> = ({ lat, long, zoom }) => {
-  const mapContainer = useRef<HTMLElement>(null)
-  const map = useRef<mapboxgl.Map>(null)
-
-  const markerDiv = document.createElement('div')
-  ReactDOM.render(<MapMarker />, markerDiv)
+const MapView = ({ lat, long, zoom }: IMapViewProps) => {
+  const mapContainer = useRef<HTMLDivElement | null>(null)
+  const map = useRef<mapboxgl.Map | null>(null)
+  const marker = useRef<mapboxgl.Marker | null>(null)
 
   useEffect(() => {
-    if (map.current && mapContainer.current) {
+    if (!mapContainer.current) return // exit if the container is not available
+
+    const markerHtml = renderToString(<MapMarker />)
+    const markerElement = document.createElement('div')
+    markerElement.innerHTML = markerHtml
+
+    if (map.current) {
       // if the map is already initialized, just change the center
       map.current.setCenter([long, lat])
+
+      // update the marker position
+      if (marker.current) {
+        marker.current.setLngLat([long, lat])
+      }
     } else {
       // initialize the map
       map.current = new mapboxgl.Map({
         attributionControl: false,
         container: mapContainer.current,
-        // style: 'mapbox://styles/mapbox/streets-v11',
         style: 'mapbox://styles/rendyapp/cllx64zfy007j01rc34he2scb',
         center: [long, lat],
         zoom: zoom,
@@ -61,14 +70,15 @@ const MapView: React.FC<IMapViewProps> = ({ lat, long, zoom }) => {
         scrollZoom: false,
         touchZoomRotate: true,
       })
-    }
 
-    new mapboxgl.Marker({
-      element: markerDiv,
-    })
-      .setLngLat([long, lat])
-      .addTo(map.current)
-  }, [lat, long, zoom, markerDiv])
+      // create the marker
+      marker.current = new mapboxgl.Marker({
+        element: markerElement,
+      })
+        .setLngLat([long, lat])
+        .addTo(map.current)
+    }
+  }, [lat, long, zoom])
 
   return (
     <div ref={mapContainer} style={{ width: '100%', height: '100%' }}></div>
