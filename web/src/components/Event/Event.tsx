@@ -51,6 +51,13 @@ const Event = ({ event }: IEventProps) => {
         text={location.address}
         searchStr={`${location.business.name}, ${location.address}`}
       />
+      <div className="mt-4 flex justify-center">
+        <Button asChild>
+          <Link to={routes.location({ id: location.id })}>
+            View other events at this venue
+          </Link>
+        </Button>
+      </div>
     </>
   )
 }
