@@ -5,6 +5,7 @@ import { Link, routes } from '@redwoodjs/router'
 
 import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
+import AddressLink from '../AddressLink/AddressLink'
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader/SectionHeader'
 import { Badge } from '../ui/badge'
@@ -45,7 +46,11 @@ const Event = ({ event }: IEventProps) => {
       <div className="mt-5 h-56 w-full overflow-clip rounded-md">
         <MapView lat={location.latitude} long={location.longitude} zoom={17} />
       </div>
-      <div>{location.address}</div>
+      <AddressLink
+        className="link mt-1 block text-center text-sm"
+        text={location.address}
+        searchStr={`${location.business.name}, ${location.address}`}
+      />
     </>
   )
 }
