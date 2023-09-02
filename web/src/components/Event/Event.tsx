@@ -1,6 +1,8 @@
 import { ArrowRight } from 'lucide-react'
 import { EventQuery } from 'types/graphql'
 
+import { Link, routes } from '@redwoodjs/router'
+
 import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
 import MapView from '../Mapbox/Map'
@@ -25,15 +27,25 @@ const Event = ({ event }: IEventProps) => {
             <ArrowRight />
           </Button>
         </div>
-        <SectionHeader title="Event info" />
+        <SectionHeader
+          title={
+            <span>
+              Hosted by{' '}
+              <Link
+                to={routes.business({ id: location.business.id })}
+                className="link"
+              >
+                {location.business.name}
+              </Link>
+            </span>
+          }
+        />
         <p className="text-base text-gray-500">{description}</p>
       </div>
-      <SectionHeader title="Venue info" />
-      <div>{location.business.name}</div>
-      <div>{location.address}</div>
-      <div className="mt-10 h-56 w-full overflow-clip rounded-md">
+      <div className="mt-5 h-56 w-full overflow-clip rounded-md">
         <MapView lat={location.latitude} long={location.longitude} zoom={17} />
       </div>
+      <div>{location.address}</div>
     </>
   )
 }

@@ -7,6 +7,7 @@ import { createSlot } from 'react-view-slot'
 import { routes, useMatch, Link } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
+import AddressLink from 'src/components/AddressLink/AddressLink'
 import SetLocationPopover from 'src/components/LocationContext/SetLocationPopover'
 import { cn } from 'src/lib/utils'
 
@@ -275,13 +276,10 @@ export const SimplePageHeader = ({
         {subtitle && (
           <span className="mt-2 block text-sm font-normal tracking-wide">
             {subtitle && subtitleIsAddress ? (
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={`https://maps.apple.com/?q=${title}`}
-              >
-                {subtitle}
-              </a>
+              <AddressLink
+                text={subtitle}
+                searchStr={`${title}, ${subtitle}`}
+              />
             ) : (
               subtitle
             )}

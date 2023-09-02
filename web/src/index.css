@@ -89,6 +89,9 @@
   .description {
     @apply prose mt-4 text-gray-700;
   }
+  .link {
+    @apply text-indigo-600 hover:text-indigo-500 hover:underline;
+  }
 }
 
 .mapboxgl-ctrl-logo {

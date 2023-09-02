@@ -1,7 +1,7 @@
 import { cn } from 'src/lib/utils'
 
 interface ISectionHeaderProps {
-  title: string
+  title: string | JSX.Element
   subtitle?: string
   className?: string
 }
