@@ -2691,6 +2691,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formkit/auto-animate@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@formkit/auto-animate@npm:0.7.0"
+  checksum: 3270b081fe9163bc473ed6139b5ac23142b7e2df611f2de7ac596a1da0f244f86d6ee50770a3d3b95a42d9d13d84ef8aa693add925c0dfb27bc415466c6340d0
+  languageName: node
+  linkType: hard
+
 "@graphql-codegen/add@npm:4.0.1":
   version: 4.0.1
   resolution: "@graphql-codegen/add@npm:4.0.1"
@@ -25069,6 +25076,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:web"
   dependencies:
+    "@formkit/auto-animate": ^0.7.0
     "@headlessui/react": ^1.7.16
     "@heroicons/react": ^2.0.18
     "@hookform/resolvers": ^3.2.0

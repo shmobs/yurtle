@@ -1,7 +1,7 @@
 import { Form, useForm } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 
-import { TextField } from 'src/components/ui/input'
+import TextField from 'src/components/ui/form/TextField'
 
 import { useSearchLocationContext } from '../LocationContext/locationContext'
 import { Button } from '../ui/button'
