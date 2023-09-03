@@ -40,7 +40,7 @@ export async function addRendyLocationIds<T extends GmapsApiResponseType>(
     const location = gmapsPlaceIdToLocation.get(result.place_id)
     result.rendyLocationId = location ? location.id : undefined
     return result
-  })
+  }) as T['results']
 
   return responseCopy
 }
@@ -58,7 +58,7 @@ export async function addMapboxStaticImages<T extends GmapsApiResponseType>(
     const mapboxStaticImageUrl = `https://api.mapbox.com/styles/v1/rendyapp/cllu728xe005601r980xs80oy/static/${result.geometry.location.lng},${result.geometry.location.lat},16,0/300x200@2x?attribution=false&logo=false&access_token=${process.env.MAPBOX_API_KEY}`
     result.mapboxStaticImageUrl = mapboxStaticImageUrl
     return result
-  })
+  }) as T['results']
 
   return responseCopy
 }

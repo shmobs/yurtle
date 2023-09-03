@@ -1,6 +1,6 @@
 export const schema = gql`
   type GMapsApiSearchNearbyResponseType {
-    results: [GMapsNearbyPlaceType]!
+    results: [GMapsNearbyPlaceType!]!
     status: GMapsPlacesSearchStatusType!
     error_message: String
     html_attributions: [String]!
@@ -9,7 +9,7 @@ export const schema = gql`
   }
 
   type GMapsApiTextSearchResponseType {
-    results: [GMapsTextSearchType]!
+    results: [GMapsTextSearchType!]!
     status: GMapsPlacesSearchStatusType!
     error_message: String
     html_attributions: [String]!
@@ -81,13 +81,13 @@ export const schema = gql`
   """
   type GMapsNearbyPlaceType {
     business_status: String
-    geometry: GMapsGeometryType
+    geometry: GMapsGeometryType!
     icon: String
     icon_background_color: String
     icon_mask_base_uri: String
     name: String
     photos: [GMapsPhotoType]
-    place_id: String
+    place_id: String!
     """
     If a matching Location record exists in Prisma, this will be set to the id of that record.
     """

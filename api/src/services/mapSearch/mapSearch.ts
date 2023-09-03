@@ -19,7 +19,7 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
 
   const options = {
     location: location,
-    radius: radius !== undefined ? radius.toString() : undefined,
+    radius: radius ? radius.toString() : undefined,
     type: 'restaurant',
     rankby: radius === undefined ? 'distance' : undefined,
     // more options we can add are here: https://developers.google.com/maps/documentation/places/web-service/search-nearby#optional-parameters
@@ -29,7 +29,10 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
     Object.entries(options).filter(([_key, value]) => value !== undefined)
   )
 
-  const qsp = new URLSearchParams(filteredOptions).toString()
+  const qsp = new URLSearchParams(
+    // we filter out any undefined values from the options object but TS isn't smart enough to know that
+    filteredOptions as Record<string, string>
+  ).toString()
 
   const searchUrl = `${rootUrl}?${qsp}&key=${process.env.GOOGLE_MAPS_API_KEY}`
 
