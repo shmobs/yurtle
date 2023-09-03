@@ -36,12 +36,6 @@ const SearchBox = ({ initialValue }: ISearchBoxProps) => {
       onSubmit={onSubmit}
       formMethods={formMethods}
     >
-      {/* <Input
-        name="searchQuery"
-        ref={fieldRef}
-        placeholder="Search for a venue"
-        disabled={!searchLocation}
-      /> */}
       <TextField
         name="searchQuery"
         ref={fieldRef}
