@@ -21,9 +21,27 @@ model User {
   salt                String?
   resetToken          String?
   resetTokenExpiresAt DateTime?
+  OAuth               OAuth[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+model OAuth {
+  provider         String
+  // The ID of the user on the OAuth provider's system
+  providerUserId   String
+  // The username of the user on the OAuth provider's system. Useful for helping users identify their linked accounts
+  providerUsername String
+  // The below two fields should be in reference to whatever your user model is
+  user             User   @relation(fields: [userId], references: [id])
+  userId           String
+
+  createdAt DateTime @default(now())
+
+  @@unique([provider, providerUserId])
+  @@unique([userId, provider])
+  @@index([userId])
 }
 
 model Business {
