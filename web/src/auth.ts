@@ -13,7 +13,7 @@ const onOAuthError = (error: string) => {
 }
 
 const oAuthClient = createOAuthClient({
-  enabledProviders: { apple: false, github: false, google: false },
+  enabledProviders: { apple: false, github: false, google: true },
 })
 
 export const { AuthProvider, useAuth } = createAuth(dbAuthClient)
