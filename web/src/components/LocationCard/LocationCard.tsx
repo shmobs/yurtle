@@ -44,10 +44,9 @@ const LocationCard = ({
             onClick={() => {
               if (id) {
                 navigate(routes.location({ id }))
-              }
-              if (gmapsPlaceId) {
+              } else if (gmapsPlaceId && onImportFromGMaps) {
                 console.log(
-                  "didn't get an id, but got a gmapsPlaceId, so we should create a record for it"
+                  "didn't get an id, but got a gmapsPlaceId and onImportFromGMaps, so we should create a record for it"
                 )
                 onImportFromGMaps(gmapsPlaceId)
               }
