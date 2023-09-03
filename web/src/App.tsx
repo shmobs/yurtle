@@ -7,26 +7,29 @@ import { Toaster } from '@redwoodjs/web/toast'
 import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
 
+import { AuthProvider, useAuth } from './auth'
 import { LocationProvider } from './components/LocationContext/locationContext'
 
 import './index.css'
-import "mapbox-gl/dist/mapbox-gl.css"
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <RedwoodProvider titleTemplate="%PageTitle | %AppTitle">
-      <RedwoodApolloProvider>
-        <LocationProvider>
-          {/*
-           * This component needs to have its type updated, but this is indeed the correct usage
-           * eslint-disable-next-line @typescript-eslint/ban-ts-comment
-           * @ts-ignore */}
-          <SlotProvider>
-            <Toaster />
-            <Routes />
-          </SlotProvider>
-        </LocationProvider>
-      </RedwoodApolloProvider>
+      <AuthProvider>
+        <RedwoodApolloProvider useAuth={useAuth}>
+          <LocationProvider>
+            {/*
+             * This component needs to have its type updated, but this is indeed the correct usage
+             * eslint-disable-next-line @typescript-eslint/ban-ts-comment
+             * @ts-ignore */}
+            <SlotProvider>
+              <Toaster />
+              <Routes />
+            </SlotProvider>
+          </LocationProvider>
+        </RedwoodApolloProvider>
+      </AuthProvider>
     </RedwoodProvider>
   </FatalErrorBoundary>
 )

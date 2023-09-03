@@ -9,11 +9,12 @@
 
 import { Router, Route, Set } from '@redwoodjs/router'
 
+import { useAuth } from './auth'
 import SiteLayout from './layouts/SiteLayout/SiteLayout'
 
 const Routes = () => {
   return (
-    <Router>
+    <Router useAuth={useAuth}>
       <Route path="/" page={WelcomePage} name="welcome" />
       <Set wrap={SiteLayout}>
         <Route path="/event/{id}" page={EventPage} name="event" />
