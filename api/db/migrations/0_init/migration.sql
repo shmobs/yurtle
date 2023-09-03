@@ -1,3 +1,7 @@
+
+Running Prisma CLI...
+$ yarn prisma migrate diff --from-empty --to-schema-datamodel api/db/schema.prisma --script
+
 -- CreateTable
 CREATE TABLE `User` (
     `id` VARCHAR(191) NOT NULL,
@@ -75,3 +79,4 @@ CREATE TABLE `Event` (
     INDEX `status`(`status`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
