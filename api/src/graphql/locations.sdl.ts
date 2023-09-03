@@ -16,8 +16,8 @@ export const schema = gql`
   }
 
   type Query {
-    locations: [Location!]! @requireAuth
-    location(id: String!): Location! @requireAuth
+    locations: [Location!]! @skipAuth
+    location(id: String!): Location! @skipAuth
   }
 
   input CreateLocationInput {
@@ -33,11 +33,11 @@ export const schema = gql`
   }
 
   type Mutation {
-    createLocation(input: CreateLocationInput!): Location! @requireAuth
+    createLocation(input: CreateLocationInput!): Location! @skipAuth
     updateLocation(id: String!, input: UpdateLocationInput!): Location!
       @requireAuth
     deleteLocation(id: String!): Location! @requireAuth
 
-    importFromGMaps(gmapsPlaceId: String!): Location! @requireAuth
+    importFromGMaps(gmapsPlaceId: String!): Location! @skipAuth
   }
 `

@@ -10,8 +10,8 @@ export const schema = gql`
   }
 
   type Query {
-    businesses: [Business!]! @requireAuth
-    business(id: String!): Business! @requireAuth
+    businesses: [Business!]! @skipAuth
+    business(id: String!): Business! @skipAuth
   }
 
   input CreateBusinessInput {
@@ -25,7 +25,7 @@ export const schema = gql`
   }
 
   type Mutation {
-    createBusiness(input: CreateBusinessInput!): Business! @requireAuth
+    createBusiness(input: CreateBusinessInput!): Business! @skipAuth
     updateBusiness(id: String!, input: UpdateBusinessInput!): Business!
       @requireAuth
     deleteBusiness(id: String!): Business! @requireAuth
