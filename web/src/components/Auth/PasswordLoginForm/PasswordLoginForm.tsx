@@ -49,14 +49,6 @@ const PasswordLoginForm = ({ onComplete }: IPasswordLoginFormProps) => {
   return (
     <Form<IFormLogin> onSubmit={onSubmit} className="space-y-6">
       <TextField
-        label="Username"
-        name="username"
-        placeholder="arimendelow"
-        validation={{ required: true }}
-        ref={usernameRef}
-      />
-
-      <TextField
         label="Email"
         name="email"
         placeholder="ari@rendy.app"
