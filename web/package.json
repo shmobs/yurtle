@@ -26,7 +26,7 @@
     "@redwoodjs/forms": "6.1.1",
     "@redwoodjs/router": "6.1.1",
     "@redwoodjs/web": "6.1.1",
-    "@spoonjoy/redwoodjs-dbauth-oauth-web": "^1.0.1",
+    "@spoonjoy/redwoodjs-dbauth-oauth-web": "^1.2.0",
     "@tailwindcss/typography": "^0.5.9",
     "@types/mapbox-gl": "^2.7.13",
     "class-variance-authority": "^0.7.0",
