@@ -6369,6 +6369,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@spoonjoy/redwoodjs-dbauth-oauth-web@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@spoonjoy/redwoodjs-dbauth-oauth-web@npm:1.0.1"
+  peerDependencies:
+    "@redwoodjs/core": ^5.4.1
+    "@redwoodjs/router": ^5.4.1
+    react: 18.2.0
+    react-dom: 18.2.0
+  checksum: a94d6da79b0ddf0c1a8dfe07a7451666971650ce171efd06f4851604290200cdd10e6a2fcf660f62c50e635f5d28757e8571574371c119f0978ccdd94e12011a
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-a11y@npm:7.2.0":
   version: 7.2.0
   resolution: "@storybook/addon-a11y@npm:7.2.0"
@@ -25072,6 +25084,7 @@ __metadata:
     "@redwoodjs/router": 6.1.0
     "@redwoodjs/vite": 6.1.0
     "@redwoodjs/web": 6.1.0
+    "@spoonjoy/redwoodjs-dbauth-oauth-web": ^1.0.1
     "@tailwindcss/typography": ^0.5.9
     "@types/mapbox-gl": ^2.7.13
     "@types/node": ^20.5.0
