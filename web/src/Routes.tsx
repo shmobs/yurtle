@@ -22,6 +22,7 @@ const Routes = () => {
         <Route path="/search-nearby" page={SearchNearbyPage} name="searchNearby" />
         <Route path="/search-for-venue" page={SearchForVenuePage} name="searchForVenue" />
         <Route path="/search-for-venue/{searchQuery}" page={SearchForVenuePage} name="searchForVenueWithQuery" />
+        <Route path="/privacy" page={PrivacyPage} name="privacy" />
         <Route notfound page={NotFoundPage} />
       </Set>
       <Set wrap={SiteLayout} withoutPadding>
