@@ -61,9 +61,10 @@ export const Failure = ({ error }: CellFailureProps) => (
 const standardizeLocations = (
   nearbyLocations: NearbyLocationsQuery['nearbyLocations']
 ): ILocationCardProps[] => {
+  if (!nearbyLocations.results) return []
   return nearbyLocations.results.map((location) => {
     return {
-      id: location.rendyLocationId,
+      id: location.rendyLocationId || undefined,
       gmapsPlaceId: location.place_id,
       businessName: location.name,
       backgroundImageUrl: location.mapboxStaticImageUrl,

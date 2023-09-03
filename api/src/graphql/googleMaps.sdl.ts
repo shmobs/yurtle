@@ -85,7 +85,7 @@ export const schema = gql`
     icon: String
     icon_background_color: String
     icon_mask_base_uri: String
-    name: String
+    name: String!
     photos: [GMapsPhotoType]
     place_id: String!
     """
