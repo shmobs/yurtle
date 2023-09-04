@@ -13,6 +13,7 @@ import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
+import { Checkbox } from '../ui/checkbox'
 
 import { useSetEventInterestMutation } from './useSetEventInterestMutation'
 
@@ -84,9 +85,10 @@ const Event = ({ event }: IEventProps) => {
     setIsInterested(!isInterested)
   }
 
-  const { setEventInterest } = useSetEventInterestMutation({
-    onSetEventInterestComplete,
-  })
+  const { setEventInterest, loading: setInterestLoading } =
+    useSetEventInterestMutation({
+      onSetEventInterestComplete,
+    })
 
   const onSetEventInterest = () =>
     setEventInterest({
@@ -104,15 +106,19 @@ const Event = ({ event }: IEventProps) => {
             <div className="flex justify-between">
               <EventStatusBadge status={status} interestCount={interestCount} />
               {currentUser ? (
-                <Button onClick={onSetEventInterest} variant="outline">
-                  {isInterested ? 'I am not interested' : 'I am interested'}
+                <Button
+                  className="flex gap-2"
+                  onClick={onSetEventInterest}
+                  variant="outline"
+                  disabled={setInterestLoading}
+                >
+                  Interested <Checkbox checked={isInterested} />
                 </Button>
               ) : (
                 <AuthRequiredDialog
                   triggerBtn={
-                    <Button variant="outline">
-                      Create Request
-                      <ArrowRight />
+                    <Button className="flex gap-2" variant="outline">
+                      Interested <Checkbox checked={isInterested} />
                     </Button>
                   }
                 />

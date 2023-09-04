@@ -18,6 +18,7 @@ const AuthRequiredDialog = ({
   triggerBtn,
   onAuthenticated,
 }: IAuthRequiredDialogProps) => {
+  console.log('AuthRequiredDialog')
   return (
     <Dialog>
       <DialogTrigger asChild>{triggerBtn}</DialogTrigger>

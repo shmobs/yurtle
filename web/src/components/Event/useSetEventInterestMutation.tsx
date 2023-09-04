@@ -24,7 +24,7 @@ interface IUseSetEventInterestMutation {
 export const useSetEventInterestMutation = ({
   onSetEventInterestComplete,
 }: IUseSetEventInterestMutation) => {
-  const [setEventInterestMutation] = useMutation<
+  const [setEventInterestMutation, { loading, error }] = useMutation<
     SetEventInterestMutation,
     SetEventInterestMutationVariables
   >(SET_EVENT_INTEREST_MUTATION, {
@@ -53,5 +53,7 @@ export const useSetEventInterestMutation = ({
 
   return {
     setEventInterest,
+    loading,
+    error,
   }
 }
