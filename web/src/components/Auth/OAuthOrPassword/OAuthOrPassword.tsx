@@ -7,23 +7,35 @@ import PasswordSignupForm from '../PasswordSignupForm/PasswordSignupForm'
 
 interface IOAuthOrPasswordProps {
   type?: 'oauth' | 'password'
-  action: 'login' | 'signup'
+  action?: 'login' | 'signup'
   onSignupComplete?: () => void
   onCompleteRedirectUrlOverride?: string
 }
 
 const OAuthOrPassword = ({
-  type = 'oauth',
-  action,
+  type: typeInit = 'oauth',
+  action: actionInit = 'signup',
   onSignupComplete,
   onCompleteRedirectUrlOverride,
 }: IOAuthOrPasswordProps) => {
   const { getOAuthUrls } = useOAuth()
 
-  const [authnType, setAuthnType] = React.useState<'oauth' | 'password'>(type)
+  const [authnType, setAuthnType] = React.useState<'oauth' | 'password'>(
+    typeInit
+  )
+  const [action, setAction] = React.useState<'login' | 'signup'>(actionInit)
 
   return (
     <>
+      <p className="mt-10 text-center text-sm text-gray-600">
+        or{' '}
+        <button
+          onClick={() => setAction(action === 'login' ? 'signup' : 'login')}
+          className="link text-center font-medium"
+        >
+          {action === 'login' ? 'sign up' : 'log in'}
+        </button>
+      </p>
       {authnType === 'oauth' ? (
         <OAuthButtons
           action={action}
@@ -43,9 +55,11 @@ const OAuthOrPassword = ({
           }
           className="link text-center font-medium"
         >
-          {type === 'oauth' || type === undefined
+          {authnType === 'oauth'
             ? 'use your username and password'
-            : 'sign in with a provider'}
+            : action === 'login'
+            ? 'sign in with a provider'
+            : 'sign up with a provider'}
         </button>
       </p>
     </>

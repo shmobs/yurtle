@@ -3,10 +3,12 @@ import { EventQuery } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 
+import { useAuth } from 'src/auth'
 import { SimplePageHeader } from 'src/layouts/SiteLayout'
 import { cn } from 'src/lib/utils'
 
 import AddressLink from '../AddressLink'
+import AuthRequiredDialog from '../AuthRequiredDialog/AuthRequiredDialog'
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader'
 import { Badge } from '../ui/badge'
@@ -17,6 +19,8 @@ interface IEventProps {
 }
 
 const Event = ({ event }: IEventProps) => {
+  const { currentUser } = useAuth()
+
   const { name, type, description, location } = event
 
   const LocationBtn = ({ className }: { className?: string }) => (
@@ -42,10 +46,21 @@ const Event = ({ event }: IEventProps) => {
           <div className="md:flex md:h-full md:flex-col">
             <div className="flex justify-between">
               <Badge variant="yellow">suggestion</Badge>
-              <Button variant="outline">
-                Create Request
-                <ArrowRight />
-              </Button>
+              {currentUser ? (
+                <Button variant="outline">
+                  Create Request
+                  <ArrowRight />
+                </Button>
+              ) : (
+                <AuthRequiredDialog
+                  triggerBtn={
+                    <Button variant="outline">
+                      Create Request
+                      <ArrowRight />
+                    </Button>
+                  }
+                />
+              )}
             </div>
             <SectionHeader
               title={
