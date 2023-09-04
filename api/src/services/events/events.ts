@@ -73,7 +73,7 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
     })
 
     if (isInterested) {
-      tx.eventInterest.create({
+      await tx.eventInterest.create({
         data: {
           user: {
             connect: {
@@ -90,7 +90,7 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
 
       // if the user is interested, and they are the first, we need to update the event status
       if (currentInterests.length === 0) {
-        tx.event.update({
+        await tx.event.update({
           where: {
             id: eventId,
           },
@@ -100,7 +100,7 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
         })
       }
     } else {
-      tx.eventInterest.delete({
+      await tx.eventInterest.delete({
         where: {
           eventId_userId: {
             eventId,
@@ -111,7 +111,7 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
 
       // if the user is no longer interested, and they were the last, we need to update the event status
       if (currentInterests.length === 1) {
-        tx.event.update({
+        await tx.event.update({
           where: {
             id: eventId,
           },
@@ -122,7 +122,7 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
       }
     }
 
-    return tx.eventInterest.count({
+    return await tx.eventInterest.count({
       where: {
         eventId,
       },

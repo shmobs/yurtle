@@ -14,6 +14,53 @@ import SectionHeader from '../SectionHeader'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 
+import { useSetEventInterestMutation } from './useSetEventInterestMutation'
+
+interface IEventStatusBadgeProps {
+  status: EventQuery['event']['status']
+  interestCount: EventQuery['event']['interestCount']
+}
+const EventStatusBadge = ({
+  status,
+  interestCount,
+}: IEventStatusBadgeProps) => (
+  <>
+    <Badge
+      variant={(() => {
+        switch (status) {
+          case 'SUGGESTED':
+            return 'indigo'
+          case 'REQUESTED':
+            return 'yellow'
+          default:
+            return 'gray'
+        }
+      })()}
+    >
+      {status.toLocaleLowerCase()}
+      {status === 'REQUESTED' && ` by ${interestCount}`}
+    </Badge>
+  </>
+)
+
+const LocationBtn = ({
+  locationId,
+  className,
+}: {
+  locationId: string
+  className?: string
+}) => (
+  <div
+    className={cn('mt-4 flex justify-center md:mt-5 md:justify-end', className)}
+  >
+    <Button asChild>
+      <Link to={routes.location({ id: locationId })}>
+        View other events at this venue
+      </Link>
+    </Button>
+  </div>
+)
+
 interface IEventProps {
   event: EventQuery['event']
 }
@@ -23,20 +70,24 @@ const Event = ({ event }: IEventProps) => {
 
   const { name, type, description, location } = event
 
-  const LocationBtn = ({ className }: { className?: string }) => (
-    <div
-      className={cn(
-        'mt-4 flex justify-center md:mt-5 md:justify-end',
-        className
-      )}
-    >
-      <Button asChild>
-        <Link to={routes.location({ id: location.id })}>
-          View other events at this venue
-        </Link>
-      </Button>
-    </div>
+  const [isInterested, setIsInterested] = React.useState(
+    event.isCurrentUserInterested
   )
+
+  const [status, setCurrStatus] = React.useState(event.status)
+
+  const [interestCount, setInterestCount] = React.useState(event.interestCount)
+
+  const onSetEventInterestComplete = (interestCount: number) => {
+    setInterestCount(interestCount)
+    setCurrStatus(interestCount > 0 ? 'REQUESTED' : 'SUGGESTED')
+    setIsInterested(!isInterested)
+  }
+
+  const { setEventInterest } = useSetEventInterestMutation({
+    onSetEventInterestComplete,
+  })
+
   return (
     <>
       <SimplePageHeader title={name} subtitle={type} />
@@ -45,11 +96,18 @@ const Event = ({ event }: IEventProps) => {
         <div className="md:w-1/2">
           <div className="md:flex md:h-full md:flex-col">
             <div className="flex justify-between">
-              <Badge variant="yellow">suggestion</Badge>
+              <EventStatusBadge status={status} interestCount={interestCount} />
               {currentUser ? (
-                <Button variant="outline">
-                  Create Request
-                  <ArrowRight />
+                <Button
+                  onClick={() =>
+                    setEventInterest({
+                      eventId: event.id,
+                      isInterested: !isInterested,
+                    })
+                  }
+                  variant="outline"
+                >
+                  {isInterested ? 'I am not interested' : 'I am interested'}
                 </Button>
               ) : (
                 <AuthRequiredDialog
@@ -76,7 +134,7 @@ const Event = ({ event }: IEventProps) => {
               }
             />
             <p className="text-base text-gray-500">{description}</p>
-            <LocationBtn className="hidden md:flex" />
+            <LocationBtn locationId={location.id} className="hidden md:flex" />
           </div>
         </div>
         {/* Location info */}
@@ -93,7 +151,7 @@ const Event = ({ event }: IEventProps) => {
             text={location.address}
             searchStr={`${location.business.name}, ${location.address}`}
           />
-          <LocationBtn className="flex md:hidden" />
+          <LocationBtn locationId={location.id} className="flex md:hidden" />
         </div>
       </div>
     </>
