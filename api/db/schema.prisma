@@ -23,6 +23,9 @@ model User {
   resetTokenExpiresAt DateTime?
   OAuth               OAuth[]
 
+  EventInterests EventInterest[]
+  EventRSVPs     EventRSVP[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
@@ -83,14 +86,16 @@ enum EventStatus {
 }
 
 model Event {
-  id          String      @id @default(cuid())
+  id          String          @id @default(cuid())
   name        String
   type        String
-  description String      @db.Text
+  description String          @db.Text
   status      EventStatus
   date        DateTime?
   locationId  String?
-  location    Location?   @relation(fields: [locationId], references: [id])
+  location    Location?       @relation(fields: [locationId], references: [id])
+  rsvps       EventRSVP[]
+  interests   EventInterest[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -98,4 +103,32 @@ model Event {
   // We will likely want to add more indexes to support more performant retreival of events, particularly when getting newly created Vibes
   @@index([locationId], name: "locationId")
   @@index([status], name: "status")
+}
+
+model EventRSVP {
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id])
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@id([eventId, userId])
+  @@index([eventId], name: "eventId")
+  @@index([userId], name: "userId")
+}
+
+model EventInterest {
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id])
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@id([eventId, userId])
+  @@index([eventId], name: "eventId")
+  @@index([userId], name: "userId")
 }
