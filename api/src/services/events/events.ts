@@ -4,6 +4,7 @@ import type {
   EventRelationResolvers,
 } from 'types/graphql'
 
+import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 export const events: QueryResolvers['events'] = ({
@@ -51,6 +52,80 @@ export const deleteEvent: MutationResolvers['deleteEvent'] = ({ id }) => {
   return db.event.delete({
     where: { id },
   })
+}
+
+export const setInterestEvent: MutationResolvers['setInterestEvent'] = ({
+  eventId,
+  isInterested,
+}) => {
+  requireAuth()
+
+  // Because we have `requireAuth` above, we know that there is a currentUser
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const currentUserId = context.currentUser!.id
+
+  if (isInterested) {
+    return db.eventInterest.create({
+      data: {
+        user: {
+          connect: {
+            id: currentUserId,
+          },
+        },
+        event: {
+          connect: {
+            id: eventId,
+          },
+        },
+      },
+    })
+  } else {
+    return db.eventInterest.delete({
+      where: {
+        eventId_userId: {
+          eventId,
+          userId: currentUserId,
+        },
+      },
+    })
+  }
+}
+
+export const setRSVPEvent: MutationResolvers['setRSVPEvent'] = ({
+  eventId,
+  isAttending,
+}) => {
+  requireAuth()
+
+  // Because we have `requireAuth` above, we know that there is a currentUser
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const currentUserId = context.currentUser!.id
+
+  if (isAttending) {
+    return db.eventRSVP.create({
+      data: {
+        user: {
+          connect: {
+            id: currentUserId,
+          },
+        },
+        event: {
+          connect: {
+            id: eventId,
+          },
+        },
+      },
+    })
+  } else {
+    return db.eventRSVP.delete({
+      where: {
+        eventId_userId: {
+          eventId,
+          userId: currentUserId,
+        },
+      },
+    })
+  }
 }
 
 export const Event: EventRelationResolvers = {
