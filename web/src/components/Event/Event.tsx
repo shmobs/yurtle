@@ -86,10 +86,11 @@ const Event = ({ event }: IEventProps) => {
       onSetEventInterestComplete,
     })
 
-  const onSetEventInterest = (state?: boolean) =>
+  const onSetEventInterest = (withOAuthRedirect?: boolean) =>
     setEventInterest({
       eventId: event.id,
-      isInterested: state !== undefined ? state : !isInterested,
+      // if we're calling this on the OAuth redirect, we want to set isInterested to true
+      isInterested: withOAuthRedirect ? true : !isInterested,
     })
 
   return (
@@ -118,7 +119,7 @@ const Event = ({ event }: IEventProps) => {
                     Interested <Checkbox checked={isInterested} />
                   </Button>
                 }
-                onAuthenticated={() => onSetEventInterest(true)}
+                onAuthenticated={onSetEventInterest}
               />
             </div>
             <SectionHeader

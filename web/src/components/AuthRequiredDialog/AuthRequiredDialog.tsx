@@ -21,7 +21,11 @@ interface IAuthRequiredDialogProps {
    * The button to show the user when they're authenticated.
    */
   buttonWhenAuthenticated: React.ReactNode
-  onAuthenticated?: () => void
+  /**
+   * A callback to run when the user is authenticated. If the user is authenticated via a provider, this will be called when they're redirected back to the app.
+   * @param withOAuthRedirect If true, the user was authenticated via a provider, and this is being called after they've been redirected back to the app.
+   */
+  onAuthenticated?: (withOAuthRedirect?: boolean) => void
   title?: string
   description?: string
 }
@@ -50,7 +54,7 @@ const AuthRequiredDialog = ({
     // navigate(`${window.location.pathname}?${searchParams.toString()}`)
     // this will lose the query params, but but doing the above includes any QSPs that are part of the route, which is ugly, so I disabled it. If we need to save QSPs, we can reenable it.
     navigate(window.location.pathname)
-    onAuthenticated?.()
+    onAuthenticated?.(true)
   }
   if (currentUser) {
     return buttonWhenAuthenticated
