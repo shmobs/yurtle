@@ -25,6 +25,8 @@ const OAuthOrPassword = ({
   )
   const [action, setAction] = React.useState<'login' | 'signup'>(actionInit)
 
+  console.log('In OAuthOrPassword')
+
   return (
     <>
       <p className="mt-10 text-center text-sm text-gray-600">

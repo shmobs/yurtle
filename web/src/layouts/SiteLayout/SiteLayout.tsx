@@ -4,9 +4,11 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { createSlot } from 'react-view-slot'
 
-import { routes, useMatch, Link } from '@redwoodjs/router'
+import { routes, useMatch, Link, navigate } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
+import { toast } from '@redwoodjs/web/toast'
 
+import { useAuth } from 'src/auth'
 import AddressLink from 'src/components/AddressLink/AddressLink'
 import SetLocationPopover from 'src/components/LocationContext/SetLocationPopover'
 import { cn } from 'src/lib/utils'
@@ -19,6 +21,7 @@ type SiteLayoutProps = {
 }
 
 const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
+  const { logOut } = useAuth()
   const user = {
     name: 'Tom Cook',
     email: 'tom@example.com',
@@ -38,9 +41,19 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
     },
   ]
   const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' },
+    {
+      name: 'Sign out',
+      onClick: () => {
+        logOut()
+          .then(() => {
+            navigate(routes.welcome())
+            toast.success('You have been signed out')
+          })
+          .catch(() => {
+            toast.error('There was a problem with signing you out')
+          })
+      },
+    },
   ]
 
   return (
@@ -145,15 +158,15 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                               {userNavigation.map((item) => (
                                 <Menu.Item key={item.name}>
                                   {({ active }) => (
-                                    <a
-                                      href={item.href}
+                                    <button
+                                      onClick={item.onClick}
                                       className={cn(
                                         active ? 'bg-gray-100' : '',
                                         'block px-4 py-2 text-sm text-gray-700'
                                       )}
                                     >
                                       {item.name}
-                                    </a>
+                                    </button>
                                   )}
                                 </Menu.Item>
                               ))}
@@ -214,8 +227,8 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                       {userNavigation.map((item) => (
                         <Disclosure.Button
                           key={item.name}
-                          as="a"
-                          href={item.href}
+                          as="button"
+                          onClick={item.onClick}
                           className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                         >
                           {item.name}
