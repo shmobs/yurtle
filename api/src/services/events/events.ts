@@ -64,34 +64,73 @@ export const setInterestEvent: MutationResolvers['setInterestEvent'] = ({
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const currentUserId = context.currentUser!.id
 
-  if (isInterested) {
-    return db.eventInterest.create({
-      data: {
-        user: {
-          connect: {
-            id: currentUserId,
+  return db.$transaction(async (tx) => {
+    // get the current interests
+    const currentInterests = await tx.eventInterest.findMany({
+      where: {
+        eventId,
+      },
+    })
+
+    if (isInterested) {
+      tx.eventInterest.create({
+        data: {
+          user: {
+            connect: {
+              id: currentUserId,
+            },
+          },
+          event: {
+            connect: {
+              id: eventId,
+            },
           },
         },
-        event: {
-          connect: {
+      })
+
+      // if the user is interested, and they are the first, we need to update the event status
+      if (currentInterests.length === 0) {
+        tx.event.update({
+          where: {
             id: eventId,
           },
+          data: {
+            status: 'REQUESTED',
+          },
+        })
+      }
+    } else {
+      tx.eventInterest.delete({
+        where: {
+          eventId_userId: {
+            eventId,
+            userId: currentUserId,
+          },
         },
-      },
-    })
-  } else {
-    return db.eventInterest.delete({
+      })
+
+      // if the user is no longer interested, and they were the last, we need to update the event status
+      if (currentInterests.length === 1) {
+        tx.event.update({
+          where: {
+            id: eventId,
+          },
+          data: {
+            status: 'SUGGESTED',
+          },
+        })
+      }
+    }
+
+    return tx.eventInterest.count({
       where: {
-        eventId_userId: {
-          eventId,
-          userId: currentUserId,
-        },
+        eventId,
       },
     })
-  }
+  })
 }
 
-export const setRSVPEvent: MutationResolvers['setRSVPEvent'] = ({
+export const setRSVPEvent: MutationResolvers['setRSVPEvent'] = async ({
   eventId,
   isAttending,
 }) => {
@@ -102,29 +141,45 @@ export const setRSVPEvent: MutationResolvers['setRSVPEvent'] = ({
   const currentUserId = context.currentUser!.id
 
   if (isAttending) {
-    return db.eventRSVP.create({
-      data: {
-        user: {
-          connect: {
-            id: currentUserId,
+    return db.eventRSVP
+      .create({
+        data: {
+          user: {
+            connect: {
+              id: currentUserId,
+            },
+          },
+          event: {
+            connect: {
+              id: eventId,
+            },
           },
         },
-        event: {
-          connect: {
-            id: eventId,
+      })
+      .then(() => {
+        return db.eventRSVP.count({
+          where: {
+            eventId,
           },
-        },
-      },
-    })
+        })
+      })
   } else {
-    return db.eventRSVP.delete({
-      where: {
-        eventId_userId: {
-          eventId,
-          userId: currentUserId,
+    return db.eventRSVP
+      .delete({
+        where: {
+          eventId_userId: {
+            eventId,
+            userId: currentUserId,
+          },
         },
-      },
-    })
+      })
+      .then(() => {
+        return db.eventRSVP.count({
+          where: {
+            eventId,
+          },
+        })
+      })
   }
 }
 

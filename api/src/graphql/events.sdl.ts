@@ -65,10 +65,19 @@ export const schema = gql`
   }
 
   type Mutation {
-    setInterestEvent(eventId: String!, isInterested: Boolean!): EventInterest!
+    """
+    Use this to set whether or not a user is interested in an event.
+    Sets the interest for the current user.
+    Returns the number of users interested in the event.
+    """
+    setInterestEvent(eventId: String!, isInterested: Boolean!): Int!
       @requireAuth
-    setRSVPEvent(eventId: String!, isAttending: Boolean!): EventRSVP!
-      @requireAuth
+    """
+    Use this to set whether or not a user is attending an event.
+    Sets the RSVP for the current user.
+    Returns the number of users attending the event.
+    """
+    setRSVPEvent(eventId: String!, isAttending: Boolean!): Int! @requireAuth
 
     createEvent(input: CreateEventInput!): Event! @requireAuth
     updateEvent(id: String!, input: UpdateEventInput!): Event! @requireAuth
