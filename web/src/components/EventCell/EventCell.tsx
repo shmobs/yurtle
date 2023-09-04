@@ -13,6 +13,8 @@ export const QUERY = gql`
       description
       status
       date
+      isCurrentUserInterested
+      interestCount
       location {
         id
         latitude

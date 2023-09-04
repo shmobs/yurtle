@@ -10,6 +10,9 @@ export const schema = gql`
     location: Location!
     createdAt: DateTime!
     updatedAt: DateTime!
+
+    isCurrentUserInterested: Boolean!
+    interestCount: Int!
   }
 
   type EventInterest {

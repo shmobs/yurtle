@@ -3,6 +3,12 @@ import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
 
 import { db } from './db'
 
+export interface ICurrentUser {
+  id: string
+  username: string
+  email: string
+}
+
 /**
  * The session object sent in as the first argument to getCurrentUser() will
  * have a single key `id` containing the unique ID of the logged in user
@@ -20,15 +26,23 @@ import { db } from './db'
  * fields to the `select` object below once you've decided they are safe to be
  * seen if someone were to open the Web Inspector in their browser.
  */
-export const getCurrentUser = async (session: Decoded) => {
+export const getCurrentUser = async (
+  session: Decoded
+): Promise<ICurrentUser> => {
   if (!session || typeof session.id !== 'string') {
     throw new Error('Invalid session')
   }
 
-  return await db.user.findUnique({
+  const user = await db.user.findUnique({
     where: { id: session.id },
-    select: { id: true, username: true, email: true },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+    },
   })
+  if (!user) throw new AuthenticationError('You are not logged in.')
+  else return user
 }
 
 /**

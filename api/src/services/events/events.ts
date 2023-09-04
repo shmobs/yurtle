@@ -4,7 +4,7 @@ import type {
   EventRelationResolvers,
 } from 'types/graphql'
 
-import { requireAuth } from 'src/lib/auth'
+import { ICurrentUser, requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 export const events: QueryResolvers['events'] = ({
@@ -192,5 +192,28 @@ export const Event: EventRelationResolvers = {
       throw new Error(`Unable to find Location for Event:${root?.id}`)
     }
     return maybeLocation
+  },
+
+  isCurrentUserInterested: async (_obj, { root, context }) => {
+    if (!context.currentUser) {
+      return false
+    }
+
+    const maybeInterest = await db.eventInterest.findFirst({
+      where: {
+        eventId: root.id,
+        userId: (context.currentUser as unknown as ICurrentUser).id,
+      },
+    })
+
+    return !!maybeInterest
+  },
+
+  interestCount: async (_obj, { root }) => {
+    return db.eventInterest.count({
+      where: {
+        eventId: root.id,
+      },
+    })
   },
 }
