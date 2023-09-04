@@ -6,11 +6,7 @@ import { Button } from 'src/components/ui/button'
 import PasswordField from 'src/components/ui/form/PasswordField'
 import TextField from 'src/components/ui/form/TextField'
 
-export interface IExtraLoginAttributes {
-  email: string
-}
-
-export interface IFormLogin extends IExtraLoginAttributes {
+export interface IFormLogin {
   username: string
   password: string
 }
@@ -20,11 +16,11 @@ interface IPasswordLoginFormProps {
 }
 
 const PasswordLoginForm = ({ onComplete }: IPasswordLoginFormProps) => {
-  const { signUp } = useAuth()
+  const { logIn } = useAuth()
   const [loading, setLoading] = React.useState(false)
   const onSubmit = async (data: IFormLogin) => {
     setLoading(true)
-    const response = await signUp({ ...data })
+    const response = await logIn({ ...data })
     setLoading(false)
 
     if (response.message) {
@@ -49,9 +45,9 @@ const PasswordLoginForm = ({ onComplete }: IPasswordLoginFormProps) => {
   return (
     <Form<IFormLogin> onSubmit={onSubmit} className="space-y-6">
       <TextField
-        label="Email"
-        name="email"
-        placeholder="ari@rendy.app"
+        label="Username"
+        name="username"
+        placeholder="arimendelow"
         validation={{ required: true }}
       />
 
