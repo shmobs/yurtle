@@ -11,9 +11,13 @@ import OAuthOrPassword from '../Auth/OAuthOrPassword/OAuthOrPassword'
 
 interface IAuthRequiredDialogProps {
   triggerBtn: React.ReactNode
+  onAuthenticated?: () => void
 }
 
-const AuthRequiredDialog = ({ triggerBtn }: IAuthRequiredDialogProps) => {
+const AuthRequiredDialog = ({
+  triggerBtn,
+  onAuthenticated,
+}: IAuthRequiredDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{triggerBtn}</DialogTrigger>
@@ -24,7 +28,7 @@ const AuthRequiredDialog = ({ triggerBtn }: IAuthRequiredDialogProps) => {
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
           </DialogDescription>
-          <OAuthOrPassword />
+          <OAuthOrPassword onAuthenticated={onAuthenticated} />
         </DialogHeader>
       </DialogContent>
     </Dialog>
