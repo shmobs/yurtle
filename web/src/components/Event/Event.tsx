@@ -67,8 +67,6 @@ interface IEventProps {
 }
 
 const Event = ({ event }: IEventProps) => {
-  const { currentUser } = useAuth()
-
   const { name, type, description, location } = event
 
   const [isInterested, setIsInterested] = React.useState(
@@ -90,10 +88,10 @@ const Event = ({ event }: IEventProps) => {
       onSetEventInterestComplete,
     })
 
-  const onSetEventInterest = () =>
+  const onSetEventInterest = (state?: boolean) =>
     setEventInterest({
       eventId: event.id,
-      isInterested: !isInterested,
+      isInterested: state !== undefined ? state : !isInterested,
     })
 
   return (
@@ -105,24 +103,25 @@ const Event = ({ event }: IEventProps) => {
           <div className="md:flex md:h-full md:flex-col">
             <div className="flex justify-between">
               <EventStatusBadge status={status} interestCount={interestCount} />
-              {currentUser ? (
-                <Button
-                  className="flex gap-2"
-                  onClick={onSetEventInterest}
-                  variant="outline"
-                  disabled={setInterestLoading}
-                >
-                  Interested <Checkbox checked={isInterested} />
-                </Button>
-              ) : (
-                <AuthRequiredDialog
-                  triggerBtn={
-                    <Button className="flex gap-2" variant="outline">
-                      Interested <Checkbox checked={isInterested} />
-                    </Button>
-                  }
-                />
-              )}
+
+              <AuthRequiredDialog
+                buttonWhenAuthenticated={
+                  <Button
+                    className="flex gap-2"
+                    onClick={() => onSetEventInterest()}
+                    variant="outline"
+                    disabled={setInterestLoading}
+                  >
+                    Interested <Checkbox checked={isInterested} />
+                  </Button>
+                }
+                openDialogButton={
+                  <Button className="flex gap-2" variant="outline">
+                    Interested <Checkbox checked={isInterested} />
+                  </Button>
+                }
+                onAuthenticated={() => onSetEventInterest(true)}
+              />
             </div>
             <SectionHeader
               title={

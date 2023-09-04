@@ -63,7 +63,7 @@ const PasswordLoginForm = ({ onComplete }: IPasswordLoginFormProps) => {
       />
 
       <div className="flex justify-center">
-        <Button disabled={loading}>Sign up</Button>
+        <Button disabled={loading}>Sign in</Button>
       </div>
     </Form>
   )

@@ -10,6 +10,7 @@ interface IOAuthOrPasswordProps {
   action?: 'login' | 'signup'
   onAuthenticated?: () => void
   onCompleteRedirectUrlOverride?: string
+  className?: string
 }
 
 const OAuthOrPassword = ({
@@ -17,6 +18,7 @@ const OAuthOrPassword = ({
   action: actionInit = 'signup',
   onAuthenticated,
   onCompleteRedirectUrlOverride,
+  className,
 }: IOAuthOrPasswordProps) => {
   const { getOAuthUrls } = useOAuth()
 
@@ -28,16 +30,7 @@ const OAuthOrPassword = ({
   console.log('In OAuthOrPassword')
 
   return (
-    <>
-      <p className="mt-10 text-center text-sm text-gray-600">
-        or{' '}
-        <button
-          onClick={() => setAction(action === 'login' ? 'signup' : 'login')}
-          className="link text-center font-medium"
-        >
-          {action === 'login' ? 'sign up' : 'log in'}
-        </button>
-      </p>
+    <div className={className}>
       {authnType === 'oauth' ? (
         <OAuthButtons
           action={action}
@@ -49,7 +42,16 @@ const OAuthOrPassword = ({
       ) : (
         <PasswordSignupForm onComplete={onAuthenticated} />
       )}
-      <p className="mt-10 text-center text-sm text-gray-600">
+      <p className="mt-2 text-center text-sm text-gray-600">
+        or{' '}
+        <button
+          onClick={() => setAction(action === 'login' ? 'signup' : 'login')}
+          className="link text-center font-medium"
+        >
+          {action === 'login' ? 'sign up' : 'log in'}
+        </button>
+      </p>
+      <p className="mt-2 text-center text-sm text-gray-600">
         or{' '}
         <button
           onClick={() =>
@@ -64,7 +66,7 @@ const OAuthOrPassword = ({
             : 'sign up with a provider'}
         </button>
       </p>
-    </>
+    </div>
   )
 }
 
