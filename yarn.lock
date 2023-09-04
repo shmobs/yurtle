@@ -6201,7 +6201,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spoonjoy/redwoodjs-dbauth-oauth-api@npm:^1.2.0":
+"@spoonjoy/redwoodjs-dbauth-oauth-api@npm:^1.0.1":
   version: 1.2.0
   resolution: "@spoonjoy/redwoodjs-dbauth-oauth-api@npm:1.2.0"
   dependencies:
@@ -9327,7 +9327,7 @@ __metadata:
     "@redwoodjs/api": 6.1.1
     "@redwoodjs/auth-dbauth-api": 6.1.1
     "@redwoodjs/graphql-server": 6.1.1
-    "@spoonjoy/redwoodjs-dbauth-oauth-api": ^1.2.0
+    "@spoonjoy/redwoodjs-dbauth-oauth-api": ^1.0.1
     "@whatwg-node/fetch": ^0.9.9
     lodash: ^4.17.21
   languageName: unknown
