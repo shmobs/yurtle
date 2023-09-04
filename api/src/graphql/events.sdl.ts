@@ -24,6 +24,10 @@ export const schema = gql`
     events(locationId: String!, eventStatuses: [EventStatus!]!): [Event!]!
       @skipAuth
     event(id: String!): Event! @skipAuth
+
+    setInterestEvent(eventId: String!, isInterseted: Boolean!): Event!
+      @requireAuth
+    setRSVPEvent(eventId: String!, isAttending: Boolean!): Event! @requireAuth
   }
 
   input CreateEventInput {

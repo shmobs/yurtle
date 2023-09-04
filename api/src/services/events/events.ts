@@ -21,10 +21,14 @@ export const events: QueryResolvers['events'] = ({
   })
 }
 
-export const event: QueryResolvers['event'] = ({ id }) => {
-  return db.event.findUnique({
+export const event: QueryResolvers['event'] = async ({ id }) => {
+  const maybeEvent = await db.event.findUnique({
     where: { id },
   })
+  if (!maybeEvent) {
+    throw new Error(`Unable to find Event:${id}`)
+  }
+  return maybeEvent
 }
 
 export const createEvent: MutationResolvers['createEvent'] = ({ input }) => {
@@ -50,7 +54,13 @@ export const deleteEvent: MutationResolvers['deleteEvent'] = ({ id }) => {
 }
 
 export const Event: EventRelationResolvers = {
-  location: (_obj, { root }) => {
-    return db.event.findUnique({ where: { id: root?.id } }).location()
+  location: async (_obj, { root }) => {
+    const maybeLocation = await db.event
+      .findUnique({ where: { id: root?.id } })
+      .location()
+    if (!maybeLocation) {
+      throw new Error(`Unable to find Location for Event:${root?.id}`)
+    }
+    return maybeLocation
   },
 }
