@@ -54,7 +54,7 @@ export const deleteEvent: MutationResolvers['deleteEvent'] = ({ id }) => {
   })
 }
 
-export const setInterestEvent: MutationResolvers['setInterestEvent'] = ({
+export const setEventInterest: MutationResolvers['setEventInterest'] = ({
   eventId,
   isInterested,
 }) => {
@@ -130,7 +130,7 @@ export const setInterestEvent: MutationResolvers['setInterestEvent'] = ({
   })
 }
 
-export const setRSVPEvent: MutationResolvers['setRSVPEvent'] = async ({
+export const setEventRSVP: MutationResolvers['setEventRSVP'] = async ({
   eventId,
   isAttending,
 }) => {
