@@ -6228,9 +6228,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spoonjoy/redwoodjs-dbauth-oauth-api@npm:^1.0.1":
-  version: 1.2.0
-  resolution: "@spoonjoy/redwoodjs-dbauth-oauth-api@npm:1.2.0"
+"@spoonjoy/redwoodjs-dbauth-oauth-api@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@spoonjoy/redwoodjs-dbauth-oauth-api@npm:1.2.1"
   dependencies:
     "@prisma/client": 4.15.0
     "@redwoodjs/api": 5.0.0
@@ -6240,7 +6240,7 @@ __metadata:
     jsonwebtoken: ^9.0.0
     md5: ^2.3.0
     uuid: ^9.0.0
-  checksum: ffbb8e03884672adbbb6548e14277aaf8935d71871dcf98645c3dac0fbb68af1f3e93e19352b67d20d66f70a15dad3828d3ec32e0f215d845cb14080050d7369
+  checksum: ae6942577a4ad95b159ef7a853e66e8f129ffb13b78db75b183d96b9b18a0fd8b682f6aab9b7e1eee8b55073439f435143718f48efbca5bc0553337c71f81064
   languageName: node
   linkType: hard
 
@@ -9354,7 +9354,7 @@ __metadata:
     "@redwoodjs/api": 6.1.1
     "@redwoodjs/auth-dbauth-api": 6.1.1
     "@redwoodjs/graphql-server": 6.1.1
-    "@spoonjoy/redwoodjs-dbauth-oauth-api": ^1.0.1
+    "@spoonjoy/redwoodjs-dbauth-oauth-api": ^1.2.1
     "@whatwg-node/fetch": ^0.9.9
     lodash: ^4.17.21
   languageName: unknown

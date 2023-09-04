@@ -72,53 +72,64 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
       },
     })
 
+    const isAlreadyInterested = !!(await tx.eventInterest.findFirst({
+      where: {
+        eventId,
+        userId: currentUserId,
+      },
+    }))
+
     if (isInterested) {
-      await tx.eventInterest.create({
-        data: {
-          user: {
-            connect: {
-              id: currentUserId,
+      if (!isAlreadyInterested) {
+        await tx.eventInterest.create({
+          data: {
+            user: {
+              connect: {
+                id: currentUserId,
+              },
+            },
+            event: {
+              connect: {
+                id: eventId,
+              },
             },
           },
-          event: {
-            connect: {
+        })
+
+        // if the user is interested, and they are the first, we need to update the event status
+        if (currentInterests.length === 0) {
+          await tx.event.update({
+            where: {
               id: eventId,
             },
-          },
-        },
-      })
-
-      // if the user is interested, and they are the first, we need to update the event status
-      if (currentInterests.length === 0) {
-        await tx.event.update({
-          where: {
-            id: eventId,
-          },
-          data: {
-            status: 'REQUESTED',
-          },
-        })
+            data: {
+              status: 'REQUESTED',
+            },
+          })
+        }
       }
     } else {
-      await tx.eventInterest.delete({
-        where: {
-          eventId_userId: {
-            eventId,
-            userId: currentUserId,
-          },
-        },
-      })
-
-      // if the user is no longer interested, and they were the last, we need to update the event status
-      if (currentInterests.length === 1) {
-        await tx.event.update({
+      if (isAlreadyInterested) {
+        await tx.eventInterest.delete({
           where: {
-            id: eventId,
-          },
-          data: {
-            status: 'SUGGESTED',
+            eventId_userId: {
+              eventId,
+              userId: currentUserId,
+            },
           },
         })
+
+        // if the user is no longer interested, and they were the last, we need to update the event status
+        if (currentInterests.length === 1) {
+          await tx.event.update({
+            where: {
+              id: eventId,
+            },
+            data: {
+              status: 'SUGGESTED',
+            },
+          })
+        }
       }
     }
 

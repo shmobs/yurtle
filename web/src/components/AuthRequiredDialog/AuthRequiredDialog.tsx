@@ -1,6 +1,6 @@
 import { navigate, useParams } from '@redwoodjs/router'
 
-import { useAuth } from 'src/auth'
+import { useAuth, useOAuth } from 'src/auth'
 import {
   Dialog,
   DialogContent,
@@ -38,6 +38,8 @@ const AuthRequiredDialog = ({
   title = 'Log in or sign up to do this',
   description,
 }: IAuthRequiredDialogProps) => {
+  // needed to trigger the error handling flow
+  useOAuth()
   const { currentUser } = useAuth()
   // used to activate the onAuthenticated callback when authenticated via a provider, as we need to rely on being redirected back to the app
   const { action, ..._otherParams } = useParams()
