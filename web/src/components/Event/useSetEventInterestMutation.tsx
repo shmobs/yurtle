@@ -11,11 +11,16 @@ const SET_EVENT_INTEREST_MUTATION = gql`
     $eventId: String!
     $isInterested: Boolean!
   ) {
-    setEventInterest(eventId: $eventId, isInterested: $isInterested)
+    setEventInterest(eventId: $eventId, isInterested: $isInterested) {
+      currentState
+      count
+    }
   }
 `
 
-export type OnSetEventInterestCompleteType = (interestCount: number) => void
+export type OnSetEventInterestCompleteType = (
+  setEventInterest: SetEventInterestMutation['setEventInterest']
+) => void
 
 interface IUseSetEventInterestMutation {
   onSetEventInterestComplete?: OnSetEventInterestCompleteType

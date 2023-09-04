@@ -60,6 +60,9 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
 }) => {
   requireAuth()
 
+  let currentState: boolean
+  let count: number
+
   // Because we have `requireAuth` above, we know that there is a currentUser
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const currentUserId = context.currentUser!.id
@@ -72,7 +75,7 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
       },
     })
 
-    const isAlreadyInterested = !!(await tx.eventInterest.findFirst({
+    const isCurrentlyInterested = !!(await tx.eventInterest.findFirst({
       where: {
         eventId,
         userId: currentUserId,
@@ -80,21 +83,25 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
     }))
 
     if (isInterested) {
-      if (!isAlreadyInterested) {
-        await tx.eventInterest.create({
-          data: {
-            user: {
-              connect: {
-                id: currentUserId,
+      if (!isCurrentlyInterested) {
+        await tx.eventInterest
+          .create({
+            data: {
+              user: {
+                connect: {
+                  id: currentUserId,
+                },
+              },
+              event: {
+                connect: {
+                  id: eventId,
+                },
               },
             },
-            event: {
-              connect: {
-                id: eventId,
-              },
-            },
-          },
-        })
+          })
+          .then(() => {
+            currentState = true
+          })
 
         // if the user is interested, and they are the first, we need to update the event status
         if (currentInterests.length === 0) {
@@ -107,17 +114,23 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
             },
           })
         }
+      } else {
+        currentState = true
       }
     } else {
-      if (isAlreadyInterested) {
-        await tx.eventInterest.delete({
-          where: {
-            eventId_userId: {
-              eventId,
-              userId: currentUserId,
+      if (isCurrentlyInterested) {
+        await tx.eventInterest
+          .delete({
+            where: {
+              eventId_userId: {
+                eventId,
+                userId: currentUserId,
+              },
             },
-          },
-        })
+          })
+          .then(() => {
+            currentState = false
+          })
 
         // if the user is no longer interested, and they were the last, we need to update the event status
         if (currentInterests.length === 1) {
@@ -130,22 +143,32 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
             },
           })
         }
+      } else {
+        currentState = false
       }
     }
 
-    return await tx.eventInterest.count({
+    count = await tx.eventInterest.count({
       where: {
         eventId,
       },
     })
+    return {
+      currentState,
+      count,
+    }
   })
 }
 
+// TODO fix this in line with how we did setEventInterest
 export const setEventRSVP: MutationResolvers['setEventRSVP'] = async ({
   eventId,
   isAttending,
 }) => {
   requireAuth()
+
+  let currentState: boolean
+  let count: number
 
   // Because we have `requireAuth` above, we know that there is a currentUser
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

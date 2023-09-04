@@ -1,4 +1,4 @@
-import { EventQuery } from 'types/graphql'
+import { EventQuery, SetEventInterestMutation } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 
@@ -75,10 +75,13 @@ const Event = ({ event }: IEventProps) => {
 
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
-  const onSetEventInterestComplete = (interestCount: number) => {
-    setInterestCount(interestCount)
-    setCurrStatus(interestCount > 0 ? 'REQUESTED' : 'SUGGESTED')
-    setIsInterested(!isInterested)
+  const onSetEventInterestComplete = ({
+    currentState,
+    count,
+  }: SetEventInterestMutation['setEventInterest']) => {
+    setInterestCount(count)
+    setCurrStatus(count > 0 ? 'REQUESTED' : 'SUGGESTED')
+    setIsInterested(currentState)
   }
 
   const { setEventInterest, loading: setInterestLoading } =
