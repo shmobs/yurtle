@@ -8,14 +8,14 @@ import PasswordSignupForm from '../PasswordSignupForm/PasswordSignupForm'
 interface IOAuthOrPasswordProps {
   type?: 'oauth' | 'password'
   action?: 'login' | 'signup'
-  onSignupComplete?: () => void
+  onAuthenticated?: () => void
   onCompleteRedirectUrlOverride?: string
 }
 
 const OAuthOrPassword = ({
   type: typeInit = 'oauth',
   action: actionInit = 'signup',
-  onSignupComplete,
+  onAuthenticated,
   onCompleteRedirectUrlOverride,
 }: IOAuthOrPasswordProps) => {
   const { getOAuthUrls } = useOAuth()
@@ -43,9 +43,9 @@ const OAuthOrPassword = ({
           redirectUrlOverride={onCompleteRedirectUrlOverride}
         />
       ) : action === 'login' ? (
-        <PasswordLoginForm />
+        <PasswordLoginForm onComplete={onAuthenticated} />
       ) : (
-        <PasswordSignupForm onComplete={onSignupComplete} />
+        <PasswordSignupForm onComplete={onAuthenticated} />
       )}
       <p className="mt-10 text-center text-sm text-gray-600">
         or{' '}
