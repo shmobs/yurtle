@@ -40,12 +40,14 @@ const AuthRequiredDialog = ({
 }: IAuthRequiredDialogProps) => {
   const { currentUser } = useAuth()
   // used to activate the onAuthenticated callback when authenticated via a provider, as we need to rely on being redirected back to the app
-  const { action, ...otherParams } = useParams()
+  const { action, ..._otherParams } = useParams()
 
   if (action === 'authenticated') {
     console.log("got redirect with action 'authenticated'")
-    const searchParams = new URLSearchParams(otherParams)
-    navigate(`${window.location.pathname}?${searchParams.toString()}`)
+    // const searchParams = new URLSearchParams(otherParams)
+    // navigate(`${window.location.pathname}?${searchParams.toString()}`)
+    // this will lose the query params, but but doing the above includes any QSPs that are part of the route, which is ugly, so I disabled it. If we need to save QSPs, we can reenable it.
+    navigate(window.location.pathname)
     onAuthenticated?.()
   }
   if (currentUser) {

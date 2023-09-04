@@ -1,9 +1,7 @@
-import { ArrowRight } from 'lucide-react'
 import { EventQuery } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 
-import { useAuth } from 'src/auth'
 import { SimplePageHeader } from 'src/layouts/SiteLayout'
 import { cn } from 'src/lib/utils'
 
