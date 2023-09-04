@@ -88,6 +88,12 @@ const Event = ({ event }: IEventProps) => {
     onSetEventInterestComplete,
   })
 
+  const onSetEventInterest = () =>
+    setEventInterest({
+      eventId: event.id,
+      isInterested: !isInterested,
+    })
+
   return (
     <>
       <SimplePageHeader title={name} subtitle={type} />
@@ -98,15 +104,7 @@ const Event = ({ event }: IEventProps) => {
             <div className="flex justify-between">
               <EventStatusBadge status={status} interestCount={interestCount} />
               {currentUser ? (
-                <Button
-                  onClick={() =>
-                    setEventInterest({
-                      eventId: event.id,
-                      isInterested: !isInterested,
-                    })
-                  }
-                  variant="outline"
-                >
+                <Button onClick={onSetEventInterest} variant="outline">
                   {isInterested ? 'I am not interested' : 'I am interested'}
                 </Button>
               ) : (
