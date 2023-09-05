@@ -65,13 +65,20 @@ interface IEventProps {
 }
 
 const Event = ({ event }: IEventProps) => {
-  const { name, type, description, location } = event
+  const {
+    name,
+    type,
+    description,
+    location,
+    isCurrentUserInterested,
+    status: statusInit,
+  } = event
 
   const [isInterested, setIsInterested] = React.useState(
-    event.isCurrentUserInterested
+    isCurrentUserInterested
   )
 
-  const [status, setCurrStatus] = React.useState(event.status)
+  const [status, setCurrStatus] = React.useState(statusInit)
 
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
