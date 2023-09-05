@@ -5,6 +5,7 @@ import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader/SectionHeader'
+import { Button } from '../ui/button'
 
 interface ILocationProps {
   location: LocationQuery['location']
@@ -30,6 +31,12 @@ const Location = ({ location }: ILocationProps) => {
             long={location.longitude}
             zoom={16}
           />
+          <Button
+            variant="secondary"
+            className="absolute bottom-2 right-2 z-50 h-7 lg:bottom-4 lg:right-4 lg:h-9"
+          >
+            Claim this location
+          </Button>
         </div>
 
         <SectionHeader

@@ -79,9 +79,7 @@ const MapView = ({ lat, long, zoom }: IMapViewProps) => {
     }
   }, [lat, long, zoom])
 
-  return (
-    <div ref={mapContainer} style={{ width: '100%', height: '100%' }}></div>
-  )
+  return <div ref={mapContainer} className="h-full w-full"></div>
 }
 
 export default MapView
