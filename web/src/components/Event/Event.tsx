@@ -75,7 +75,7 @@ const Event = ({ event }: IEventProps) => {
   } = event
 
   const [isInterested, setIsInterested] = React.useState(
-    isCurrentUserInterested
+    !!isCurrentUserInterested
   )
 
   const [status, setCurrStatus] = React.useState(statusInit)
