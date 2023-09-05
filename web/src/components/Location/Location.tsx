@@ -2,11 +2,62 @@ import { LocationQuery } from 'types/graphql'
 
 import PlaceVibesCell from 'src/components/PlaceVibesCell'
 import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
+import { cn } from 'src/lib/utils'
 
 import EventCard from '../EventCard/EventCard'
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader/SectionHeader'
 import { Button } from '../ui/button'
+
+interface IEventSectionProps {
+  events:
+    | LocationQuery['location']['eventsRequested']
+    | LocationQuery['location']['eventsPublished']
+  titleIfEmpty: string
+  subtitleIfEmpty: string
+  titleIfNotEmpty: string
+  subtitleIfNotEmpty: string
+  /**
+   * Because this is sometimes used on a page with no padding, we sometimes need to add it back
+   */
+  withPadding?: boolean
+}
+
+const EventSection = ({
+  events,
+  titleIfEmpty,
+  subtitleIfEmpty,
+  titleIfNotEmpty,
+  subtitleIfNotEmpty,
+  withPadding = false,
+}: IEventSectionProps) => (
+  <section>
+    {events.length > 0 ? (
+      <>
+        <SectionHeader title={titleIfNotEmpty} subtitle={subtitleIfNotEmpty} />
+        <ul
+          className={cn(
+            'grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3',
+            withPadding && 'px-5 sm:px-6'
+          )}
+        >
+          {events.map((event) => (
+            <EventCard
+              key={event.id}
+              eventId={event.id}
+              name={event.name}
+              type={event.type}
+              description={event.description}
+              status={event.status}
+            />
+          ))}
+        </ul>
+      </>
+    ) : (
+      <SectionHeader title={titleIfEmpty} subtitle={subtitleIfEmpty} />
+    )}
+  </section>
+)
 
 interface ILocationProps {
   location: LocationQuery['location']
@@ -45,60 +96,23 @@ const Location = ({ location }: ILocationProps) => {
           subtitle={location.business.description}
         />
 
-        <section>
-          {location.eventsPublished.length > 0 ? (
-            <>
-              <SectionHeader
-                title="Scheduled events"
-                subtitle="These events are currently scheduled. To RSVP or see more information, just tap on it!"
-              />
-              <ul className="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
-                {location.eventsPublished.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    eventId={event.id}
-                    name={event.name}
-                    type={event.type}
-                    description={event.description}
-                    status={event.status}
-                  />
-                ))}
-              </ul>
-            </>
-          ) : (
-            <SectionHeader
-              title="There are not currently any scheduled events"
-              subtitle="View requests below to express interest!"
-            />
-          )}
-        </section>
-        <section>
-          {location.eventsRequested.length > 0 ? (
-            <>
-              <SectionHeader
-                title="Open event requests"
-                subtitle="The community has requested these events. To express interest or see more information, just tap on it!"
-              />
-              <ul className="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
-                {location.eventsRequested.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    eventId={event.id}
-                    name={event.name}
-                    type={event.type}
-                    description={event.description}
-                    status={event.status}
-                  />
-                ))}
-              </ul>
-            </>
-          ) : (
-            <SectionHeader
-              title="There are not currently any open event requests"
-              subtitle="View suggestions below to create a request!"
-            />
-          )}
-        </section>
+        <EventSection
+          withPadding
+          events={location.eventsPublished}
+          titleIfEmpty="There are not currently any scheduled events"
+          subtitleIfEmpty="View requests below to express interest!"
+          titleIfNotEmpty="Scheduled events"
+          subtitleIfNotEmpty="These events are currently scheduled. To RSVP or see more information, just tap on it!"
+        />
+        <EventSection
+          withPadding
+          events={location.eventsRequested}
+          titleIfEmpty="There are not currently any open event requests"
+          subtitleIfEmpty="View suggestions below to create a request!"
+          titleIfNotEmpty="Open event requests"
+          subtitleIfNotEmpty="The community has requested these events. To express interest or see more information, just tap on it!"
+        />
+
         <section>
           <SectionHeader
             title="Curated event suggestions"
