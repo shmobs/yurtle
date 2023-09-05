@@ -16,7 +16,7 @@ const Vibes = ({ placeVibes }: IVibesProps) => {
         name={vibe.name}
         type={vibe.type}
         description={vibe.description}
-        isDraft
+        status="SUGGESTED" // it should have this in the vibe, but doesn't hurt to be explicit
       />
     )
   })

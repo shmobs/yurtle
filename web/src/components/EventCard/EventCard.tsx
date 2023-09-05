@@ -1,4 +1,5 @@
 import { PlusIcon } from 'lucide-react'
+import { EventQuery } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 
@@ -6,29 +7,22 @@ import { cn } from 'src/lib/utils'
 
 import { Card, CardDescription, CardTitle } from '../ui/card'
 
-interface IDraftEventLinkProps {
+interface IEventLinkProps {
   eventId: string
 }
 
-const DraftEventLink = ({ eventId }: IDraftEventLinkProps) => (
-  <div className="absolute inset-0 z-50 hidden group-hover:block group-focus:block">
-    <Link
-      to={routes.event({ id: eventId })}
-      className="flex h-full w-full items-center justify-center bg-indigo-900/60 text-center text-white backdrop-blur-sm"
-    >
-      <div>
-        <PlusIcon className="mx-auto h-8 w-8" />
-        <span className="block">Request this event</span>
-      </div>
-    </Link>
-  </div>
+const EventLink = ({ eventId }: IEventLinkProps) => (
+  <Link
+    to={routes.event({ id: eventId })}
+    className="absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-indigo-900/0 text-center text-white transition-colors group-hover:bg-indigo-900/50"
+  />
 )
 interface IEventCardProps {
   eventId: string
   name: string
   type: string
   description: string
-  isDraft?: boolean
+  status: EventQuery['event']['status']
 }
 
 const EventCard = ({
@@ -36,18 +30,18 @@ const EventCard = ({
   name,
   type,
   description,
-  isDraft,
+  status,
 }: IEventCardProps) => {
   return (
     <Card
       key={name}
       className={cn(
         'group relative h-full w-full overflow-clip',
-        isDraft &&
-          'border-4 border-dashed border-gray-300 hover:border-gray-400'
+        status === 'SUGGESTED' &&
+          'border-4 border-dashed border-gray-300 transition-all hover:border-gray-400'
       )}
     >
-      {isDraft && <DraftEventLink eventId={eventId} />}
+      <EventLink eventId={eventId} />
       <div className="relative z-10 h-full w-full overflow-y-scroll bg-indigo-900/60 p-5 text-white">
         <CardTitle className="text-base sm:text-xl">{name}</CardTitle>
         <CardDescription className="mb-2 italic text-white sm:mb-3">

@@ -3,6 +3,7 @@ import { LocationQuery } from 'types/graphql'
 import PlaceVibesCell from 'src/components/PlaceVibesCell'
 import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
+import EventCard from '../EventCard/EventCard'
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader/SectionHeader'
 import { Button } from '../ui/button'
@@ -45,6 +46,19 @@ const Location = ({ location }: ILocationProps) => {
         />
 
         <section>
+          <ul className="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
+            {location.events.length > 0 &&
+              location.events.map((event) => (
+                <EventCard
+                  key={event.id}
+                  eventId={event.id}
+                  name={event.name}
+                  type={event.type}
+                  description={event.description}
+                  status={event.status}
+                />
+              ))}
+          </ul>
           <SectionHeader
             title="Curated event suggestions"
             subtitle="We've curated these for this venue. To request one, just tap on it!"
