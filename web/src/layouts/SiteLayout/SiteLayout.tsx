@@ -13,6 +13,8 @@ import AddressLink from 'src/components/AddressLink/AddressLink'
 import SetLocationPopover from 'src/components/LocationContext/SetLocationPopover'
 import { cn } from 'src/lib/utils'
 
+import UserProfileImg from './UserProfileImg'
+
 export const HeaderSlot = createSlot('header')
 
 type SiteLayoutProps = {
@@ -21,13 +23,8 @@ type SiteLayoutProps = {
 }
 
 const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
-  const { logOut } = useAuth()
-  const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-    imageUrl:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  }
+  const { logOut, currentUser: user } = useAuth()
+
   const navigation = [
     {
       name: 'Nearby Venues',
@@ -40,7 +37,7 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
       current: useMatch(routes.searchForVenue()).match,
     },
   ]
-  const userNavigation = [
+  const userNavigationLoggedIn = [
     {
       name: 'Sign out',
       onClick: () => {
@@ -52,6 +49,15 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
           .catch(() => {
             toast.error('There was a problem with signing you out')
           })
+      },
+    },
+  ]
+
+  const userNavigationSignedOut = [
+    {
+      name: 'Sign in',
+      onClick: () => {
+        navigate(routes.signIn())
       },
     },
   ]
@@ -123,14 +129,15 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                     {/* User button (desktop) */}
                     <div className="hidden lg:ml-4 lg:block">
                       <div className="flex items-center">
-                        <button
+                        {/* TODO add notifications */}
+                        {/* <button
                           type="button"
                           className="relative flex-shrink-0 rounded-full bg-indigo-600 p-1 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600"
                         >
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">View notifications</span>
                           <BellIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
+                        </button> */}
 
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3 flex-shrink-0">
@@ -138,11 +145,7 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                             <Menu.Button className="relative flex rounded-full bg-indigo-600 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
                               <span className="absolute -inset-1.5" />
                               <span className="sr-only">Open user menu</span>
-                              <img
-                                className="h-8 w-8 rounded-full"
-                                src={user.imageUrl}
-                                alt=""
-                              />
+                              <UserProfileImg className="h-9 w-9 rounded-full fill-white" />
                             </Menu.Button>
                           </div>
                           <Transition
@@ -155,7 +158,10 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                             leaveTo="transform opacity-0 scale-95"
                           >
                             <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                              {userNavigation.map((item) => (
+                              {(user
+                                ? userNavigationLoggedIn
+                                : userNavigationSignedOut
+                              ).map((item) => (
                                 <Menu.Item key={item.name}>
                                   {({ active }) => (
                                     <button
@@ -198,33 +204,36 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                     ))}
                   </div>
                   <div className="border-t border-indigo-700 pb-3 pt-4">
-                    <div className="flex items-center px-5">
-                      <div className="flex-shrink-0">
-                        <img
-                          className="h-10 w-10 rounded-full"
-                          src={user.imageUrl}
-                          alt=""
-                        />
-                      </div>
-                      <div className="ml-3">
-                        <div className="text-base font-medium text-white">
-                          {user.name}
+                    {/* user info */}
+                    {user && (
+                      <div className="flex items-center px-5">
+                        <div className="flex-shrink-0">
+                          <UserProfileImg className="h-10 w-10 rounded-full fill-white" />
                         </div>
-                        <div className="text-sm font-medium text-indigo-300">
-                          {user.email}
+                        <div className="ml-3">
+                          <div className="text-base font-medium text-white">
+                            {user.username}
+                          </div>
+                          <div className="text-sm font-medium text-indigo-300">
+                            {user.email}
+                          </div>
                         </div>
-                      </div>
-                      <button
+                        {/* TODO add notifications */}
+                        {/* <button
                         type="button"
                         className="relative ml-auto flex-shrink-0 rounded-full bg-indigo-600 p-1 text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600"
                       >
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">View notifications</span>
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
-                    </div>
+                      </button> */}
+                      </div>
+                    )}
                     <div className="mt-3 space-y-1 px-2">
-                      {userNavigation.map((item) => (
+                      {(user
+                        ? userNavigationLoggedIn
+                        : userNavigationSignedOut
+                      ).map((item) => (
                         <Disclosure.Button
                           key={item.name}
                           as="button"
