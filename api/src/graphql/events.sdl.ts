@@ -11,8 +11,8 @@ export const schema = gql`
     createdAt: DateTime!
     updatedAt: DateTime!
 
-    isCurrentUserInterested: Boolean!
-    interestCount: Int!
+    isCurrentUserInterested: Boolean
+    interestCount: Int
   }
 
   type EventInterest {
