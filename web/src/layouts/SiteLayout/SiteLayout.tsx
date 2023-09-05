@@ -28,8 +28,8 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
   const navigation = [
     {
       name: 'Nearby Venues',
-      href: routes.searchNearby(),
-      current: useMatch(routes.searchNearby()).match,
+      href: routes.home(),
+      current: useMatch(routes.home()).match,
     },
     {
       name: 'Search',
@@ -43,7 +43,7 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
       onClick: () => {
         logOut()
           .then(() => {
-            navigate(routes.welcome())
+            navigate(routes.home())
             toast.success('You have been signed out')
           })
           .catch(() => {
@@ -55,9 +55,9 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
 
   const userNavigationSignedOut = [
     {
-      name: 'Sign in',
+      name: 'Sign In or Sign Up',
       onClick: () => {
-        navigate(routes.signIn())
+        navigate(routes.auth())
       },
     },
   ]
@@ -77,11 +77,13 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                     {/* Logo + desktop nav */}
                     <div className="flex w-10 items-center px-2 sm:w-full lg:px-0">
                       <div className="flex-shrink-0">
-                        <img
-                          className="block h-8 w-8"
-                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
-                          alt="Your Company"
-                        />
+                        <Link to={routes.home()}>
+                          <img
+                            className="block h-8 w-8"
+                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
+                            alt="Your Company"
+                          />
+                        </Link>
                       </div>
                       <div className="hidden lg:ml-10 lg:block">
                         <div className="flex space-x-4">

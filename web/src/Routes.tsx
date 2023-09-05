@@ -15,11 +15,11 @@ import SiteLayout from './layouts/SiteLayout/SiteLayout'
 const Routes = () => {
   return (
     <Router useAuth={useAuth}>
-      <Route path="/" page={WelcomePage} name="welcome" />
       <Set wrap={SiteLayout}>
+        <Route path="/" page={SearchNearbyPage} name="home" />
+        <Route path="/sign-in-sign-up" page={AuthPage} name="auth" />
         <Route path="/event/{id}" page={EventPage} name="event" />
         <Route path="/business/{id}" page={BusinessPage} name="business" />
-        <Route path="/search-nearby" page={SearchNearbyPage} name="searchNearby" />
         <Route path="/search-for-venue" page={SearchForVenuePage} name="searchForVenue" />
         <Route path="/search-for-venue/{searchQuery}" page={SearchForVenuePage} name="searchForVenueWithQuery" />
         <Route path="/privacy" page={PrivacyPage} name="privacy" />
