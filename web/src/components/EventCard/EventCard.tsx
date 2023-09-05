@@ -1,4 +1,3 @@
-import { PlusIcon } from 'lucide-react'
 import { EventQuery } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
