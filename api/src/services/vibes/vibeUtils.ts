@@ -78,9 +78,18 @@ export const generateAndStoreVibes = async ({
     gmapsPlaceId: location.gmapsPlaceId,
   })
 
+  const existingEventNames = await db.event.findMany({
+    where: { locationId },
+    select: { name: true },
+  })
+
   const gmapsPlaceInfoStr = JSON.stringify(gmapsPlaceInfo, null, 2)
 
-  const generatedVibes = await getVibesFromGPT(gmapsPlaceInfoStr, vibeCount)
+  const generatedVibes = await getVibesFromGPT(
+    gmapsPlaceInfoStr,
+    vibeCount,
+    existingEventNames.map((event) => event.name)
+  )
     .then((vibes) => vibes)
     .catch(() => {
       return null
@@ -130,13 +139,15 @@ export const generateAndStoreVibes = async ({
 
 const getVibesFromGPT = async (
   locationInfo: string,
-  vibeCount: number
+  vibeCount: number,
+  existingEventNames: string[]
 ): Promise<Vibe[]> => {
   const openai = new OpenAI()
 
   const prompt = `
   Given a venue with the following details: ${locationInfo}
   Generate a list of community events that could be held there.
+  Do not include any events that have already been suggested: ${existingEventNames.join()}
 
   Please provide ${vibeCount} event suggestions.
   `
