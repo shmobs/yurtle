@@ -133,6 +133,9 @@ export const Location: LocationRelationResolvers = {
       orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
     })
   },
+  managedBy: async (_obj, { root }) => {
+    return db.location.findUnique({ where: { id: root?.id } }).managedBy()
+  },
 
   // events: async (_obj, { root }) => {
   //   const maybeEvents = await db.location

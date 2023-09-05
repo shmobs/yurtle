@@ -13,6 +13,8 @@ export const schema = gql`
     eventsPublished: [Event!]!
     eventsArchived: [Event!]!
 
+    managedBy: [User!]
+
     latitude: Float!
     longitude: Float!
 
