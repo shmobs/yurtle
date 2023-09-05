@@ -43,6 +43,8 @@ export const schema = gql`
       @requireAuth
     deleteLocation(id: String!): Location! @requireAuth
 
+    claimLocation(id: String!): Location! @requireAuth
+
     importFromGMaps(gmapsPlaceId: String!): Location! @skipAuth
   }
 `

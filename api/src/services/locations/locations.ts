@@ -1,14 +1,15 @@
-import { Prisma } from '@prisma/client'
 import type {
   QueryResolvers,
   MutationResolvers,
   LocationRelationResolvers,
-  GMapsApiPlaceDetailsResponseType,
 } from 'types/graphql'
 
+import { requireLocationClaimAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 import { placeDetails } from '../mapSearch/mapSearch'
+
+import { gmapsPlaceDetailsToLocationDetails } from './locationsUtils'
 
 export const locations: QueryResolvers['locations'] = () => {
   return db.location.findMany()
@@ -51,45 +52,23 @@ export const deleteLocation: MutationResolvers['deleteLocation'] = ({ id }) => {
   })
 }
 
-const gmapsPlaceDetailsToBusinessDetails = (
-  gmapsData: GMapsApiPlaceDetailsResponseType
-): Prisma.BusinessUpdateInput &
-  Prisma.BusinessUpdateWithoutLocationsInput &
-  Prisma.BusinessCreateInput &
-  Prisma.BusinessCreateWithoutLocationsInput => {
-  return {
-    name: gmapsData.result.name,
-    description: gmapsData.result.editorial_summary
-      ? gmapsData.result.editorial_summary.overview
-      : 'This venue does not have a description.', // provide a default value if `editorial_summary` is undefined
-    website: gmapsData.result.website,
-  }
-}
+export const claimLocation: MutationResolvers['claimLocation'] = async ({
+  id,
+}) => {
+  requireLocationClaimAuth(id)
 
-const gmapsPlaceDetailsToLocationDetails = (
-  gmapsData: GMapsApiPlaceDetailsResponseType
-): Prisma.LocationUpdateInput & Prisma.LocationCreateInput => {
-  return {
-    address: gmapsData.result.formatted_address,
-    gmapsPlaceId: gmapsData.result.place_id,
-    latitude: gmapsData.result.geometry.location.lat,
-    longitude: gmapsData.result.geometry.location.lng,
-    website: gmapsData.result.website,
-    business: {
-      connectOrCreate: {
-        where: {
-          name: gmapsData.result.name,
-          // TODO for some reason this breaks it
-          // OR: [
-          //   // backup identifier
-          //   { website: gmapsData.result.website },
-          // ],
+  return db.location.update({
+    where: { id },
+    data: {
+      managedBy: {
+        connect: {
+          // Because we have `requireLocationClaimAuth` above, we know that there is a currentUser
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          id: context.currentUser!.id,
         },
-        create: gmapsPlaceDetailsToBusinessDetails(gmapsData),
-        // update: gmapsPlaceDetailsToBusinessDetails(gmapsData),
       },
     },
-  }
+  })
 }
 
 /**
