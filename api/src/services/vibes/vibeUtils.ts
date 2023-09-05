@@ -147,7 +147,7 @@ const getVibesFromGPT = async (
   const prompt = `
   Given a venue with the following details: ${locationInfo}
   Generate a list of community events that could be held there.
-  Do not include any events that have already been suggested: ${existingEventNames.join()}
+  Do not include any events like those that already exist: ${existingEventNames.join()}
 
   Please provide ${vibeCount} event suggestions.
   `
