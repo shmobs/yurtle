@@ -34,9 +34,9 @@ const Location = ({ location }: ILocationProps) => {
           />
           <Button
             variant="secondary"
-            className="absolute bottom-2 right-2 z-50 h-7 lg:bottom-4 lg:right-4 lg:h-9"
+            className="absolute bottom-2 left-7 right-7 z-50 m-auto h-7 lg:bottom-4 lg:left-auto lg:right-4 lg:h-9"
           >
-            Claim this location
+            To start hosting events, claim this location
           </Button>
         </div>
 
