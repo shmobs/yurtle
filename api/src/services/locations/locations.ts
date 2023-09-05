@@ -124,13 +124,44 @@ export const Location: LocationRelationResolvers = {
     }
     return maybeBusiness
   },
-  events: async (_obj, { root }) => {
-    const maybeEvents = await db.location
-      .findUnique({ where: { id: root?.id } })
-      .events({ orderBy: [{ status: 'asc' }, { date: 'asc' }] })
-    if (!maybeEvents) {
-      throw new Error(`Events with id ${root?.id} not found`)
-    }
-    return maybeEvents
+  eventsSuggested: async (_obj, { root }) => {
+    return db.event.findMany({
+      where: { locationId: root?.id, status: 'SUGGESTED' },
+      orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
+    })
   },
+  eventsRequested: async (_obj, { root }) => {
+    return db.event.findMany({
+      where: { locationId: root?.id, status: 'REQUESTED' },
+      orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
+    })
+  },
+  eventsDraft: async (_obj, { root }) => {
+    return db.event.findMany({
+      where: { locationId: root?.id, status: 'DRAFT' },
+      orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
+    })
+  },
+  eventsPublished: async (_obj, { root }) => {
+    return db.event.findMany({
+      where: { locationId: root?.id, status: 'PUBLISHED' },
+      orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
+    })
+  },
+  eventsArchived: async (_obj, { root }) => {
+    return db.event.findMany({
+      where: { locationId: root?.id, status: 'ARCHIVED' },
+      orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
+    })
+  },
+
+  // events: async (_obj, { root }) => {
+  //   const maybeEvents = await db.location
+  //     .findUnique({ where: { id: root?.id } })
+  //     .events({ orderBy: [{ status: 'asc' }, { date: 'asc' }] })
+  //   if (!maybeEvents) {
+  //     throw new Error(`Events with id ${root?.id} not found`)
+  //   }
+  //   return maybeEvents
+  // },
 }

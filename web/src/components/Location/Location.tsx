@@ -46,22 +46,63 @@ const Location = ({ location }: ILocationProps) => {
         />
 
         <section>
-          <ul className="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
-            {location.events.length > 0 &&
-              location.events.map((event) => (
-                <EventCard
-                  key={event.id}
-                  eventId={event.id}
-                  name={event.name}
-                  type={event.type}
-                  description={event.description}
-                  status={event.status}
-                />
-              ))}
-          </ul>
+          {location.eventsPublished.length > 0 ? (
+            <>
+              <SectionHeader
+                title="Scheduled events"
+                subtitle="These events are currently scheduled. To RSVP or see more information, just tap on it!"
+              />
+              <ul className="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
+                {location.eventsPublished.map((event) => (
+                  <EventCard
+                    key={event.id}
+                    eventId={event.id}
+                    name={event.name}
+                    type={event.type}
+                    description={event.description}
+                    status={event.status}
+                  />
+                ))}
+              </ul>
+            </>
+          ) : (
+            <SectionHeader
+              title="There are not currently any scheduled events"
+              subtitle="View requests below to express interest!"
+            />
+          )}
+        </section>
+        <section>
+          {location.eventsRequested.length > 0 ? (
+            <>
+              <SectionHeader
+                title="Open event requests"
+                subtitle="The community has requested these events. To express interest or see more information, just tap on it!"
+              />
+              <ul className="grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3">
+                {location.eventsRequested.map((event) => (
+                  <EventCard
+                    key={event.id}
+                    eventId={event.id}
+                    name={event.name}
+                    type={event.type}
+                    description={event.description}
+                    status={event.status}
+                  />
+                ))}
+              </ul>
+            </>
+          ) : (
+            <SectionHeader
+              title="There are not currently any open event requests"
+              subtitle="View suggestions below to create a request!"
+            />
+          )}
+        </section>
+        <section>
           <SectionHeader
             title="Curated event suggestions"
-            subtitle="We've curated these for this venue. To request one, just tap on it!"
+            subtitle="We've curated these for this venue. To express interest or see more information, just tap on it!"
           />
 
           <div className="mt-1 overflow-visible sm:mb-36">

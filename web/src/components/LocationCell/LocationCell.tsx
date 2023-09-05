@@ -19,13 +19,26 @@ export const QUERY = gql`
         description
         website
       }
-      events {
+
+      eventsRequested {
         id
         name
         description
         type
         status
+        isCurrentUserInterested
+        interestCount
       }
+      eventsPublished {
+        id
+        name
+        description
+        type
+        status
+        isCurrentUserInterested
+        interestCount
+      }
+
       latitude
       longitude
       createdAt
