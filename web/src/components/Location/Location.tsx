@@ -13,7 +13,6 @@ interface ILocationProps {
 }
 
 const Location = ({ location }: ILocationProps) => {
-  console.log(location)
   return (
     <>
       <SimplePageHeader
