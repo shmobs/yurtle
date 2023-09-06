@@ -3,10 +3,11 @@ import { LocationQuery } from 'types/graphql'
 import PlaceVibesCell from 'src/components/PlaceVibesCell'
 import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
-import EventsSection from '../EventsSection'
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader'
 import { Button } from '../ui/button'
+
+import EventListsByStatus from './EventListsByStatus'
 
 interface ILocationProps {
   location: LocationQuery['location']
@@ -45,33 +46,24 @@ const Location = ({ location }: ILocationProps) => {
           subtitle={location.business.description}
         />
 
-        <EventsSection
-          withPadding
-          events={location.eventsPublished}
-          titleIfEmpty="There are not currently any scheduled events"
-          subtitleIfEmpty="View requests below to express interest!"
-          titleIfNotEmpty="Scheduled events"
-          subtitleIfNotEmpty="These events are currently scheduled. To RSVP or see more information, just tap on it!"
-        />
-        <EventsSection
-          withPadding
-          events={location.eventsRequested}
-          titleIfEmpty="There are not currently any open event requests"
-          subtitleIfEmpty="View suggestions below to create a request!"
-          titleIfNotEmpty="Open event requests"
-          subtitleIfNotEmpty="The community has requested these events. To express interest or see more information, just tap on it!"
-        />
+        <EventListsByStatus
+          eventsByStatus={{
+            requested: location.eventsRequested,
+            published: location.eventsPublished,
+            suggested: (
+              <section>
+                <SectionHeader
+                  title="Curated event suggestions"
+                  subtitle="We've curated these for this venue. To express interest or see more information, just tap on it!"
+                />
 
-        <section>
-          <SectionHeader
-            title="Curated event suggestions"
-            subtitle="We've curated these for this venue. To express interest or see more information, just tap on it!"
-          />
-
-          <div className="mt-1 overflow-visible sm:mb-36">
-            <PlaceVibesCell locationId={location.id} />
-          </div>
-        </section>
+                <div className="mt-1 overflow-visible sm:mb-36">
+                  <PlaceVibesCell locationId={location.id} />
+                </div>
+              </section>
+            ),
+          }}
+        />
       </main>
     </>
   )

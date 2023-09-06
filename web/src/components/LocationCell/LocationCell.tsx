@@ -20,6 +20,14 @@ export const QUERY = gql`
         website
       }
 
+      eventsSuggested {
+        id
+        name
+        description
+        type
+        status
+      }
+
       eventsRequested {
         id
         name
