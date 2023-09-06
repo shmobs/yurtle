@@ -7,6 +7,7 @@ import { cn } from 'src/lib/utils'
 
 import AddressLink from '../AddressLink'
 import AuthRequiredDialog from '../AuthRequiredDialog/AuthRequiredDialog'
+import EventDate from '../EventDate/EventDate'
 import MapView from '../Mapbox/Map'
 import ScheduleEventDialog from '../ScheduleEventDialog/ScheduleEventDialog'
 import SectionHeader from '../SectionHeader'
@@ -32,6 +33,8 @@ const EventStatusBadge = ({
             return 'indigo'
           case 'REQUESTED':
             return 'yellow'
+          case 'PUBLISHED':
+            return 'green'
           default:
             return 'gray'
         }
@@ -70,6 +73,7 @@ const Event = ({ event }: IEventProps) => {
     name,
     type,
     description,
+    date,
     location,
     isCurrentUserInterested,
     isManagedByCurrentUser,
@@ -80,6 +84,7 @@ const Event = ({ event }: IEventProps) => {
 
   const [scheduleEventDialogOpen, setScheduleEventDialogOpen] =
     React.useState(false)
+  const [scheduledForDate, setScheduledForDate] = React.useState(date)
 
   const [isInterested, setIsInterested] = React.useState(
     !!isCurrentUserInterested
@@ -114,6 +119,8 @@ const Event = ({ event }: IEventProps) => {
       <ScheduleEventDialog
         eventId={event.id}
         eventName={name}
+        setEventStatus={setCurrStatus}
+        setEventDate={setScheduledForDate}
         isOpen={scheduleEventDialogOpen}
         setIsOpen={setScheduleEventDialogOpen}
       />
@@ -124,6 +131,7 @@ const Event = ({ event }: IEventProps) => {
           <div className="md:flex md:h-full md:flex-col">
             <div className="flex justify-between">
               <EventStatusBadge status={status} interestCount={interestCount} />
+              {date && <EventDate dateStr={date} />}
 
               <AuthRequiredDialog
                 buttonWhenAuthenticated={

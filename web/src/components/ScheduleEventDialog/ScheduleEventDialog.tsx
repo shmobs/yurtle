@@ -1,4 +1,6 @@
+import { getLocalTimeZone } from '@internationalized/date'
 import { DateValue } from 'react-aria'
+import { EventStatus } from 'types/graphql'
 
 import {
   Dialog,
@@ -8,12 +10,15 @@ import {
   DialogTitle,
 } from 'src/components/ui/dialog'
 
+import { useUpdateEventMutation } from '../Event/useUpdateEventMutation'
 import { Button } from '../ui/button'
 import { DateTimePicker } from '../ui/date-time-picker/date-time-picker'
 
 interface IScheduleEventDialogProps {
   eventId: string
   eventName: string
+  setEventStatus: (status: EventStatus) => void
+  setEventDate: (date: string | null | undefined) => void
   /**
    * Because we need to be able to programmatically open and close the dialog, we need to pass in the open state
    */
@@ -27,13 +32,31 @@ interface IScheduleEventDialogProps {
 const ScheduleEventDialog = ({
   eventId,
   eventName,
+  setEventStatus,
+  setEventDate,
   isOpen,
   setIsOpen,
 }: IScheduleEventDialogProps) => {
   const [selectedDate, setSelectedDate] = React.useState<DateValue | null>(null)
 
+  const { updateEvent, loading: updateEventLoading } = useUpdateEventMutation({
+    onUpdateEventComplete: (updateEvent) => {
+      setEventStatus(updateEvent.status)
+      setEventDate(updateEvent.date)
+      setIsOpen(false)
+    },
+  })
+
   const onSubmit = () => {
-    console.log('submitting with', selectedDate)
+    updateEvent({
+      id: eventId,
+      input: {
+        // Because we disable the submit button until a date is selected, we know that selectedDate is not null
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        date: selectedDate!.toDate(getLocalTimeZone()).toISOString(),
+        status: 'PUBLISHED',
+      },
+    })
   }
 
   return (
