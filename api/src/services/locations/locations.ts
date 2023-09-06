@@ -4,7 +4,7 @@ import type {
   LocationRelationResolvers,
 } from 'types/graphql'
 
-import { requireLocationClaimAuth } from 'src/lib/auth'
+import { ICurrentUser, requireLocationClaimAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 import { placeDetails } from '../mapSearch/mapSearch'
@@ -134,7 +134,28 @@ export const Location: LocationRelationResolvers = {
     })
   },
   managedBy: async (_obj, { root }) => {
-    return db.location.findUnique({ where: { id: root?.id } }).managedBy()
+    return (
+      (await db.location.findUnique({ where: { id: root?.id } }).managedBy()) ||
+      []
+    )
+  },
+  isManagedByCurrentUser: async (_obj, { root, context }) => {
+    const currentUser = context.currentUser as unknown as
+      | ICurrentUser
+      | null
+      | undefined
+    if (!currentUser) {
+      return false
+    }
+
+    const maybeManagedBy = await db.location
+      .findUnique({ where: { id: root?.id } })
+      .managedBy()
+    if (!maybeManagedBy) {
+      return false
+    }
+
+    return maybeManagedBy.some((user) => user.id === currentUser.id)
   },
 
   // events: async (_obj, { root }) => {

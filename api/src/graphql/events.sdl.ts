@@ -8,11 +8,18 @@ export const schema = gql`
     date: DateTime
     locationId: String
     location: Location!
-    createdAt: DateTime!
-    updatedAt: DateTime!
 
     isCurrentUserInterested: Boolean
     interestCount: Int
+
+    """
+    This field is only available when querying the event directly, not in nested queries.
+    If you're querying a location, use the \`isManagedByCurrentUser\` field on the event instead.
+    """
+    isManagedByCurrentUser: Boolean
+
+    createdAt: DateTime!
+    updatedAt: DateTime!
   }
 
   type EventInterest {

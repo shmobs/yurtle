@@ -21,7 +21,7 @@ const Location = ({ location }: ILocationProps) => {
   const [isClaimed, setIsClaimed] = React.useState(!!location.managedBy.length)
   const [isClaimDialogOpen, setIsClaimDialogOpen] = React.useState(false)
   const [isClaimedByCurrentUser, setIsClaimedByCurrentUser] = React.useState(
-    !!location.managedBy.some((user) => user.id === currentUser?.id)
+    location.isManagedByCurrentUser
   )
 
   return (

@@ -14,6 +14,11 @@ export const schema = gql`
     eventsArchived: [Event!]!
 
     managedBy: [User!]!
+    """
+    This field is only available when querying the location directly, not in nested queries.
+    If you're querying an event, use the \`isManagedByCurrentUser\` field on the event instead.
+    """
+    isManagedByCurrentUser: Boolean
 
     latitude: Float!
     longitude: Float!

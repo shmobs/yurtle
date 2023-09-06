@@ -250,4 +250,33 @@ export const Event: EventRelationResolvers = {
       },
     })
   },
+
+  isManagedByCurrentUser: async (_obj, { root, context }) => {
+    const currentUser = context.currentUser as unknown as
+      | ICurrentUser
+      | null
+      | undefined
+    if (!currentUser) {
+      return false
+    }
+
+    const maybeLocationInfo = await db.event.findUnique({
+      where: {
+        id: root.id,
+      },
+      select: {
+        location: {
+          select: {
+            managedBy: true,
+          },
+        },
+      },
+    })
+
+    return (
+      maybeLocationInfo?.location?.managedBy.some(
+        (user) => user.id === currentUser.id
+      ) ?? false
+    )
+  },
 }
