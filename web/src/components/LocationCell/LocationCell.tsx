@@ -38,7 +38,9 @@ export const QUERY = gql`
         isCurrentUserInterested
         interestCount
       }
-
+      managedBy {
+        id
+      }
       latitude
       longitude
       createdAt
