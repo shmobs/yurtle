@@ -87,7 +87,10 @@ const ScheduleEventDialog = ({
           <div className="text-center text-xs">
             Time is in your current time zone
           </div>
-          <Button onClick={onSubmit} disabled={!selectedDate}>
+          <Button
+            onClick={onSubmit}
+            disabled={!selectedDate || updateEventLoading}
+          >
             Schedule Event
           </Button>
         </DialogHeader>

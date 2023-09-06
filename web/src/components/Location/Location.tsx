@@ -6,6 +6,7 @@ import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 import AuthRequiredDialog from '../AuthRequiredDialog/AuthRequiredDialog'
 import ClaimLocationDialog from '../ClaimLocationDialog/ClaimLocationDialog'
 import EventsSection from '../EventsSection'
+import ManagerBadge from '../ManagerBadge/ManagerBadge'
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader'
 import { Button } from '../ui/button'
@@ -49,7 +50,7 @@ const Location = ({ location }: ILocationProps) => {
             long={location.longitude}
             zoom={16}
           />
-          {!isClaimed && (
+          {!isClaimed ? (
             <AuthRequiredDialog
               title="Log in or sign up to claim this location"
               buttonWhenAuthenticated={
@@ -71,16 +72,10 @@ const Location = ({ location }: ILocationProps) => {
               }
               onAuthenticated={() => setIsClaimDialogOpen(true)}
             />
-          )}
+          ) : null}
         </div>
 
-        {isClaimedByCurrentUser && (
-          <div className="mt-2 border-white bg-lime-600 py-2 text-center text-sm text-white sm:mx-auto sm:mt-5 sm:max-w-xs sm:rounded-lg sm:text-base">
-            You are a manager of this location.
-            <br />
-            To publish an event, tap on it!
-          </div>
-        )}
+        {isClaimedByCurrentUser && <ManagerBadge location="location" />}
 
         <SectionHeader
           withPadding
