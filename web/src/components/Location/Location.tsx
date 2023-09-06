@@ -1,6 +1,5 @@
 import { LocationQuery } from 'types/graphql'
 
-import { useAuth } from 'src/auth'
 import PlaceVibesCell from 'src/components/PlaceVibesCell'
 import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
@@ -16,8 +15,6 @@ interface ILocationProps {
 }
 
 const Location = ({ location }: ILocationProps) => {
-  const { currentUser } = useAuth()
-
   const [isClaimed, setIsClaimed] = React.useState(!!location.managedBy.length)
   const [isClaimDialogOpen, setIsClaimDialogOpen] = React.useState(false)
   const [isClaimedByCurrentUser, setIsClaimedByCurrentUser] = React.useState(
