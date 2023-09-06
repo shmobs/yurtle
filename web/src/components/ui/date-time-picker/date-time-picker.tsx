@@ -39,7 +39,11 @@ const DateTimePickerContent = ({
   <div {...dialogProps} className="space-y-3">
     <Calendar {...calendarProps} />
     {!!state.hasTime && (
-      <TimeField value={state.timeValue} onChange={state.setTimeValue} />
+      <TimeField
+        aria-label="Time field"
+        value={state.timeValue}
+        onChange={state.setTimeValue}
+      />
     )}
   </div>
 )
@@ -75,6 +79,7 @@ const DateTimePicker = React.forwardRef<HTMLDivElement, IDateTimePickerProps>(
     if (inline) {
       return (
         <DateTimePickerContent
+          aria-label="Date and time picker"
           dialogProps={dialogProps}
           calendarProps={calendarProps}
           state={state}

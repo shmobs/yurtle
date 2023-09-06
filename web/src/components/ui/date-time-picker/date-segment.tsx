@@ -21,6 +21,7 @@ function DateSegment({ segment, state }: DateSegmentProps) {
     <div
       {...segmentProps}
       ref={ref}
+      aria-label={segment.text}
       className={cn(
         'focus:rounded-[2px] focus:bg-accent focus:text-accent-foreground focus:outline-none',
         segment.type !== 'literal' ? 'px-[1px]' : '',

@@ -4,6 +4,8 @@ import type {
   EventRelationResolvers,
 } from 'types/graphql'
 
+import { removeNulls } from '@redwoodjs/api'
+
 import { ICurrentUser, requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
@@ -43,7 +45,7 @@ export const updateEvent: MutationResolvers['updateEvent'] = ({
   input,
 }) => {
   return db.event.update({
-    data: input,
+    data: removeNulls(input),
     where: { id },
   })
 }

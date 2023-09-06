@@ -60,6 +60,7 @@ function Calendar(props: CalendarProps<DateValue>) {
           className={cn(
             'absolute left-1 h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'
           )}
+          aria-label="Previous month"
         >
           <ChevronLeftIcon className="h-4 w-4" />
         </Button>
@@ -71,6 +72,7 @@ function Calendar(props: CalendarProps<DateValue>) {
           className={cn(
             'absolute right-1 h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'
           )}
+          aria-label="Next month"
         >
           <ChevronRightIcon className="h-4 w-4" />
         </Button>
