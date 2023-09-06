@@ -15,6 +15,7 @@ import { Button } from '../ui/button'
 import { DateTimePicker } from '../ui/date-time-picker/date-time-picker'
 
 interface IScheduleEventDialogProps {
+  action: 'schedule' | 'reschedule'
   eventId: string
   eventName: string
   setEventStatus: (status: EventStatus) => void
@@ -30,6 +31,7 @@ interface IScheduleEventDialogProps {
 }
 
 const ScheduleEventDialog = ({
+  action,
   eventId,
   eventName,
   setEventStatus,
@@ -64,12 +66,16 @@ const ScheduleEventDialog = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="pb-5 text-center">
-            Schedule {eventName}
+            {action === 'reschedule' ? 'Reschedule' : 'Schedule'} {eventName}
           </DialogTitle>
           <DialogDescription className="pb-5 text-left">
-            To schedule this event, pick a date and time, and then click the
-            Schedule button. We don&apos;t currently have a mechanism for
-            notifying interested attendees, and we&apos;re working on it 😁
+            {action === 'reschedule'
+              ? 'To change the event date and time, pick a new date and time, and then click the Reschedule button.'
+              : 'To schedule this event, pick a date and time, and then click the Schedule button.'}
+            <br />
+            <br />
+            We don&apos;t currently have a mechanism for notifying interested
+            attendees, but we&apos;re working on it 😁
           </DialogDescription>
           <div className="mx-auto pb-5">
             <DateTimePicker

@@ -117,6 +117,7 @@ const Event = ({ event }: IEventProps) => {
       <SimplePageHeader title={name} subtitle={type} />
 
       <ScheduleEventDialog
+        action={status === 'PUBLISHED' ? 'reschedule' : 'schedule'}
         eventId={event.id}
         eventName={name}
         setEventStatus={setCurrStatus}
@@ -131,13 +132,18 @@ const Event = ({ event }: IEventProps) => {
           <div className="md:flex md:h-full md:flex-col">
             <div className="flex justify-between">
               <EventStatusBadge status={status} interestCount={interestCount} />
-              {date && <EventDate dateStr={date} />}
+              {scheduledForDate && <EventDate dateStr={scheduledForDate} />}
 
               <AuthRequiredDialog
                 buttonWhenAuthenticated={
                   isManagedByCurrentUser ? (
-                    <Button onClick={() => setScheduleEventDialogOpen(true)}>
-                      Schedule this event
+                    <Button
+                      variant={status === 'PUBLISHED' ? 'secondary' : 'default'}
+                      onClick={() => setScheduleEventDialogOpen(true)}
+                    >
+                      {status === 'PUBLISHED'
+                        ? 'Reschedule event'
+                        : 'Schedule this event'}
                     </Button>
                   ) : (
                     <Button
