@@ -1,3 +1,5 @@
+import { DateValue } from 'react-aria'
+
 import {
   Dialog,
   DialogContent,
@@ -5,6 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from 'src/components/ui/dialog'
+
+import { Button } from '../ui/button'
+import { DateTimePicker } from '../ui/date-time-picker/date-time-picker'
 
 interface IScheduleEventDialogProps {
   eventId: string
@@ -25,6 +30,12 @@ const ScheduleEventDialog = ({
   isOpen,
   setIsOpen,
 }: IScheduleEventDialogProps) => {
+  const [selectedDate, setSelectedDate] = React.useState<DateValue | null>(null)
+
+  const onSubmit = () => {
+    console.log('submitting with', selectedDate?.toDateString())
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>
@@ -37,6 +48,13 @@ const ScheduleEventDialog = ({
             Schedule button. We don&apos;t currently have a mechanism for
             notifying interested attendees, and we&apos;re working on it 😁
           </DialogDescription>
+          <DateTimePicker
+            granularity={'minute'}
+            onChange={(value) => setSelectedDate(value)}
+          />
+          <Button onClick={onSubmit} disabled={!selectedDate}>
+            Schedule Event
+          </Button>
         </DialogHeader>
       </DialogContent>
     </Dialog>
