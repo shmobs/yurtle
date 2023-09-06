@@ -14,6 +14,7 @@ export const QUERY = gql`
       status
       date
       isCurrentUserInterested
+      isManagedByCurrentUser
       interestCount
       location {
         id

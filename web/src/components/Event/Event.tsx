@@ -8,6 +8,7 @@ import { cn } from 'src/lib/utils'
 import AddressLink from '../AddressLink'
 import AuthRequiredDialog from '../AuthRequiredDialog/AuthRequiredDialog'
 import MapView from '../Mapbox/Map'
+import ScheduleEventDialog from '../ScheduleEventDialog/ScheduleEventDialog'
 import SectionHeader from '../SectionHeader'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
@@ -71,15 +72,18 @@ const Event = ({ event }: IEventProps) => {
     description,
     location,
     isCurrentUserInterested,
+    isManagedByCurrentUser,
     status: statusInit,
   } = event
+
+  const [status, setCurrStatus] = React.useState(statusInit)
+
+  const [scheduleEventDialogOpen, setScheduleEventDialogOpen] =
+    React.useState(false)
 
   const [isInterested, setIsInterested] = React.useState(
     !!isCurrentUserInterested
   )
-
-  const [status, setCurrStatus] = React.useState(statusInit)
-
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
   const onSetEventInterestComplete = ({
@@ -106,6 +110,14 @@ const Event = ({ event }: IEventProps) => {
   return (
     <>
       <SimplePageHeader title={name} subtitle={type} />
+
+      <ScheduleEventDialog
+        eventId={event.id}
+        eventName={name}
+        isOpen={scheduleEventDialogOpen}
+        setIsOpen={setScheduleEventDialogOpen}
+      />
+
       <div className="md:flex md:min-h-full md:gap-5">
         {/* Event info */}
         <div className="md:w-1/2">
@@ -115,14 +127,20 @@ const Event = ({ event }: IEventProps) => {
 
               <AuthRequiredDialog
                 buttonWhenAuthenticated={
-                  <Button
-                    className="flex gap-2"
-                    onClick={() => onSetEventInterest()}
-                    variant="outline"
-                    disabled={setInterestLoading}
-                  >
-                    Interested <Checkbox checked={isInterested} />
-                  </Button>
+                  isManagedByCurrentUser ? (
+                    <Button onClick={() => setScheduleEventDialogOpen(true)}>
+                      Schedule this event
+                    </Button>
+                  ) : (
+                    <Button
+                      className="flex gap-2"
+                      onClick={() => onSetEventInterest()}
+                      variant="outline"
+                      disabled={setInterestLoading}
+                    >
+                      Interested <Checkbox checked={isInterested} />
+                    </Button>
+                  )
                 }
                 openDialogButton={
                   <Button className="flex gap-2" variant="outline">
