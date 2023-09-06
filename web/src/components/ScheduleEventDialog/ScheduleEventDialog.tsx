@@ -33,7 +33,7 @@ const ScheduleEventDialog = ({
   const [selectedDate, setSelectedDate] = React.useState<DateValue | null>(null)
 
   const onSubmit = () => {
-    console.log('submitting with', selectedDate?.toDateString())
+    console.log('submitting with', selectedDate)
   }
 
   return (
@@ -48,10 +48,16 @@ const ScheduleEventDialog = ({
             Schedule button. We don&apos;t currently have a mechanism for
             notifying interested attendees, and we&apos;re working on it 😁
           </DialogDescription>
-          <DateTimePicker
-            granularity={'minute'}
-            onChange={(value) => setSelectedDate(value)}
-          />
+          <div className="mx-auto pb-5">
+            <DateTimePicker
+              inline
+              granularity={'minute'}
+              onChange={(value) => setSelectedDate(value)}
+            />
+          </div>
+          <div className="text-center text-xs">
+            Time is in your current time zone
+          </div>
           <Button onClick={onSubmit} disabled={!selectedDate}>
             Schedule Event
           </Button>
