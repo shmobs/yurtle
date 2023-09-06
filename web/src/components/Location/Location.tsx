@@ -52,14 +52,15 @@ const Location = ({ location }: ILocationProps) => {
           />
           {!isClaimed ? (
             <AuthRequiredDialog
-              title="Log in or sign up to claim this location"
+              title="Log in or sign up to claim this venue"
+              description="Claiming this venue will allow you to schedule events here."
               buttonWhenAuthenticated={
                 <Button
                   variant="secondary"
                   className="absolute bottom-2 left-7 right-7 z-50 m-auto h-7 lg:bottom-4 lg:left-auto lg:right-4 lg:h-9"
                   onClick={() => setIsClaimDialogOpen(true)}
                 >
-                  To start hosting events, claim this location
+                  To start hosting events, claim this venue
                 </Button>
               }
               openDialogButton={
@@ -67,7 +68,7 @@ const Location = ({ location }: ILocationProps) => {
                   variant="secondary"
                   className="absolute bottom-2 left-7 right-7 z-50 m-auto h-7 lg:bottom-4 lg:left-auto lg:right-4 lg:h-9"
                 >
-                  To start hosting events, claim this location
+                  To start hosting events, claim this venue
                 </Button>
               }
               onAuthenticated={() => setIsClaimDialogOpen(true)}

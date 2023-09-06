@@ -85,7 +85,7 @@ enum EventStatus {
   SUGGESTED
   REQUESTED
   DRAFT
-  PUBLISHED
+  SCHEDULED
   ARCHIVED
 }
 

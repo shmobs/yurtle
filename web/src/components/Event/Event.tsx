@@ -8,43 +8,15 @@ import { cn } from 'src/lib/utils'
 import AddressLink from '../AddressLink'
 import AuthRequiredDialog from '../AuthRequiredDialog/AuthRequiredDialog'
 import EventDate from '../EventDate/EventDate'
+import EventStatusBadge from '../EventStatusBadge/EventStatusBadge'
+import ManagerBadge from '../ManagerBadge/ManagerBadge'
 import MapView from '../Mapbox/Map'
 import ScheduleEventDialog from '../ScheduleEventDialog/ScheduleEventDialog'
 import SectionHeader from '../SectionHeader'
-import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 
 import { useSetEventInterestMutation } from './useSetEventInterestMutation'
-
-interface IEventStatusBadgeProps {
-  status: EventQuery['event']['status']
-  interestCount: EventQuery['event']['interestCount']
-}
-const EventStatusBadge = ({
-  status,
-  interestCount,
-}: IEventStatusBadgeProps) => (
-  <>
-    <Badge
-      variant={(() => {
-        switch (status) {
-          case 'SUGGESTED':
-            return 'indigo'
-          case 'REQUESTED':
-            return 'yellow'
-          case 'PUBLISHED':
-            return 'green'
-          default:
-            return 'gray'
-        }
-      })()}
-    >
-      {status.toLocaleLowerCase()}
-      {status === 'REQUESTED' && ` by ${interestCount}`}
-    </Badge>
-  </>
-)
 
 const LocationBtn = ({
   locationId,
@@ -117,7 +89,7 @@ const Event = ({ event }: IEventProps) => {
       <SimplePageHeader title={name} subtitle={type} />
 
       <ScheduleEventDialog
-        action={status === 'PUBLISHED' ? 'reschedule' : 'schedule'}
+        action={status === 'SCHEDULED' ? 'reschedule' : 'schedule'}
         eventId={event.id}
         eventName={name}
         setEventStatus={setCurrStatus}
@@ -130,20 +102,23 @@ const Event = ({ event }: IEventProps) => {
         {/* Event info */}
         <div className="md:w-1/2">
           <div className="md:flex md:h-full md:flex-col">
-            <div className="flex justify-between">
+            {isManagedByCurrentUser && <ManagerBadge location="event" />}
+            <div
+              className={cn(
+                'flex justify-between',
+                isManagedByCurrentUser && 'mt-12 md:mt-4'
+              )}
+            >
               <EventStatusBadge status={status} interestCount={interestCount} />
-              {scheduledForDate && <EventDate dateStr={scheduledForDate} />}
 
               <AuthRequiredDialog
                 buttonWhenAuthenticated={
                   isManagedByCurrentUser ? (
                     <Button
-                      variant={status === 'PUBLISHED' ? 'secondary' : 'default'}
+                      variant={status === 'SCHEDULED' ? 'secondary' : 'default'}
                       onClick={() => setScheduleEventDialogOpen(true)}
                     >
-                      {status === 'PUBLISHED'
-                        ? 'Reschedule event'
-                        : 'Schedule this event'}
+                      {status === 'SCHEDULED' ? 'Reschedule' : 'Schedule'}
                     </Button>
                   ) : (
                     <Button
@@ -174,6 +149,7 @@ const Event = ({ event }: IEventProps) => {
                   >
                     {location.business.name}
                   </Link>
+                  {scheduledForDate && <EventDate dateStr={scheduledForDate} />}
                 </span>
               }
             />

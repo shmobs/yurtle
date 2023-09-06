@@ -46,7 +46,7 @@ export const schema = gql`
     SUGGESTED
     REQUESTED
     DRAFT
-    PUBLISHED
+    SCHEDULED
     ARCHIVED
   }
 

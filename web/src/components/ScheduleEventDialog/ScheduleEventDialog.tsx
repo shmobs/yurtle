@@ -56,7 +56,7 @@ const ScheduleEventDialog = ({
         // Because we disable the submit button until a date is selected, we know that selectedDate is not null
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         date: selectedDate!.toDate(getLocalTimeZone()).toISOString(),
-        status: 'PUBLISHED',
+        status: 'SCHEDULED',
       },
     })
   }
