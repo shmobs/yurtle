@@ -12,8 +12,11 @@ export const schema = gql`
     isCurrentUserInterested: Boolean
     interestCount: Int
 
+    isCurrentUserAttending: Boolean
+    rsvpCount: Int
+
     """
-    This field is only available when querying the event directly, not in nested queries.
+    This field might only be (???) available when querying the event directly, not in nested queries.
     If you're querying a location, use the \`isManagedByCurrentUser\` field on the event instead.
     """
     isManagedByCurrentUser: Boolean

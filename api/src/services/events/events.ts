@@ -174,8 +174,31 @@ export const Event: EventRelationResolvers = {
     return !!maybeInterest
   },
 
+  isCurrentUserAttending: async (_obj, { root, context }) => {
+    if (!context.currentUser) {
+      return false
+    }
+
+    const maybeRSVP = await db.eventRSVP.findFirst({
+      where: {
+        eventId: root.id,
+        userId: (context.currentUser as unknown as ICurrentUser).id,
+      },
+    })
+
+    return !!maybeRSVP
+  },
+
   interestCount: async (_obj, { root }) => {
     return db.eventInterest.count({
+      where: {
+        eventId: root.id,
+      },
+    })
+  },
+
+  rsvpCount: async (_obj, { root }) => {
+    return db.eventRSVP.count({
       where: {
         eventId: root.id,
       },
