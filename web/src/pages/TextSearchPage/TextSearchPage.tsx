@@ -3,13 +3,13 @@ import SearchBox from 'src/components/SearchBox/SearchBox'
 import TextSeachCell from 'src/components/TextSearchCell'
 import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
-interface ISearchForVenuePageProps {
+interface ITextSearchPageProps {
   searchQuery?: string
 }
 
-const SearchForVenuePage = ({
+const TextSearchPage = ({
   searchQuery: searchQueryRaw,
-}: ISearchForVenuePageProps) => {
+}: ITextSearchPageProps) => {
   const { searchLocation } = useSearchLocationContext()
 
   // the searchQuery comes in HTML encoded, so we need to decode it
@@ -19,7 +19,7 @@ const SearchForVenuePage = ({
 
   const title = searchQuery
     ? `Search results for '${searchQuery}'`
-    : 'Search for Venue'
+    : 'Search for Venues and Events'
   return (
     <div className="flex flex-col gap-2">
       <SimplePageHeader title={title} />
@@ -36,4 +36,4 @@ const SearchForVenuePage = ({
   )
 }
 
-export default SearchForVenuePage
+export default TextSearchPage

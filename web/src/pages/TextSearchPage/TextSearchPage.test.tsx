@@ -1,14 +1,14 @@
 import { render } from '@redwoodjs/testing/web'
 
-import SearchForVenuePage from './SearchForVenuePage'
+import TextSearchPage from './TextSearchPage'
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
-describe('SearchForVenuePage', () => {
+describe('TextSearchPage', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<SearchForVenuePage />)
+      render(<TextSearchPage />)
     }).not.toThrow()
   })
 })

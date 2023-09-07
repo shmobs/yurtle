@@ -39,10 +39,18 @@ const LocationsAndEvents = ({
         onValueChange={(value) => setCurrTab(Number(value))}
       >
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger className="md:text-lg" value="0">
+          <TabsTrigger
+            disabled={!locations || !eventsByStatus}
+            className="md:text-lg"
+            value="0"
+          >
             Venues
           </TabsTrigger>
-          <TabsTrigger className="md:text-lg" value="1">
+          <TabsTrigger
+            disabled={!locations || !eventsByStatus}
+            className="md:text-lg"
+            value="1"
+          >
             Events
           </TabsTrigger>
         </TabsList>

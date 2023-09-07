@@ -19,8 +19,8 @@ const Routes = () => {
         <Route path="/sign-in-sign-up" page={AuthPage} name="auth" />
         <Route path="/event/{id}" page={EventPage} name="event" />
         <Route path="/business/{id}" page={BusinessPage} name="business" />
-        <Route path="/search-for-venue" page={SearchForVenuePage} name="searchForVenue" />
-        <Route path="/search-for-venue/{searchQuery}" page={SearchForVenuePage} name="searchForVenueWithQuery" />
+        <Route path="/text-search" page={TextSearchPage} name="searchForVenue" />
+        <Route path="/text-search/{searchQuery}" page={TextSearchPage} name="searchForVenueWithQuery" />
         <Route path="/privacy" page={PrivacyPage} name="privacy" />
         <Route notfound page={NotFoundPage} />
       </Set>
