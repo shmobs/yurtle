@@ -1,6 +1,6 @@
 import { TabsList } from '@radix-ui/react-tabs'
 import SwiperCore from 'swiper'
-import { Swiper, SwiperRef, SwiperSlide, useSwiper } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { EventData } from 'src/components/EventsByStatus'
 import { ILocationCardProps } from 'src/components/LocationCard'
