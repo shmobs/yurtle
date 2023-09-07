@@ -64,7 +64,7 @@ const Event = ({ event }: IEventProps) => {
   )
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
-  const [isAttending, setIsAttending] = React.useState(isCurrentUserAttending)
+  const [isAttending, setIsAttending] = React.useState(!!isCurrentUserAttending)
   const [attendingCount, setAttendingCount] = React.useState(event.rsvpCount)
 
   const onSetEventInterestOrRSVPComplete = ({
