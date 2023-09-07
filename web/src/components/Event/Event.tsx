@@ -6,7 +6,6 @@ import { SimplePageHeader } from 'src/layouts/SiteLayout'
 import { cn } from 'src/lib/utils'
 
 import AddressLink from '../AddressLink'
-import AuthRequiredDialog from '../AuthRequiredDialog/AuthRequiredDialog'
 import EventDate from '../EventDate/EventDate'
 import EventStatusBadge from '../EventStatusBadge/EventStatusBadge'
 import ManagerBadge from '../ManagerBadge/ManagerBadge'
@@ -14,9 +13,9 @@ import MapView from '../Mapbox/Map'
 import ScheduleEventDialog from '../ScheduleEventDialog/ScheduleEventDialog'
 import SectionHeader from '../SectionHeader'
 import { Button } from '../ui/button'
-import { Checkbox } from '../ui/checkbox'
 
 import InterestedBtn from './InterestedBtn'
+import RSVPBtn from './RSVPButton'
 import ScheduleBtn from './ScheduleBtn'
 import { useSetEventInterestOrRSVPMutation } from './useSetEventInterestOrRSVPMutation'
 
@@ -50,6 +49,7 @@ const Event = ({ event }: IEventProps) => {
     date,
     location,
     isCurrentUserInterested,
+    isCurrentUserAttending,
     status: statusInit,
   } = event
 
@@ -64,16 +64,18 @@ const Event = ({ event }: IEventProps) => {
   )
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
-  const [isAttending, setIsAttending] = React.useState(false)
+  const [isAttending, setIsAttending] = React.useState(isCurrentUserAttending)
 
   const onSetEventInterestOrRSVPComplete = ({
     status,
     interestCount,
     isCurrentUserInterested,
+    isCurrentUserAttending,
   }: SetEventInterestOrRSVPMutation['event']) => {
     setInterestCount(interestCount)
     setCurrStatus(status)
     setIsInterested(!!isCurrentUserInterested)
+    setIsAttending(!!isCurrentUserAttending)
   }
 
   const { setEventInterestOrRSVP, loading: setInterestOrRSVPLoading } =
@@ -94,7 +96,7 @@ const Event = ({ event }: IEventProps) => {
       eventId: event.id,
       // if we're calling this on the OAuth redirect, we want to set isInterested to true
       isInterestedOrAttending: withOAuthRedirect ? true : !isAttending,
-      action: 'INTEREST',
+      action: 'RSVP',
     })
 
   return (
@@ -130,6 +132,12 @@ const Event = ({ event }: IEventProps) => {
                 <ScheduleBtn
                   event={event}
                   setScheduleEventDialogOpen={setScheduleEventDialogOpen}
+                />
+              ) : status === 'SCHEDULED' ? (
+                <RSVPBtn
+                  onSetEventRSVP={onSetEventRSVP}
+                  setInterestOrRSVPLoading={setInterestOrRSVPLoading}
+                  isAttending={isAttending}
                 />
               ) : (
                 <InterestedBtn
