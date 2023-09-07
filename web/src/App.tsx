@@ -13,6 +13,7 @@ import { LocationProvider } from './components/LocationContext/locationContext'
 import '@spoonjoy/redwoodjs-dbauth-oauth-web/dist/style.css'
 import './index.css'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import 'swiper/css'
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
