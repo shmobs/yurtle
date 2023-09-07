@@ -27,7 +27,7 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
 
   const navigation = [
     {
-      name: 'Nearby Venues',
+      name: 'Nearby',
       href: routes.home(),
       current: useMatch(routes.home()).match,
     },

@@ -1,6 +1,6 @@
 import { fetch } from '@whatwg-node/fetch'
 import {
-  GMapsApiTextSearchResponseType,
+  GMapsApiTextSearchResponseType as TextSearchResponse,
   GMapsApiPlaceDetailsResponseType,
   GMapsApiSearchNearbyResponseType as SearchNearbyResponse,
   QueryResolvers,
@@ -8,6 +8,7 @@ import {
   MapboxSearchBoxResponseType,
   GMapsApiSearchNearbyResponseTypeRelationResolvers,
   EventStatus,
+  GMapsApiTextSearchResponseTypeRelationResolvers,
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
@@ -77,7 +78,7 @@ export const textSearch: QueryResolvers['textSearch'] = async ({
 
   const res = await fetch(searchUrl)
 
-  const resContent = (await res.json()) as GMapsApiTextSearchResponseType
+  const resContent = (await res.json()) as TextSearchResponse
 
   const withRendyLocationIds = await addRendyLocationIds(resContent)
   const withMapboxStaticImages = await addMapboxStaticImages(
@@ -170,7 +171,7 @@ export const searchForArea: QueryResolvers['searchForArea'] = async ({
   return resContent
 }
 
-type RootType = Omit<
+type SearchNearbyRootType = Omit<
   SearchNearbyResponse,
   | 'eventsArchived'
   | 'eventsDraft'
@@ -179,7 +180,19 @@ type RootType = Omit<
   | 'eventsSuggested'
 >
 
-const findEventsByStatus = async (root: RootType, status: EventStatus) => {
+type TextSearchRootType = Omit<
+  TextSearchResponse,
+  | 'eventsArchived'
+  | 'eventsDraft'
+  | 'eventsRequested'
+  | 'eventsScheduled'
+  | 'eventsSuggested'
+>
+
+const findEventsByStatus = async (
+  root: SearchNearbyRootType | TextSearchRootType,
+  status: EventStatus
+) => {
   const gmapsPlaceIds = root.results.map((result) => result.place_id)
   return db.event.findMany({
     where: {
@@ -195,6 +208,15 @@ const findEventsByStatus = async (root: RootType, status: EventStatus) => {
 }
 
 export const GMapsApiSearchNearbyResponseType: GMapsApiSearchNearbyResponseTypeRelationResolvers =
+  {
+    eventsSuggested: (_obj, { root }) => findEventsByStatus(root, 'SUGGESTED'),
+    eventsRequested: (_obj, { root }) => findEventsByStatus(root, 'REQUESTED'),
+    eventsDraft: (_obj, { root }) => findEventsByStatus(root, 'DRAFT'),
+    eventsScheduled: (_obj, { root }) => findEventsByStatus(root, 'SCHEDULED'),
+    eventsArchived: (_obj, { root }) => findEventsByStatus(root, 'ARCHIVED'),
+  }
+
+export const GMapsApiTextSearchResponseType: GMapsApiTextSearchResponseTypeRelationResolvers =
   {
     eventsSuggested: (_obj, { root }) => findEventsByStatus(root, 'SUGGESTED'),
     eventsRequested: (_obj, { root }) => findEventsByStatus(root, 'REQUESTED'),
