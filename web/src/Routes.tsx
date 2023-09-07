@@ -16,7 +16,6 @@ const Routes = () => {
   return (
     <Router useAuth={useAuth}>
       <Set wrap={SiteLayout}>
-        <Route path="/" page={SearchNearbyPage} name="home" />
         <Route path="/sign-in-sign-up" page={AuthPage} name="auth" />
         <Route path="/event/{id}" page={EventPage} name="event" />
         <Route path="/business/{id}" page={BusinessPage} name="business" />
@@ -26,6 +25,7 @@ const Routes = () => {
         <Route notfound page={NotFoundPage} />
       </Set>
       <Set wrap={SiteLayout} withoutPadding>
+        <Route path="/" page={SearchNearbyPage} name="home" />
         <Route path="/location/{id}" page={LocationPage} name="location" />
       </Set>
     </Router>

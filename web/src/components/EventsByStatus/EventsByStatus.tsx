@@ -40,9 +40,13 @@ const statusConfig: Partial<LabelsConfigType> = {
 
 interface IEventsByStatusProps {
   eventsByStatus: Partial<EventData>
+  withPadding?: boolean
 }
 
-export function EventsByStatus({ eventsByStatus }: IEventsByStatusProps) {
+export function EventsByStatus({
+  eventsByStatus,
+  withPadding,
+}: IEventsByStatusProps) {
   // Define the order of priority
   const order: EventStatus[] = [
     'SCHEDULED',
@@ -72,18 +76,27 @@ export function EventsByStatus({ eventsByStatus }: IEventsByStatusProps) {
   // Merge the two groups back into one, with nonEmpty first
   const mergedData = [...nonEmpty, ...empty]
 
-  return mergedData.map((events) => {
-    const key = Object.keys(events)[0] as EventStatus
-    const value = events[key]
-    const labels = statusConfig[key]
-    if (value && labels) {
-      if (Array.isArray(value)) {
-        return (
-          <EventsSection withPadding key={key} events={value} {...labels} />
-        )
-      } else {
-        return value
-      }
-    }
-  })
+  return (
+    <div>
+      {mergedData.map((events) => {
+        const key = Object.keys(events)[0] as EventStatus
+        const value = events[key]
+        const labels = statusConfig[key]
+        if (value && labels) {
+          if (Array.isArray(value)) {
+            return (
+              <EventsSection
+                withPadding={withPadding}
+                key={key}
+                events={value}
+                {...labels}
+              />
+            )
+          } else {
+            return value
+          }
+        }
+      })}
+    </div>
+  )
 }
