@@ -46,7 +46,7 @@ const StyledFieldWrapper = ({
   return (
     <div
       ref={animationParentRef}
-      className={cn('text-left', inline ? 'mr-10 flex-1' : 'mb-3')}
+      className={cn('w-full text-left', inline ? 'mr-10 flex-1' : 'mb-3')}
     >
       {label && (
         <Label

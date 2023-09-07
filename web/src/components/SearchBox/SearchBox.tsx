@@ -32,18 +32,21 @@ const SearchBox = ({ initialValue }: ISearchBoxProps) => {
 
   return (
     <Form<IFormSearch>
-      className="flex w-full max-w-sm items-center space-x-2"
+      className="mx-auto flex w-11/12 items-center justify-center space-x-2 pt-5 sm:w-96 md:pt-10"
       onSubmit={onSubmit}
       formMethods={formMethods}
     >
       <TextField
+        grow
         name="searchQuery"
         ref={fieldRef}
-        placeholder={searchLocation ? 'Search for a venue' : 'Loading...'}
+        placeholder={
+          searchLocation ? 'Search for venues and events' : 'Loading...'
+        }
         disabled={!searchLocation}
         defaultValue={initialValue}
       />
-      <Button type="submit" disabled={!searchLocation}>
+      <Button className="mb-3" type="submit" disabled={!searchLocation}>
         Search
       </Button>
     </Form>

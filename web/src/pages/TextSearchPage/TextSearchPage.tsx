@@ -26,11 +26,19 @@ const TextSearchPage = ({
 
       <SearchBox initialValue={searchQuery} />
 
-      {searchQuery && searchLocation && (
+      {searchQuery && searchLocation ? (
         <TextSeachCell
           query={searchQuery}
           location={`${searchLocation.lat},${searchLocation.lng}`}
         />
+      ) : (
+        <div className="mt-28 text-center text-lg text-gray-500 sm:mt-14">
+          What are you looking for?
+          <br />
+          Enter a term into the search box
+          <br />
+          and press Search!
+        </div>
       )}
     </div>
   )

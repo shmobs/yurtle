@@ -208,7 +208,7 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                   <div className="border-t border-indigo-700 pb-3 pt-4">
                     {/* user info */}
                     {user && (
-                      <div className="flex items-center px-5">
+                      <div className="flex items-center overflow-clip px-5">
                         <div className="flex-shrink-0">
                           <UserProfileImg className="h-10 w-10 rounded-full fill-white" />
                         </div>
