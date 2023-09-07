@@ -1,6 +1,14 @@
 export const schema = gql`
   type GMapsApiSearchNearbyResponseType {
     results: [GMapsNearbyPlaceType!]!
+
+    # The following fields are injected by the relation resolver based on the response from the Google Maps API
+    eventsSuggested: [Event!]
+    eventsRequested: [Event!]
+    eventsDraft: [Event!]
+    eventsScheduled: [Event!]
+    eventsArchived: [Event!]
+
     status: GMapsPlacesSearchStatusType!
     error_message: String
     html_attributions: [String]!

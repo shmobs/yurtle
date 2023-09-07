@@ -2,11 +2,15 @@ import { fetch } from '@whatwg-node/fetch'
 import {
   GMapsApiTextSearchResponseType,
   GMapsApiPlaceDetailsResponseType,
-  GMapsApiSearchNearbyResponseType,
+  GMapsApiSearchNearbyResponseType as SearchNearbyResponse,
   QueryResolvers,
   MapboxGeocodeResponseType,
   MapboxSearchBoxResponseType,
+  GMapsApiSearchNearbyResponseTypeRelationResolvers,
+  EventStatus,
 } from 'types/graphql'
+
+import { db } from 'src/lib/db'
 
 import { addMapboxStaticImages, addRendyLocationIds } from './mapSearchUtils'
 
@@ -38,7 +42,7 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
 
   const res = await fetch(searchUrl)
 
-  const resContent = (await res.json()) as GMapsApiSearchNearbyResponseType
+  const resContent = (await res.json()) as SearchNearbyResponse
 
   const withRendyLocationIds = await addRendyLocationIds(resContent)
   const withMapboxStaticImages = await addMapboxStaticImages(
@@ -165,3 +169,36 @@ export const searchForArea: QueryResolvers['searchForArea'] = async ({
 
   return resContent
 }
+
+type RootType = Omit<
+  SearchNearbyResponse,
+  | 'eventsArchived'
+  | 'eventsDraft'
+  | 'eventsRequested'
+  | 'eventsScheduled'
+  | 'eventsSuggested'
+>
+
+const findEventsByStatus = async (root: RootType, status: EventStatus) => {
+  const gmapsPlaceIds = root.results.map((result) => result.place_id)
+  return db.event.findMany({
+    where: {
+      location: {
+        gmapsPlaceId: {
+          in: gmapsPlaceIds,
+        },
+      },
+      status: status,
+    },
+    orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
+  })
+}
+
+export const GMapsApiSearchNearbyResponseType: GMapsApiSearchNearbyResponseTypeRelationResolvers =
+  {
+    eventsSuggested: (_obj, { root }) => findEventsByStatus(root, 'SUGGESTED'),
+    eventsRequested: (_obj, { root }) => findEventsByStatus(root, 'REQUESTED'),
+    eventsDraft: (_obj, { root }) => findEventsByStatus(root, 'DRAFT'),
+    eventsScheduled: (_obj, { root }) => findEventsByStatus(root, 'SCHEDULED'),
+    eventsArchived: (_obj, { root }) => findEventsByStatus(root, 'ARCHIVED'),
+  }

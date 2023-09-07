@@ -5,7 +5,11 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { ILocationCardProps } from 'src/components/LocationCard'
 import Locations from 'src/components/Locations'
 
-export const QUERY = gql`
+import { EVENT_SHORT_INFO_FRAGMENT } from '../EventCell/eventFragments'
+
+// fragments in redwood are broken, so need to do this or the type generator will fail
+export const QUERY = () => gql`
+  ${EVENT_SHORT_INFO_FRAGMENT}
   query NearbyLocationsQuery($location: String!, $radius: Int) {
     nearbyLocations: searchNearby(location: $location, radius: $radius) {
       html_attributions
@@ -13,6 +17,15 @@ export const QUERY = gql`
       error_message
       info_messages
       next_page_token
+      eventsScheduled {
+        ...EventShortInfo
+      }
+      eventsRequested {
+        ...EventShortInfo
+      }
+      eventsSuggested {
+        ...EventShortInfo
+      }
       results {
         place_id
         rendyLocationId
