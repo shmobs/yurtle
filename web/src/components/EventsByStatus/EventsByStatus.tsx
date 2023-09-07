@@ -15,24 +15,26 @@ export type LabelsConfigType = {
 const statusConfig: Partial<LabelsConfigType> = {
   SCHEDULED: {
     titleIfEmpty: 'There are not currently any scheduled events',
-    subtitleIfEmpty: 'View requests below to express interest!',
+    subtitleIfEmpty:
+      'Check out open requests or curated suggestions to express interest!',
     titleIfNotEmpty: 'Scheduled events',
     subtitleIfNotEmpty:
       'These events are currently scheduled. To RSVP or see more information, just tap on it!',
   },
   REQUESTED: {
     titleIfEmpty: 'There are not currently any open event requests',
-    subtitleIfEmpty: 'View suggestions below to create a request!',
+    subtitleIfEmpty: 'View curated suggestions below to create a request!',
     titleIfNotEmpty: 'Open event requests',
     subtitleIfNotEmpty:
       'The community has requested these events. To express interest or see more information, just tap on it!',
   },
   SUGGESTED: {
+    // there should NEVER be empty suggested requests, but just in case...
     titleIfEmpty: 'There are not currently any suggested events',
     subtitleIfEmpty: 'View scheduled events above to join!',
-    titleIfNotEmpty: 'Suggested events',
+    titleIfNotEmpty: 'Curated event suggestions',
     subtitleIfNotEmpty:
-      'These events are suggested by the community. To express interest or see more information, just tap on it!',
+      "We've curated these for this venue. To express interest or see more information, just tap on it!",
   },
 }
 
