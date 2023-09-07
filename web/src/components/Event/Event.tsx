@@ -16,6 +16,8 @@ import SectionHeader from '../SectionHeader'
 import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 
+import InterestedBtn from './InterestedBtn'
+import ScheduleBtn from './ScheduleBtn'
 import { useSetEventInterestOrRSVPMutation } from './useSetEventInterestOrRSVPMutation'
 
 const LocationBtn = ({
@@ -124,33 +126,18 @@ const Event = ({ event }: IEventProps) => {
             >
               <EventStatusBadge status={status} interestCount={interestCount} />
 
-              <AuthRequiredDialog
-                buttonWhenAuthenticated={
-                  location.isManagedByCurrentUser ? (
-                    <Button
-                      variant={status === 'SCHEDULED' ? 'secondary' : 'default'}
-                      onClick={() => setScheduleEventDialogOpen(true)}
-                    >
-                      {status === 'SCHEDULED' ? 'Reschedule' : 'Schedule'}
-                    </Button>
-                  ) : (
-                    <Button
-                      className="flex gap-2"
-                      onClick={() => onSetEventInterest()}
-                      variant="outline"
-                      disabled={setInterestOrRSVPLoading}
-                    >
-                      Interested <Checkbox checked={isInterested} />
-                    </Button>
-                  )
-                }
-                openDialogButton={
-                  <Button className="flex gap-2" variant="outline">
-                    Interested <Checkbox checked={isInterested} />
-                  </Button>
-                }
-                onAuthenticated={onSetEventInterest}
-              />
+              {location.isManagedByCurrentUser ? (
+                <ScheduleBtn
+                  event={event}
+                  setScheduleEventDialogOpen={setScheduleEventDialogOpen}
+                />
+              ) : (
+                <InterestedBtn
+                  onSetEventInterest={onSetEventInterest}
+                  setInterestOrRSVPLoading={setInterestOrRSVPLoading}
+                  isInterested={isInterested}
+                />
+              )}
             </div>
             <SectionHeader
               title={
