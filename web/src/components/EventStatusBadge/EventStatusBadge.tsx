@@ -10,7 +10,7 @@ const EventStatusBadge = ({
   status,
   interestCount,
 }: IEventStatusBadgeProps) => (
-  <>
+  <div className="inline-flex gap-2">
     <Badge
       variant={(() => {
         switch (status) {
@@ -28,7 +28,10 @@ const EventStatusBadge = ({
       {status.toLocaleLowerCase()}
       {status === 'REQUESTED' && ` by ${interestCount}`}
     </Badge>
-  </>
+    <div className="my-auto text-xs">
+      {status === 'SCHEDULED' && `${interestCount} interested`}
+    </div>
+  </div>
 )
 
 export default EventStatusBadge
