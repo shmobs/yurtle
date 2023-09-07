@@ -63,6 +63,8 @@ const Event = ({ event }: IEventProps) => {
   )
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
+  const [isAttending, setIsAttending] = React.useState(false)
+
   const onSetEventInterestOrRSVPComplete = ({
     status,
     interestCount,
@@ -73,16 +75,25 @@ const Event = ({ event }: IEventProps) => {
     setIsInterested(!!isCurrentUserInterested)
   }
 
-  const { setEventInterest, loading: setInterestLoading } =
+  const { setEventInterestOrRSVP, loading: setInterestOrRSVPLoading } =
     useSetEventInterestOrRSVPMutation({
       onSetEventInterestOrRSVPComplete,
     })
 
   const onSetEventInterest = (withOAuthRedirect?: boolean) =>
-    setEventInterest({
+    setEventInterestOrRSVP({
       eventId: event.id,
       // if we're calling this on the OAuth redirect, we want to set isInterested to true
-      isInterested: withOAuthRedirect ? true : !isInterested,
+      isInterestedOrAttending: withOAuthRedirect ? true : !isInterested,
+      action: 'INTEREST',
+    })
+
+  const onSetEventRSVP = (withOAuthRedirect?: boolean) =>
+    setEventInterestOrRSVP({
+      eventId: event.id,
+      // if we're calling this on the OAuth redirect, we want to set isInterested to true
+      isInterestedOrAttending: withOAuthRedirect ? true : !isAttending,
+      action: 'INTEREST',
     })
 
   return (
@@ -126,7 +137,7 @@ const Event = ({ event }: IEventProps) => {
                       className="flex gap-2"
                       onClick={() => onSetEventInterest()}
                       variant="outline"
-                      disabled={setInterestLoading}
+                      disabled={setInterestOrRSVPLoading}
                     >
                       Interested <Checkbox checked={isInterested} />
                     </Button>
