@@ -20,6 +20,8 @@ const SET_EVENT_INTEREST_OR_RSVP_MUTATION = gql`
       status
       interestCount
       isCurrentUserInterested
+      rsvpCount
+      isCurrentUserAttending
     }
   }
 `

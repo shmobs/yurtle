@@ -48,7 +48,6 @@ const Event = ({ event }: IEventProps) => {
     date,
     location,
     isCurrentUserInterested,
-    isManagedByCurrentUser,
     status: statusInit,
   } = event
 
@@ -114,18 +113,20 @@ const Event = ({ event }: IEventProps) => {
         {/* Event info */}
         <div className="md:w-1/2">
           <div className="md:flex md:h-full md:flex-col">
-            {isManagedByCurrentUser && <ManagerBadge location="event" />}
+            {location.isManagedByCurrentUser && (
+              <ManagerBadge location="event" />
+            )}
             <div
               className={cn(
                 'flex justify-between',
-                isManagedByCurrentUser && 'mt-12 md:mt-4'
+                location.isManagedByCurrentUser && 'mt-12 md:mt-4'
               )}
             >
               <EventStatusBadge status={status} interestCount={interestCount} />
 
               <AuthRequiredDialog
                 buttonWhenAuthenticated={
-                  isManagedByCurrentUser ? (
+                  location.isManagedByCurrentUser ? (
                     <Button
                       variant={status === 'SCHEDULED' ? 'secondary' : 'default'}
                       onClick={() => setScheduleEventDialogOpen(true)}

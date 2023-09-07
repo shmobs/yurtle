@@ -14,10 +14,12 @@ export const QUERY = gql`
       status
       date
       isCurrentUserInterested
-      isManagedByCurrentUser
       interestCount
+      isCurrentUserAttending
+      rsvpCount
       location {
         id
+        isManagedByCurrentUser
         latitude
         longitude
         address

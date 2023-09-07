@@ -8,5 +8,7 @@ export const EVENT_SHORT_INFO_FRAGMENT = gql`
     date
     isCurrentUserInterested
     interestCount
+    isCurrentUserAttending
+    rsvpCount
   }
 `
