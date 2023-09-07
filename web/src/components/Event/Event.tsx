@@ -1,4 +1,4 @@
-import { EventQuery, SetEventInterestMutation } from 'types/graphql'
+import { EventQuery, SetEventInterestOrRSVPMutation } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 
@@ -16,7 +16,7 @@ import SectionHeader from '../SectionHeader'
 import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 
-import { useSetEventInterestMutation } from './useSetEventInterestMutation'
+import { useSetEventInterestOrRSVPMutation } from './useSetEventInterestOrRSVPMutation'
 
 const LocationBtn = ({
   locationId,
@@ -63,19 +63,19 @@ const Event = ({ event }: IEventProps) => {
   )
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
-  const onSetEventInterestComplete = ({
+  const onSetEventInterestOrRSVPComplete = ({
     status,
     interestCount,
     isCurrentUserInterested,
-  }: SetEventInterestMutation['event']) => {
+  }: SetEventInterestOrRSVPMutation['event']) => {
     setInterestCount(interestCount)
     setCurrStatus(status)
     setIsInterested(!!isCurrentUserInterested)
   }
 
   const { setEventInterest, loading: setInterestLoading } =
-    useSetEventInterestMutation({
-      onSetEventInterestComplete,
+    useSetEventInterestOrRSVPMutation({
+      onSetEventInterestOrRSVPComplete,
     })
 
   const onSetEventInterest = (withOAuthRedirect?: boolean) =>
