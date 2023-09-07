@@ -2,11 +2,13 @@ import { LocationQuery, LocationQueryVariables } from 'types/graphql'
 
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
+import { EVENT_SHORT_INFO_FRAGMENT } from 'src/components/EventCell/eventFragments'
 import Location from 'src/components/Location'
 
 import { Skeleton } from '../ui/skeleton'
 
 export const QUERY = gql`
+  ${EVENT_SHORT_INFO_FRAGMENT}
   query LocationQuery($id: String!) {
     location(id: $id) {
       id
@@ -20,32 +22,13 @@ export const QUERY = gql`
         website
       }
 
-      eventsSuggested {
-        id
-        name
-        description
-        type
-        status
-      }
-
       eventsRequested {
-        id
-        name
-        description
-        type
-        status
-        isCurrentUserInterested
-        interestCount
+        ...EventShortInfo
       }
       eventsScheduled {
-        id
-        name
-        description
-        type
-        status
-        isCurrentUserInterested
-        interestCount
+        ...EventShortInfo
       }
+
       managedBy {
         id
       }

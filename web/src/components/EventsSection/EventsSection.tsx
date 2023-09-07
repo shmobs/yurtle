@@ -5,14 +5,17 @@ import { cn } from 'src/lib/utils'
 import EventCard from '../EventCard/EventCard'
 import SectionHeader from '../SectionHeader'
 
-interface IEventsSectionProps {
-  events:
-    | LocationQuery['location']['eventsRequested']
-    | LocationQuery['location']['eventsScheduled']
+export interface IEventsSectionLabels {
   titleIfEmpty: string
   subtitleIfEmpty: string
   titleIfNotEmpty: string
   subtitleIfNotEmpty: string
+}
+
+interface IEventsSectionProps extends IEventsSectionLabels {
+  events:
+    | LocationQuery['location']['eventsRequested']
+    | LocationQuery['location']['eventsScheduled']
   /**
    * Because this is sometimes used on a page with no padding, we sometimes need to add it back
    */

@@ -5,12 +5,11 @@ import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
 import AuthRequiredDialog from '../AuthRequiredDialog/AuthRequiredDialog'
 import ClaimLocationDialog from '../ClaimLocationDialog/ClaimLocationDialog'
+import { EventsByStatus } from '../EventsByStatus/EventsByStatus'
 import ManagerBadge from '../ManagerBadge/ManagerBadge'
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader'
 import { Button } from '../ui/button'
-
-import EventListsByStatus from './EventListsByStatus'
 
 interface ILocationProps {
   location: LocationQuery['location']
@@ -41,7 +40,7 @@ const Location = ({ location }: ILocationProps) => {
         setIsOpen={setIsClaimDialogOpen}
       />
 
-      <main className="relative z-0 flex-1 overflow-y-auto rounded bg-white focus:outline-none">
+      <main className="relative z-0 flex-1 overflow-y-auto rounded bg-white focus:outline-none sm:pb-10">
         <div
           id="map"
           className="relative h-36 w-full overflow-clip border-t-2 border-white shadow sm:h-56 sm:rounded-t-md sm:border-l-2 sm:border-r-2"
@@ -85,11 +84,11 @@ const Location = ({ location }: ILocationProps) => {
           subtitle={location.business.description}
         />
 
-        <EventListsByStatus
+        <EventsByStatus
           eventsByStatus={{
-            requested: location.eventsRequested,
-            scheduled: location.eventsScheduled,
-            suggested: (
+            REQUESTED: location.eventsRequested,
+            SCHEDULED: location.eventsScheduled,
+            SUGGESTED: (
               <section>
                 <SectionHeader
                   withPadding
@@ -97,9 +96,7 @@ const Location = ({ location }: ILocationProps) => {
                   subtitle="We've curated these for this venue. To express interest or see more information, just tap on it!"
                 />
 
-                <div className="mt-1 overflow-visible sm:mb-36">
-                  <PlaceVibesCell locationId={location.id} />
-                </div>
+                <PlaceVibesCell locationId={location.id} />
               </section>
             ),
           }}
