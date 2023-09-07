@@ -17,6 +17,7 @@ export const QUERY = () => gql`
       error_message
       info_messages
       next_page_token
+
       eventsScheduled {
         ...EventShortInfo
       }
@@ -26,6 +27,7 @@ export const QUERY = () => gql`
       eventsSuggested {
         ...EventShortInfo
       }
+
       results {
         place_id
         rendyLocationId

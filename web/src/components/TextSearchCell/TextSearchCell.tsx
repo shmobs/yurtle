@@ -5,13 +5,29 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { ILocationCardProps } from 'src/components/LocationCard'
 import Locations from 'src/components/Locations'
 
-export const QUERY = gql`
+import { EVENT_SHORT_INFO_FRAGMENT } from '../EventCell/eventFragments'
+import LocationsAndEvents from '../LocationsAndEvents/LocationsAndEvents'
+
+// fragments in redwood are broken, so need to do this or the type generator will fail
+export const QUERY = () => gql`
+  ${EVENT_SHORT_INFO_FRAGMENT}
   query TextSearchQuery($query: String!, $location: String!) {
     textSearch(query: $query, location: $location) {
       html_attributions
       status
       error_message
       info_messages
+
+      eventsScheduled {
+        ...EventShortInfo
+      }
+      eventsRequested {
+        ...EventShortInfo
+      }
+      eventsSuggested {
+        ...EventShortInfo
+      }
+
       results {
         place_id
         rendyLocationId
@@ -39,9 +55,9 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <Locations />
+export const Loading = () => <LocationsAndEvents />
 
-export const Empty = () => <Locations locations={[]} />
+export const Empty = () => <LocationsAndEvents locations={[]} />
 
 export const Failure = ({
   error,
@@ -56,7 +72,7 @@ const standardizeLocations = (
     // the formatted address string is hella long, so just grab the first part of it, which is likely the street address
     const addressTrimmed = location.formatted_address.split(',')[0]
     return {
-      id: location.rendyLocationId,
+      id: location.rendyLocationId || undefined,
       gmapsPlaceId: location.place_id,
       businessName: location.name,
       backgroundImageUrl: location.mapboxStaticImageUrl,
@@ -66,5 +82,14 @@ const standardizeLocations = (
 }
 
 export const Success = ({ textSearch }: CellSuccessProps<TextSearchQuery>) => {
-  return <Locations locations={standardizeLocations(textSearch)} />
+  return (
+    <LocationsAndEvents
+      locations={standardizeLocations(textSearch)}
+      eventsByStatus={{
+        REQUESTED: textSearch.eventsRequested ?? [],
+        SCHEDULED: textSearch.eventsScheduled ?? [],
+        SUGGESTED: textSearch.eventsSuggested ?? [],
+      }}
+    />
+  )
 }
