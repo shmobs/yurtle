@@ -3,7 +3,6 @@ import type { TextSearchQuery, TextSearchQueryVariables } from 'types/graphql'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 import { ILocationCardProps } from 'src/components/LocationCard'
-import Locations from 'src/components/Locations'
 
 import { EVENT_SHORT_INFO_FRAGMENT } from '../EventCell/eventFragments'
 import LocationsAndEvents from '../LocationsAndEvents/LocationsAndEvents'
