@@ -7,40 +7,16 @@ import { cn } from 'src/lib/utils'
 
 import AddressLink from '../AddressLink'
 import AuthRequiredDialog from '../AuthRequiredDialog/AuthRequiredDialog'
+import EventDate from '../EventDate/EventDate'
+import EventStatusBadge from '../EventStatusBadge/EventStatusBadge'
+import ManagerBadge from '../ManagerBadge/ManagerBadge'
 import MapView from '../Mapbox/Map'
+import ScheduleEventDialog from '../ScheduleEventDialog/ScheduleEventDialog'
 import SectionHeader from '../SectionHeader'
-import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 
 import { useSetEventInterestMutation } from './useSetEventInterestMutation'
-
-interface IEventStatusBadgeProps {
-  status: EventQuery['event']['status']
-  interestCount: EventQuery['event']['interestCount']
-}
-const EventStatusBadge = ({
-  status,
-  interestCount,
-}: IEventStatusBadgeProps) => (
-  <>
-    <Badge
-      variant={(() => {
-        switch (status) {
-          case 'SUGGESTED':
-            return 'indigo'
-          case 'REQUESTED':
-            return 'yellow'
-          default:
-            return 'gray'
-        }
-      })()}
-    >
-      {status.toLocaleLowerCase()}
-      {status === 'REQUESTED' && ` by ${interestCount}`}
-    </Badge>
-  </>
-)
 
 const LocationBtn = ({
   locationId,
@@ -69,17 +45,22 @@ const Event = ({ event }: IEventProps) => {
     name,
     type,
     description,
+    date,
     location,
     isCurrentUserInterested,
+    isManagedByCurrentUser,
     status: statusInit,
   } = event
 
-  const [isInterested, setIsInterested] = React.useState(
-    isCurrentUserInterested
-  )
-
   const [status, setCurrStatus] = React.useState(statusInit)
 
+  const [scheduleEventDialogOpen, setScheduleEventDialogOpen] =
+    React.useState(false)
+  const [scheduledForDate, setScheduledForDate] = React.useState(date)
+
+  const [isInterested, setIsInterested] = React.useState(
+    !!isCurrentUserInterested
+  )
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
   const onSetEventInterestComplete = ({
@@ -106,23 +87,49 @@ const Event = ({ event }: IEventProps) => {
   return (
     <>
       <SimplePageHeader title={name} subtitle={type} />
+
+      <ScheduleEventDialog
+        action={status === 'SCHEDULED' ? 'reschedule' : 'schedule'}
+        eventId={event.id}
+        eventName={name}
+        setEventStatus={setCurrStatus}
+        setEventDate={setScheduledForDate}
+        isOpen={scheduleEventDialogOpen}
+        setIsOpen={setScheduleEventDialogOpen}
+      />
+
       <div className="md:flex md:min-h-full md:gap-5">
         {/* Event info */}
         <div className="md:w-1/2">
           <div className="md:flex md:h-full md:flex-col">
-            <div className="flex justify-between">
+            {isManagedByCurrentUser && <ManagerBadge location="event" />}
+            <div
+              className={cn(
+                'flex justify-between',
+                isManagedByCurrentUser && 'mt-12 md:mt-4'
+              )}
+            >
               <EventStatusBadge status={status} interestCount={interestCount} />
 
               <AuthRequiredDialog
                 buttonWhenAuthenticated={
-                  <Button
-                    className="flex gap-2"
-                    onClick={() => onSetEventInterest()}
-                    variant="outline"
-                    disabled={setInterestLoading}
-                  >
-                    Interested <Checkbox checked={isInterested} />
-                  </Button>
+                  isManagedByCurrentUser ? (
+                    <Button
+                      variant={status === 'SCHEDULED' ? 'secondary' : 'default'}
+                      onClick={() => setScheduleEventDialogOpen(true)}
+                    >
+                      {status === 'SCHEDULED' ? 'Reschedule' : 'Schedule'}
+                    </Button>
+                  ) : (
+                    <Button
+                      className="flex gap-2"
+                      onClick={() => onSetEventInterest()}
+                      variant="outline"
+                      disabled={setInterestLoading}
+                    >
+                      Interested <Checkbox checked={isInterested} />
+                    </Button>
+                  )
                 }
                 openDialogButton={
                   <Button className="flex gap-2" variant="outline">
@@ -142,6 +149,7 @@ const Event = ({ event }: IEventProps) => {
                   >
                     {location.business.name}
                   </Link>
+                  {scheduledForDate && <EventDate dateStr={scheduledForDate} />}
                 </span>
               }
             />

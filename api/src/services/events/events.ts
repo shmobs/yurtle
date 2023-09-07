@@ -4,6 +4,8 @@ import type {
   EventRelationResolvers,
 } from 'types/graphql'
 
+import { removeNulls } from '@redwoodjs/api'
+
 import { ICurrentUser, requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
@@ -43,7 +45,7 @@ export const updateEvent: MutationResolvers['updateEvent'] = ({
   input,
 }) => {
   return db.event.update({
-    data: input,
+    data: removeNulls(input),
     where: { id },
   })
 }
@@ -249,5 +251,34 @@ export const Event: EventRelationResolvers = {
         eventId: root.id,
       },
     })
+  },
+
+  isManagedByCurrentUser: async (_obj, { root, context }) => {
+    const currentUser = context.currentUser as unknown as
+      | ICurrentUser
+      | null
+      | undefined
+    if (!currentUser) {
+      return false
+    }
+
+    const maybeLocationInfo = await db.event.findUnique({
+      where: {
+        id: root.id,
+      },
+      select: {
+        location: {
+          select: {
+            managedBy: true,
+          },
+        },
+      },
+    })
+
+    return (
+      maybeLocationInfo?.location?.managedBy.some(
+        (user) => user.id === currentUser.id
+      ) ?? false
+    )
   },
 }

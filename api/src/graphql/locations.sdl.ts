@@ -13,6 +13,13 @@ export const schema = gql`
     eventsPublished: [Event!]!
     eventsArchived: [Event!]!
 
+    managedBy: [User!]!
+    """
+    This field is only available when querying the location directly, not in nested queries.
+    If you're querying an event, use the \`isManagedByCurrentUser\` field on the event instead.
+    """
+    isManagedByCurrentUser: Boolean
+
     latitude: Float!
     longitude: Float!
 
@@ -42,6 +49,8 @@ export const schema = gql`
     updateLocation(id: String!, input: UpdateLocationInput!): Location!
       @requireAuth
     deleteLocation(id: String!): Location! @requireAuth
+
+    claimLocation(id: String!): Location! @requireAuth
 
     importFromGMaps(gmapsPlaceId: String!): Location! @skipAuth
   }

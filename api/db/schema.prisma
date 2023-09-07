@@ -21,10 +21,12 @@ model User {
   salt                String?
   resetToken          String?
   resetTokenExpiresAt DateTime?
-  OAuth               OAuth[]
+  oAuth               OAuth[]
 
-  EventInterests EventInterest[]
-  EventRSVPs     EventRSVP[]
+  eventInterests EventInterest[]
+  eventRSVPs     EventRSVP[]
+
+  managedLocations Location[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -67,6 +69,8 @@ model Location {
   business     Business @relation(fields: [businessId], references: [id])
   events       Event[]
 
+  managedBy User[]
+
   latitude  Float
   longitude Float
 
@@ -81,7 +85,7 @@ enum EventStatus {
   SUGGESTED
   REQUESTED
   DRAFT
-  PUBLISHED
+  SCHEDULED
   ARCHIVED
 }
 

@@ -124,3 +124,34 @@ export const requireAuth = ({ roles }: { roles?: AllowedRoles } = {}) => {
     throw new ForbiddenError("You don't have access to do that.")
   }
 }
+
+/**
+ * Use this to verify that the current user can manage the location they're
+ * requesting to manage.
+ *
+ * Right now, as long as the user is the first to claim a location, they can.
+ *
+ * @param locationId - The location ID to check
+ */
+export const requireLocationClaimAuth = async (locationId: string) => {
+  if (!isAuthenticated()) {
+    throw new AuthenticationError("You don't have permission to do that.")
+  }
+
+  const usersManagingThisLocation = await db.location.findUnique({
+    where: { id: locationId },
+    select: {
+      managedBy: {
+        select: {
+          _count: true,
+        },
+      },
+    },
+  })
+
+  if (usersManagingThisLocation?.managedBy.length) {
+    throw new ForbiddenError(
+      'This location is already managed by someone else.'
+    )
+  }
+}

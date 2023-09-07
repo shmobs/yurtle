@@ -30,7 +30,11 @@ const EventsSection = ({
   <section>
     {events.length > 0 ? (
       <>
-        <SectionHeader title={titleIfNotEmpty} subtitle={subtitleIfNotEmpty} />
+        <SectionHeader
+          withPadding={withPadding}
+          title={titleIfNotEmpty}
+          subtitle={subtitleIfNotEmpty}
+        />
         <ul
           className={cn(
             'grid grid-cols-1 gap-6 px-5 sm:grid-cols-2 sm:px-0 lg:grid-cols-3',
@@ -50,7 +54,11 @@ const EventsSection = ({
         </ul>
       </>
     ) : (
-      <SectionHeader title={titleIfEmpty} subtitle={subtitleIfEmpty} />
+      <SectionHeader
+        withPadding={withPadding}
+        title={titleIfEmpty}
+        subtitle={subtitleIfEmpty}
+      />
     )}
   </section>
 )

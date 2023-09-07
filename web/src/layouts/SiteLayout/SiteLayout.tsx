@@ -264,7 +264,7 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
           <div className="mx-auto h-full max-w-7xl sm:px-6 sm:pb-12 lg:px-8">
             <div
               className={cn(
-                'min-h-full bg-white sm:min-h-[300px] sm:rounded-lg sm:shadow',
+                'relative min-h-full bg-white sm:min-h-[300px] sm:rounded-lg sm:shadow',
                 !withoutPadding && 'px-5 py-6 sm:px-6'
               )}
             >

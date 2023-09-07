@@ -26,6 +26,12 @@ interface IAuthRequiredDialogProps {
    * @param withOAuthRedirect If true, the user was authenticated via a provider, and this is being called after they've been redirected back to the app.
    */
   onAuthenticated?: (withOAuthRedirect?: boolean) => void
+  /**
+   * To know that we've been redirected back to the app after authenticating via a provider, we need to pass a query param. This is the value of that query param.
+   * You need to manually set this to a unique value if you're using multiple instances of this component on the same page.
+   * @default 'authenticated'
+   */
+  onAuthenticatedCallbackAction?: string
   title?: string
   description?: string
 }
@@ -39,6 +45,7 @@ const AuthRequiredDialog = ({
   openDialogButton,
   buttonWhenAuthenticated,
   onAuthenticated,
+  onAuthenticatedCallbackAction = 'authenticated',
   title = 'Log in or sign up to do this',
   description,
 }: IAuthRequiredDialogProps) => {
@@ -48,7 +55,7 @@ const AuthRequiredDialog = ({
   // used to activate the onAuthenticated callback when authenticated via a provider, as we need to rely on being redirected back to the app
   const { action, ..._otherParams } = useParams()
 
-  if (action === 'authenticated') {
+  if (action === onAuthenticatedCallbackAction) {
     console.log("got redirect with action 'authenticated'")
     // const searchParams = new URLSearchParams(otherParams)
     // navigate(`${window.location.pathname}?${searchParams.toString()}`)
@@ -73,7 +80,7 @@ const AuthRequiredDialog = ({
             className="mt-3"
             onCompleteRedirectUrlOverride={`${
               window.location.origin + window.location.pathname
-            }?action=authenticated`}
+            }?action=${onAuthenticatedCallbackAction}`}
             onAuthenticated={onAuthenticated}
           />
         </DialogContent>
