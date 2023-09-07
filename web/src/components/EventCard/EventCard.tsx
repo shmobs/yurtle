@@ -32,6 +32,7 @@ const EventCard = ({ event, hideBadge }: IEventCardProps) => {
     date,
     description,
     interestCount,
+    rsvpCount,
   } = event
   return (
     <Card
@@ -50,9 +51,11 @@ const EventCard = ({ event, hideBadge }: IEventCardProps) => {
         </CardDescription>
         {!hideBadge && (
           <EventStatusBadge
+            onOneLine
             className="mb-4"
             status={status}
             interestCount={interestCount}
+            attendingCount={rsvpCount}
           />
         )}
         {date && (
