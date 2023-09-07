@@ -5,7 +5,7 @@ import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 
 import AuthRequiredDialog from '../AuthRequiredDialog/AuthRequiredDialog'
 import ClaimLocationDialog from '../ClaimLocationDialog/ClaimLocationDialog'
-import EventsSection from '../EventsSection'
+import { EventsByStatus } from '../EventsByStatus/EventsByStatus'
 import ManagerBadge from '../ManagerBadge/ManagerBadge'
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader'
@@ -40,7 +40,7 @@ const Location = ({ location }: ILocationProps) => {
         setIsOpen={setIsClaimDialogOpen}
       />
 
-      <main className="relative z-0 flex-1 overflow-y-auto rounded bg-white focus:outline-none">
+      <main className="relative z-0 flex-1 overflow-y-auto rounded bg-white focus:outline-none sm:pb-10">
         <div
           id="map"
           className="relative h-36 w-full overflow-clip border-t-2 border-white shadow sm:h-56 sm:rounded-t-md sm:border-l-2 sm:border-r-2"
@@ -84,34 +84,23 @@ const Location = ({ location }: ILocationProps) => {
           subtitle={location.business.description}
         />
 
-        <EventsSection
-          withPadding
-          events={location.eventsPublished}
-          titleIfEmpty="There are not currently any scheduled events"
-          subtitleIfEmpty="View requests below to express interest!"
-          titleIfNotEmpty="Scheduled events"
-          subtitleIfNotEmpty="These events are currently scheduled. To RSVP or see more information, just tap on it!"
-        />
-        <EventsSection
-          withPadding
-          events={location.eventsRequested}
-          titleIfEmpty="There are not currently any open event requests"
-          subtitleIfEmpty="View suggestions below to create a request!"
-          titleIfNotEmpty="Open event requests"
-          subtitleIfNotEmpty="The community has requested these events. To express interest or see more information, just tap on it!"
-        />
+        <EventsByStatus
+          eventsByStatus={{
+            REQUESTED: location.eventsRequested,
+            SCHEDULED: location.eventsScheduled,
+            SUGGESTED: (
+              <section>
+                <SectionHeader
+                  withPadding
+                  title="Curated event suggestions"
+                  subtitle="We've curated these for this venue. To express interest or see more information, just tap on it!"
+                />
 
-        <section>
-          <SectionHeader
-            withPadding
-            title="Curated event suggestions"
-            subtitle="We've curated these for this venue. To express interest or see more information, just tap on it!"
-          />
-
-          <div className="mt-1 overflow-visible sm:mb-36">
-            <PlaceVibesCell locationId={location.id} />
-          </div>
-        </section>
+                <PlaceVibesCell locationId={location.id} />
+              </section>
+            ),
+          }}
+        />
       </main>
     </>
   )

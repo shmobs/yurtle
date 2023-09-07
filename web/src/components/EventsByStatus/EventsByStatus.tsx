@@ -1,0 +1,87 @@
+import { EventShortInfo, EventStatus } from 'types/graphql'
+
+import EventsSection, {
+  IEventsSectionLabels,
+} from 'src/components/EventsSection'
+
+export type EventData = {
+  [key in EventStatus]: EventShortInfo[] | JSX.Element
+}
+
+export type LabelsConfigType = {
+  [key in EventStatus]: IEventsSectionLabels
+}
+
+const statusConfig: Partial<LabelsConfigType> = {
+  SCHEDULED: {
+    titleIfEmpty: 'There are not currently any scheduled events',
+    subtitleIfEmpty: 'View requests below to express interest!',
+    titleIfNotEmpty: 'Scheduled events',
+    subtitleIfNotEmpty:
+      'These events are currently scheduled. To RSVP or see more information, just tap on it!',
+  },
+  REQUESTED: {
+    titleIfEmpty: 'There are not currently any open event requests',
+    subtitleIfEmpty: 'View suggestions below to create a request!',
+    titleIfNotEmpty: 'Open event requests',
+    subtitleIfNotEmpty:
+      'The community has requested these events. To express interest or see more information, just tap on it!',
+  },
+  SUGGESTED: {
+    titleIfEmpty: 'There are not currently any suggested events',
+    subtitleIfEmpty: 'View scheduled events above to join!',
+    titleIfNotEmpty: 'Suggested events',
+    subtitleIfNotEmpty:
+      'These events are suggested by the community. To express interest or see more information, just tap on it!',
+  },
+}
+
+interface IEventsByStatusProps {
+  eventsByStatus: Partial<EventData>
+}
+
+export function EventsByStatus({ eventsByStatus }: IEventsByStatusProps) {
+  // Define the order of priority
+  const order: EventStatus[] = [
+    'SCHEDULED',
+    'REQUESTED',
+    'SUGGESTED',
+    'DRAFT',
+    'ARCHIVED',
+  ]
+
+  // Split the data into two groups: nonEmpty and empty
+  const nonEmpty: Partial<EventData>[] = []
+  const empty: Partial<EventData>[] = []
+
+  for (const key of order) {
+    const events = eventsByStatus[key]
+    if (Array.isArray(events)) {
+      if (events.length > 0) {
+        nonEmpty.push({ [key]: events })
+      } else {
+        empty.push({ [key]: events })
+      }
+    } else if (events) {
+      nonEmpty.push({ [key]: events })
+    }
+  }
+
+  // Merge the two groups back into one, with nonEmpty first
+  const mergedData = [...nonEmpty, ...empty]
+
+  return mergedData.map((events) => {
+    const key = Object.keys(events)[0] as EventStatus
+    const value = events[key]
+    const labels = statusConfig[key]
+    if (value && labels) {
+      if (Array.isArray(value)) {
+        return (
+          <EventsSection withPadding key={key} events={value} {...labels} />
+        )
+      } else {
+        return value
+      }
+    }
+  })
+}
