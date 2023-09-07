@@ -26,7 +26,7 @@ const EventStatusBadge = ({
           case 'REQUESTED':
             return 'yellow'
           case 'SCHEDULED':
-            return 'green'
+            return 'blue'
           default:
             return 'gray'
         }

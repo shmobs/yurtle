@@ -57,10 +57,13 @@ const EventCard = ({ event, hideBadge }: IEventCardProps) => {
         {/* badges */}
         <div className="mb-4 inline-flex gap-2">
           {isCurrentUserAttending ? (
-            <Badge variant="blue">attending</Badge>
+            <Badge variant="green">attending</Badge>
           ) : isCurrentUserInterested ? (
-            <Badge>interested</Badge>
+            <Badge variant="purple">interested</Badge>
+          ) : isManagedByCurrentUser ? (
+            <Badge variant="indigo">host</Badge>
           ) : null}
+
           {!hideBadge && (
             <EventStatusBadge
               onOneLine
