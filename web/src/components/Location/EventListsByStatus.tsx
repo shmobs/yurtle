@@ -14,7 +14,7 @@ interface IEventListsByStatusProps {
 
 const EventListsByStatus = ({ eventsByStatus }: IEventListsByStatusProps) => {
   const [priorityOrder, setPriorityOrder] = React.useState([
-    { status: 'PUBLISHED', events: eventsByStatus.published },
+    { status: 'SCHEDULED', events: eventsByStatus.published },
     { status: 'REQUESTED', events: eventsByStatus.requested },
     { status: 'SUGGESTED', events: eventsByStatus.suggested },
   ])
@@ -23,7 +23,7 @@ const EventListsByStatus = ({ eventsByStatus }: IEventListsByStatusProps) => {
     const newPriorityOrder = []
     if (eventsByStatus.published && eventsByStatus.published.length > 0) {
       newPriorityOrder.push({
-        status: 'PUBLISHED',
+        status: 'SCHEDULED',
         events: eventsByStatus.published,
       })
     }
@@ -41,7 +41,7 @@ const EventListsByStatus = ({ eventsByStatus }: IEventListsByStatusProps) => {
     }
     if (eventsByStatus.published && eventsByStatus.published.length === 0) {
       newPriorityOrder.push({
-        status: 'PUBLISHED',
+        status: 'SCHEDULED',
         events: eventsByStatus.published,
       })
     }
@@ -56,7 +56,7 @@ const EventListsByStatus = ({ eventsByStatus }: IEventListsByStatusProps) => {
   return (
     <>
       {priorityOrder.map((list) => {
-        if (list.status === 'PUBLISHED') {
+        if (list.status === 'SCHEDULED') {
           return (
             <EventsSection
               key={list.status}
