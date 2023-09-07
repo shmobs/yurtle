@@ -92,6 +92,7 @@ const Location = ({ location }: ILocationProps) => {
             suggested: (
               <section>
                 <SectionHeader
+                  withPadding
                   title="Curated event suggestions"
                   subtitle="We've curated these for this venue. To express interest or see more information, just tap on it!"
                 />
