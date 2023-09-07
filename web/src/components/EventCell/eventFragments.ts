@@ -5,6 +5,7 @@ export const EVENT_SHORT_INFO_FRAGMENT = gql`
     description
     type
     status
+    date
     isCurrentUserInterested
     interestCount
   }

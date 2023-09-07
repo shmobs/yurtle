@@ -4,6 +4,7 @@ import { Link, routes } from '@redwoodjs/router'
 
 import { cn } from 'src/lib/utils'
 
+import EventDate from '../EventDate/EventDate'
 import EventStatusBadge from '../EventStatusBadge/EventStatusBadge'
 import { Card, CardDescription, CardTitle } from '../ui/card'
 
@@ -23,7 +24,15 @@ interface IEventCardProps {
 }
 
 const EventCard = ({ event, hideBadge }: IEventCardProps) => {
-  const { name, id: eventId, status, type, description, interestCount } = event
+  const {
+    name,
+    id: eventId,
+    status,
+    type,
+    date,
+    description,
+    interestCount,
+  } = event
   return (
     <Card
       key={name}
@@ -45,6 +54,9 @@ const EventCard = ({ event, hideBadge }: IEventCardProps) => {
             status={status}
             interestCount={interestCount}
           />
+        )}
+        {date && (
+          <EventDate className="mb-2 text-xs text-white" dateStr={date} />
         )}
         <CardDescription className="prose font-light tracking-wide text-white">
           {description}
