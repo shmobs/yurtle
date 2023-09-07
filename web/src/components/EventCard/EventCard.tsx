@@ -21,10 +21,10 @@ const EventLink = ({ eventId }: IEventLinkProps) => (
 )
 interface IEventCardProps {
   event: EventShortInfo
-  hideBadge?: boolean
+  hideBadges?: boolean
 }
 
-const EventCard = ({ event, hideBadge }: IEventCardProps) => {
+const EventCard = ({ event, hideBadges }: IEventCardProps) => {
   const {
     name,
     id: eventId,
@@ -55,24 +55,24 @@ const EventCard = ({ event, hideBadge }: IEventCardProps) => {
         </CardDescription>
 
         {/* badges */}
-        <div className="mb-4 inline-flex gap-2">
-          {isCurrentUserAttending ? (
-            <Badge variant="green">attending</Badge>
-          ) : isCurrentUserInterested ? (
-            <Badge variant="purple">interested</Badge>
-          ) : isManagedByCurrentUser ? (
-            <Badge variant="indigo">host</Badge>
-          ) : null}
+        {!hideBadges && (
+          <div className="mb-4 inline-flex gap-2">
+            {isCurrentUserAttending ? (
+              <Badge variant="green">attending</Badge>
+            ) : isCurrentUserInterested ? (
+              <Badge variant="purple">interested</Badge>
+            ) : isManagedByCurrentUser ? (
+              <Badge variant="indigo">host</Badge>
+            ) : null}
 
-          {!hideBadge && (
             <EventStatusBadge
               onOneLine
               status={status}
               interestCount={interestCount}
               attendingCount={rsvpCount}
             />
-          )}
-        </div>
+          </div>
+        )}
 
         {date && (
           <EventDate className="mb-2 text-xs text-white" dateStr={date} />
