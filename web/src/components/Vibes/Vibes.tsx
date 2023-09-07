@@ -9,7 +9,7 @@ interface IVibesProps {
 
 const Vibes = ({ placeVibes }: IVibesProps) => {
   const placeVibeCards = placeVibes.map((vibe) => {
-    return <EventCard key={vibe.id} event={vibe} />
+    return <EventCard hideBadge key={vibe.id} event={vibe} />
   })
   return (
     <div className="h-full w-full">

@@ -1,16 +1,19 @@
-import { EventQuery } from 'types/graphql'
+import { EventStatus } from 'types/graphql'
 
 import { Badge } from 'src/components/ui/badge'
+import { cn } from 'src/lib/utils'
 
 interface IEventStatusBadgeProps {
-  status: EventQuery['event']['status']
-  interestCount: EventQuery['event']['interestCount']
+  status: EventStatus
+  interestCount?: number | null
+  className?: string
 }
 const EventStatusBadge = ({
   status,
   interestCount,
+  className,
 }: IEventStatusBadgeProps) => (
-  <div className="inline-flex gap-2">
+  <div className={cn('inline-flex gap-2', className)}>
     <Badge
       variant={(() => {
         switch (status) {
