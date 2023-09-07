@@ -9,16 +9,7 @@ interface IVibesProps {
 
 const Vibes = ({ placeVibes }: IVibesProps) => {
   const placeVibeCards = placeVibes.map((vibe) => {
-    return (
-      <EventCard
-        key={vibe.id}
-        eventId={vibe.id}
-        name={vibe.name}
-        type={vibe.type}
-        description={vibe.description}
-        status="SUGGESTED" // it should have this in the vibe, but doesn't hurt to be explicit
-      />
-    )
+    return <EventCard key={vibe.id} event={vibe} />
   })
   return (
     <div className="h-full w-full">

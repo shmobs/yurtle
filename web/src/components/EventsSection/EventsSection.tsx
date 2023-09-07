@@ -45,14 +45,7 @@ const EventsSection = ({
           )}
         >
           {events.map((event) => (
-            <EventCard
-              key={event.id}
-              eventId={event.id}
-              name={event.name}
-              type={event.type}
-              description={event.description}
-              status={event.status}
-            />
+            <EventCard key={event.id} event={event} />
           ))}
         </ul>
       </>

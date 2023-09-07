@@ -1,9 +1,10 @@
-import { EventQuery } from 'types/graphql'
+import { EventQuery, EventShortInfo } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 
 import { cn } from 'src/lib/utils'
 
+import EventStatusBadge from '../EventStatusBadge/EventStatusBadge'
 import { Card, CardDescription, CardTitle } from '../ui/card'
 
 interface IEventLinkProps {
@@ -17,20 +18,11 @@ const EventLink = ({ eventId }: IEventLinkProps) => (
   />
 )
 interface IEventCardProps {
-  eventId: string
-  name: string
-  type: string
-  description: string
-  status: EventQuery['event']['status']
+  event: EventShortInfo
 }
 
-const EventCard = ({
-  eventId,
-  name,
-  type,
-  description,
-  status,
-}: IEventCardProps) => {
+const EventCard = ({ event }: IEventCardProps) => {
+  const { name, id: eventId, status, type, description, interestCount } = event
   return (
     <Card
       key={name}
@@ -42,6 +34,7 @@ const EventCard = ({
     >
       <EventLink eventId={eventId} />
       <div className="relative z-10 h-full w-full overflow-y-scroll bg-indigo-900/60 p-5 text-white">
+        <EventStatusBadge status={status} interestCount={interestCount} />
         <CardTitle className="text-base sm:text-xl">{name}</CardTitle>
         <CardDescription className="mb-2 italic text-white sm:mb-3">
           {type}
