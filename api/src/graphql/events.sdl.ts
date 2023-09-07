@@ -74,20 +74,22 @@ export const schema = gql`
     locationId: String
   }
 
+  enum EventAction {
+    INTEREST
+    RSVP
+  }
+
   type Mutation {
     """
     Use this to set whether or not a user is interested in an event.
     Sets the interest for the current user.
     Returns the number of users interested in the event, and the current state of the user's interest.
     """
-    setEventInterest(eventId: String!, isInterested: Boolean!): Event!
-      @requireAuth
-    """
-    Use this to set whether or not a user is attending an event.
-    Sets the RSVP for the current user.
-    Returns the number of users attending the event, and the current state of the user's RSVP.
-    """
-    setEventRSVP(eventId: String!, isAttending: Boolean!): Event! @requireAuth
+    setEventInterestOrRSVP(
+      eventId: String!
+      isInterestedOrAttending: Boolean!
+      action: EventAction!
+    ): Event! @requireAuth
 
     createEvent(input: CreateEventInput!): Event! @requireAuth
     updateEvent(id: String!, input: UpdateEventInput!): Event! @requireAuth

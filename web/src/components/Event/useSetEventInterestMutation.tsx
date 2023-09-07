@@ -11,7 +11,11 @@ const SET_EVENT_INTEREST_MUTATION = gql`
     $eventId: String!
     $isInterested: Boolean!
   ) {
-    setEventInterest(eventId: $eventId, isInterested: $isInterested) {
+    event: setEventInterestOrRSVP(
+      eventId: $eventId
+      isInterestedOrAttending: $isInterested
+      action: INTEREST
+    ) {
       status
       interestCount
       isCurrentUserInterested
@@ -20,7 +24,7 @@ const SET_EVENT_INTEREST_MUTATION = gql`
 `
 
 export type OnSetEventInterestCompleteType = (
-  setEventInterest: SetEventInterestMutation['setEventInterest']
+  event: SetEventInterestMutation['event']
 ) => void
 
 interface IUseSetEventInterestMutation {
@@ -35,7 +39,7 @@ export const useSetEventInterestMutation = ({
     SetEventInterestMutationVariables
   >(SET_EVENT_INTEREST_MUTATION, {
     onCompleted: (data) => {
-      onSetEventInterestComplete?.(data.setEventInterest)
+      onSetEventInterestComplete?.(data.event)
     },
     onError: (error) => {
       toast.error(error.message)

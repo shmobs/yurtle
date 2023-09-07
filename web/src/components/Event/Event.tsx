@@ -67,7 +67,7 @@ const Event = ({ event }: IEventProps) => {
     status,
     interestCount,
     isCurrentUserInterested,
-  }: SetEventInterestMutation['setEventInterest']) => {
+  }: SetEventInterestMutation['event']) => {
     setInterestCount(interestCount)
     setCurrStatus(status)
     setIsInterested(!!isCurrentUserInterested)

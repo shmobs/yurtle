@@ -56,38 +56,39 @@ export const deleteEvent: MutationResolvers['deleteEvent'] = ({ id }) => {
   })
 }
 
-export const setEventInterest: MutationResolvers['setEventInterest'] = ({
-  eventId,
-  isInterested,
-}) => {
-  requireAuth()
+export const setEventInterestOrRSVP: MutationResolvers['setEventInterestOrRSVP'] =
+  ({ eventId, isInterestedOrAttending, action }) => {
+    requireAuth()
 
-  let currentState: boolean
-  let count: number
+    // Because we have `requireAuth` above, we know that there is a currentUser
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const currentUserId = context.currentUser!.id
 
-  // Because we have `requireAuth` above, we know that there is a currentUser
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const currentUserId = context.currentUser!.id
+    const dbModelBeingAccessed =
+      action === 'INTEREST' ? 'eventInterest' : 'eventRSVP'
 
-  return db.$transaction(async (tx) => {
-    // get the current interests
-    const currentInterests = await tx.eventInterest.findMany({
-      where: {
-        eventId,
-      },
-    })
+    return db.$transaction(async (tx) => {
+      // need to cast this as any because otherwise TS gets tripped up on not knowing which type of accessor we're using.
+      // however, we know that their model in the database is identical, so this is fine
+      const dbActionAccessor = tx[dbModelBeingAccessed] as any
 
-    const isCurrentlyInterested = !!(await tx.eventInterest.findFirst({
-      where: {
-        eventId,
-        userId: currentUserId,
-      },
-    }))
+      const currentInterestsOrRSVPs = await dbActionAccessor.findMany({
+        where: {
+          eventId,
+        },
+      })
 
-    if (isInterested) {
-      if (!isCurrentlyInterested) {
-        await tx.eventInterest
-          .create({
+      const isCurrentlyInterestedOrAttending =
+        !!(await dbActionAccessor.findFirst({
+          where: {
+            eventId,
+            userId: currentUserId,
+          },
+        }))
+
+      if (isInterestedOrAttending) {
+        if (!isCurrentlyInterestedOrAttending) {
+          await dbActionAccessor.create({
             data: {
               user: {
                 connect: {
@@ -101,28 +102,22 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
               },
             },
           })
-          .then(() => {
-            currentState = true
-          })
 
-        // if the user is interested, and they are the first, we need to update the event status
-        if (currentInterests.length === 0) {
-          await tx.event.update({
-            where: {
-              id: eventId,
-            },
-            data: {
-              status: 'REQUESTED',
-            },
-          })
+          // if the user is interested, and they are the first, we need to update the event status
+          if (currentInterestsOrRSVPs.length === 0) {
+            await tx.event.update({
+              where: {
+                id: eventId,
+              },
+              data: {
+                status: 'REQUESTED',
+              },
+            })
+          }
         }
       } else {
-        currentState = true
-      }
-    } else {
-      if (isCurrentlyInterested) {
-        await tx.eventInterest
-          .delete({
+        if (isCurrentlyInterestedOrAttending) {
+          await dbActionAccessor.delete({
             where: {
               eventId_userId: {
                 eventId,
@@ -130,96 +125,28 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
               },
             },
           })
-          .then(() => {
-            currentState = false
-          })
 
-        // if the user is no longer interested, and they were the last, we need to update the event status
-        if (currentInterests.length === 1) {
-          await tx.event.update({
-            where: {
-              id: eventId,
-            },
-            data: {
-              status: 'SUGGESTED',
-            },
-          })
+          // if the user is no longer interested, and they were the last, we need to update the event status
+          if (currentInterestsOrRSVPs.length === 1) {
+            await tx.event.update({
+              where: {
+                id: eventId,
+              },
+              data: {
+                status: 'SUGGESTED',
+              },
+            })
+          }
         }
-      } else {
-        currentState = false
       }
-    }
 
-    count = await tx.eventInterest.count({
-      where: {
-        eventId,
-      },
-    })
-
-    return db.event.findFirstOrThrow({
-      where: {
-        id: eventId,
-      },
-    })
-  })
-}
-
-// TODO fix this in line with how we did setEventInterest
-export const setEventRSVP: MutationResolvers['setEventRSVP'] = async ({
-  eventId,
-  isAttending,
-}) => {
-  requireAuth()
-
-  let currentState: boolean
-  let count: number
-
-  // Because we have `requireAuth` above, we know that there is a currentUser
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const currentUserId = context.currentUser!.id
-
-  if (isAttending) {
-    return db.eventRSVP
-      .create({
-        data: {
-          user: {
-            connect: {
-              id: currentUserId,
-            },
-          },
-          event: {
-            connect: {
-              id: eventId,
-            },
-          },
-        },
-      })
-      .then(() => {
-        return db.eventRSVP.count({
-          where: {
-            eventId,
-          },
-        })
-      })
-  } else {
-    return db.eventRSVP
-      .delete({
+      return db.event.findFirstOrThrow({
         where: {
-          eventId_userId: {
-            eventId,
-            userId: currentUserId,
-          },
+          id: eventId,
         },
       })
-      .then(() => {
-        return db.eventRSVP.count({
-          where: {
-            eventId,
-          },
-        })
-      })
+    })
   }
-}
 
 export const Event: EventRelationResolvers = {
   location: async (_obj, { root }) => {
