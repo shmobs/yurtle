@@ -8,6 +8,7 @@ import EventDate from '../EventDate/EventDate'
 import EventStatusBadge from '../EventStatusBadge/EventStatusBadge'
 import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardTitle } from '../ui/card'
+import { Skeleton } from '../ui/skeleton'
 
 interface IEventLinkProps {
   eventId: string
@@ -20,11 +21,18 @@ const EventLink = ({ eventId }: IEventLinkProps) => (
   />
 )
 interface IEventCardProps {
-  event: EventShortInfo
+  event?: EventShortInfo
   hideBadges?: boolean
 }
 
 const EventCard = ({ event, hideBadges }: IEventCardProps) => {
+  if (!event) {
+    return (
+      <Card className="h-72">
+        <Skeleton className="h-full w-full" />
+      </Card>
+    )
+  }
   const {
     name,
     id: eventId,

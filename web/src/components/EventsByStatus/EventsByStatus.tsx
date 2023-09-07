@@ -39,7 +39,7 @@ const statusConfig: Partial<LabelsConfigType> = {
 }
 
 interface IEventsByStatusProps {
-  eventsByStatus: Partial<EventData>
+  eventsByStatus?: Partial<EventData>
   withPadding?: boolean
 }
 
@@ -47,6 +47,15 @@ export function EventsByStatus({
   eventsByStatus,
   withPadding,
 }: IEventsByStatusProps) {
+  // loading state
+  if (!eventsByStatus) {
+    return (
+      <div>
+        <EventsSection />
+      </div>
+    )
+  }
+
   // Define the order of priority
   const order: EventStatus[] = [
     'SCHEDULED',
@@ -89,7 +98,7 @@ export function EventsByStatus({
                 withPadding={withPadding}
                 key={key}
                 events={value}
-                {...labels}
+                labels={labels}
               />
             )
           } else {

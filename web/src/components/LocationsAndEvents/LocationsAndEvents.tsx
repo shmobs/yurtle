@@ -10,8 +10,8 @@ import Locations from '../Locations'
 import { Tabs, TabsTrigger } from '../ui/tabs'
 
 interface ILocationsAndEventsProps {
-  locations: ILocationCardProps[]
-  eventsByStatus: Partial<EventData>
+  locations?: ILocationCardProps[]
+  eventsByStatus?: Partial<EventData>
 }
 
 const LocationsAndEvents = ({
@@ -40,7 +40,7 @@ const LocationsAndEvents = ({
       >
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger className="md:text-lg" value="0">
-            Locations
+            Venues
           </TabsTrigger>
           <TabsTrigger className="md:text-lg" value="1">
             Events

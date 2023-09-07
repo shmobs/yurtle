@@ -3,7 +3,6 @@ import type { NearbyLocationsQuery } from 'types/graphql'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 import { ILocationCardProps } from 'src/components/LocationCard'
-import Locations from 'src/components/Locations'
 
 import { EVENT_SHORT_INFO_FRAGMENT } from '../EventCell/eventFragments'
 import LocationsAndEvents from '../LocationsAndEvents/LocationsAndEvents'
@@ -64,9 +63,9 @@ export const QUERY = () => gql`
   }
 `
 
-export const Loading = () => <Locations withPadding />
+export const Loading = () => <LocationsAndEvents />
 
-export const Empty = () => <Locations withPadding locations={[]} />
+export const Empty = () => <LocationsAndEvents locations={[]} />
 
 export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
