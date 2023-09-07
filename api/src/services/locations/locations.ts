@@ -121,7 +121,7 @@ export const Location: LocationRelationResolvers = {
       orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],
     })
   },
-  eventsPublished: async (_obj, { root }) => {
+  eventsScheduled: async (_obj, { root }) => {
     return db.event.findMany({
       where: { locationId: root?.id, status: 'SCHEDULED' },
       orderBy: [{ date: 'asc' }, { createdAt: 'asc' }],

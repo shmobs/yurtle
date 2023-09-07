@@ -88,7 +88,7 @@ const Location = ({ location }: ILocationProps) => {
         <EventListsByStatus
           eventsByStatus={{
             requested: location.eventsRequested,
-            published: location.eventsPublished,
+            scheduled: location.eventsScheduled,
             suggested: (
               <section>
                 <SectionHeader

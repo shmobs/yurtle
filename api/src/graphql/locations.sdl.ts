@@ -10,7 +10,7 @@ export const schema = gql`
     eventsSuggested: [Event!]!
     eventsRequested: [Event!]!
     eventsDraft: [Event!]!
-    eventsPublished: [Event!]!
+    eventsScheduled: [Event!]!
     eventsArchived: [Event!]!
 
     managedBy: [User!]!

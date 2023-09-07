@@ -5,7 +5,7 @@ import EventsSection from '../EventsSection/EventsSection'
 interface IEventsByStatus {
   suggested: LocationQuery['location']['eventsSuggested'] | JSX.Element
   requested: LocationQuery['location']['eventsRequested']
-  published: LocationQuery['location']['eventsPublished']
+  scheduled: LocationQuery['location']['eventsScheduled']
 }
 
 interface IEventListsByStatusProps {
@@ -14,17 +14,17 @@ interface IEventListsByStatusProps {
 
 const EventListsByStatus = ({ eventsByStatus }: IEventListsByStatusProps) => {
   const [priorityOrder, setPriorityOrder] = React.useState([
-    { status: 'SCHEDULED', events: eventsByStatus.published },
+    { status: 'SCHEDULED', events: eventsByStatus.scheduled },
     { status: 'REQUESTED', events: eventsByStatus.requested },
     { status: 'SUGGESTED', events: eventsByStatus.suggested },
   ])
 
   React.useEffect(() => {
     const newPriorityOrder = []
-    if (eventsByStatus.published && eventsByStatus.published.length > 0) {
+    if (eventsByStatus.scheduled && eventsByStatus.scheduled.length > 0) {
       newPriorityOrder.push({
         status: 'SCHEDULED',
-        events: eventsByStatus.published,
+        events: eventsByStatus.scheduled,
       })
     }
     if (eventsByStatus.requested && eventsByStatus.requested.length > 0) {
@@ -39,10 +39,10 @@ const EventListsByStatus = ({ eventsByStatus }: IEventListsByStatusProps) => {
         events: eventsByStatus.suggested,
       })
     }
-    if (eventsByStatus.published && eventsByStatus.published.length === 0) {
+    if (eventsByStatus.scheduled && eventsByStatus.scheduled.length === 0) {
       newPriorityOrder.push({
         status: 'SCHEDULED',
-        events: eventsByStatus.published,
+        events: eventsByStatus.scheduled,
       })
     }
     if (eventsByStatus.requested && eventsByStatus.requested.length === 0) {
@@ -61,7 +61,7 @@ const EventListsByStatus = ({ eventsByStatus }: IEventListsByStatusProps) => {
             <EventsSection
               key={list.status}
               withPadding
-              events={eventsByStatus.published}
+              events={eventsByStatus.scheduled}
               titleIfEmpty="There are not currently any scheduled events"
               subtitleIfEmpty="View requests below to express interest!"
               titleIfNotEmpty="Scheduled events"
@@ -94,7 +94,7 @@ const EventListsByStatus = ({ eventsByStatus }: IEventListsByStatusProps) => {
                   eventsByStatus.suggested as LocationQuery['location']['eventsSuggested']
                 }
                 titleIfEmpty="There are not currently any suggested events"
-                subtitleIfEmpty="View published events above to join!"
+                subtitleIfEmpty="View scheduled events above to join!"
                 titleIfNotEmpty="Suggested events"
                 subtitleIfNotEmpty="These events are suggested by the community. To express interest or see more information, just tap on it!"
               />

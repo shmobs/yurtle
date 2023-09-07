@@ -37,7 +37,7 @@ export const QUERY = gql`
         isCurrentUserInterested
         interestCount
       }
-      eventsPublished {
+      eventsScheduled {
         id
         name
         description

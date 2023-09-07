@@ -8,7 +8,7 @@ import SectionHeader from '../SectionHeader'
 interface IEventsSectionProps {
   events:
     | LocationQuery['location']['eventsRequested']
-    | LocationQuery['location']['eventsPublished']
+    | LocationQuery['location']['eventsScheduled']
   titleIfEmpty: string
   subtitleIfEmpty: string
   titleIfNotEmpty: string
