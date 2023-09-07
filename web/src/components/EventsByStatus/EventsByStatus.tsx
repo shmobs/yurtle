@@ -23,7 +23,7 @@ const statusConfig: Partial<LabelsConfigType> = {
   },
   REQUESTED: {
     titleIfEmpty: 'There are not currently any open event requests',
-    subtitleIfEmpty: 'View curated suggestions below to create a request!',
+    subtitleIfEmpty: 'Check out our curated suggestions to create a request!',
     titleIfNotEmpty: 'Open event requests',
     subtitleIfNotEmpty:
       'The community has requested these events. To express interest or see more information, just tap on it!',
