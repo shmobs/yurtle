@@ -85,6 +85,7 @@ const Location = ({ location }: ILocationProps) => {
         />
 
         <EventsByStatus
+          withPadding
           eventsByStatus={{
             REQUESTED: location.eventsRequested,
             SCHEDULED: location.eventsScheduled,
