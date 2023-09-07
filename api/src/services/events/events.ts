@@ -104,7 +104,7 @@ export const setEventInterestOrRSVP: MutationResolvers['setEventInterestOrRSVP']
           })
 
           // if the user is interested, and they are the first, we need to update the event status
-          if (currentInterestsOrRSVPs.length === 0) {
+          if (currentInterestsOrRSVPs.length === 0 && action === 'INTEREST') {
             await tx.event.update({
               where: {
                 id: eventId,
@@ -127,7 +127,7 @@ export const setEventInterestOrRSVP: MutationResolvers['setEventInterestOrRSVP']
           })
 
           // if the user is no longer interested, and they were the last, we need to update the event status
-          if (currentInterestsOrRSVPs.length === 1) {
+          if (currentInterestsOrRSVPs.length === 1 && action === 'INTEREST') {
             await tx.event.update({
               where: {
                 id: eventId,

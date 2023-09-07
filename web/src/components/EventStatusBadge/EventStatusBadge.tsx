@@ -6,11 +6,13 @@ import { cn } from 'src/lib/utils'
 interface IEventStatusBadgeProps {
   status: EventStatus
   interestCount?: number | null
+  attendingCount?: number | null
   className?: string
 }
 const EventStatusBadge = ({
   status,
   interestCount,
+  attendingCount,
   className,
 }: IEventStatusBadgeProps) => (
   <div className={cn('inline-flex gap-2', className)}>
@@ -31,8 +33,13 @@ const EventStatusBadge = ({
       {status.toLocaleLowerCase()}
       {status === 'REQUESTED' && ` by ${interestCount}`}
     </Badge>
-    <div className="my-auto text-xs">
-      {status === 'SCHEDULED' && `${interestCount} interested`}
+    <div className="my-auto flex flex-col text-xs">
+      <div>{status === 'SCHEDULED' && `${interestCount} interested`}</div>
+      <div>
+        {status === 'SCHEDULED' &&
+          !!attendingCount &&
+          `${attendingCount} going`}
+      </div>
     </div>
   </div>
 )

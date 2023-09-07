@@ -65,14 +65,17 @@ const Event = ({ event }: IEventProps) => {
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
   const [isAttending, setIsAttending] = React.useState(isCurrentUserAttending)
+  const [attendingCount, setAttendingCount] = React.useState(event.rsvpCount)
 
   const onSetEventInterestOrRSVPComplete = ({
     status,
     interestCount,
+    rsvpCount,
     isCurrentUserInterested,
     isCurrentUserAttending,
   }: SetEventInterestOrRSVPMutation['event']) => {
     setInterestCount(interestCount)
+    setAttendingCount(rsvpCount)
     setCurrStatus(status)
     setIsInterested(!!isCurrentUserInterested)
     setIsAttending(!!isCurrentUserAttending)
@@ -126,7 +129,11 @@ const Event = ({ event }: IEventProps) => {
                 location.isManagedByCurrentUser && 'mt-12 md:mt-4'
               )}
             >
-              <EventStatusBadge status={status} interestCount={interestCount} />
+              <EventStatusBadge
+                status={status}
+                interestCount={interestCount}
+                attendingCount={attendingCount}
+              />
 
               {location.isManagedByCurrentUser ? (
                 <ScheduleBtn
