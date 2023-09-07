@@ -10,5 +10,8 @@ export const EVENT_SHORT_INFO_FRAGMENT = gql`
     interestCount
     isCurrentUserAttending
     rsvpCount
+    location {
+      isManagedByCurrentUser
+    }
   }
 `

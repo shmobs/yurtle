@@ -6,6 +6,7 @@ import { cn } from 'src/lib/utils'
 
 import EventDate from '../EventDate/EventDate'
 import EventStatusBadge from '../EventStatusBadge/EventStatusBadge'
+import { Badge } from '../ui/badge'
 import { Card, CardDescription, CardTitle } from '../ui/card'
 
 interface IEventLinkProps {
@@ -33,6 +34,9 @@ const EventCard = ({ event, hideBadge }: IEventCardProps) => {
     description,
     interestCount,
     rsvpCount,
+    isCurrentUserAttending,
+    isCurrentUserInterested,
+    location: { isManagedByCurrentUser },
   } = event
   return (
     <Card
@@ -49,15 +53,24 @@ const EventCard = ({ event, hideBadge }: IEventCardProps) => {
         <CardDescription className="mb-2 italic text-white sm:mb-3">
           {type}
         </CardDescription>
-        {!hideBadge && (
-          <EventStatusBadge
-            onOneLine
-            className="mb-4"
-            status={status}
-            interestCount={interestCount}
-            attendingCount={rsvpCount}
-          />
-        )}
+
+        {/* badges */}
+        <div className="mb-4 inline-flex gap-2">
+          {isCurrentUserAttending ? (
+            <Badge variant="blue">attending</Badge>
+          ) : isCurrentUserInterested ? (
+            <Badge>interested</Badge>
+          ) : null}
+          {!hideBadge && (
+            <EventStatusBadge
+              onOneLine
+              status={status}
+              interestCount={interestCount}
+              attendingCount={rsvpCount}
+            />
+          )}
+        </div>
+
         {date && (
           <EventDate className="mb-2 text-xs text-white" dateStr={date} />
         )}
