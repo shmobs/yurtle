@@ -12,8 +12,9 @@ const SET_EVENT_INTEREST_MUTATION = gql`
     $isInterested: Boolean!
   ) {
     setEventInterest(eventId: $eventId, isInterested: $isInterested) {
-      currentState
-      count
+      status
+      interestCount
+      isCurrentUserInterested
     }
   }
 `

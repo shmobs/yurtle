@@ -64,12 +64,13 @@ const Event = ({ event }: IEventProps) => {
   const [interestCount, setInterestCount] = React.useState(event.interestCount)
 
   const onSetEventInterestComplete = ({
-    currentState,
-    count,
+    status,
+    interestCount,
+    isCurrentUserInterested,
   }: SetEventInterestMutation['setEventInterest']) => {
-    setInterestCount(count)
-    setCurrStatus(count > 0 ? 'REQUESTED' : 'SUGGESTED')
-    setIsInterested(currentState)
+    setInterestCount(interestCount)
+    setCurrStatus(status)
+    setIsInterested(!!isCurrentUserInterested)
   }
 
   const { setEventInterest, loading: setInterestLoading } =

@@ -155,10 +155,12 @@ export const setEventInterest: MutationResolvers['setEventInterest'] = ({
         eventId,
       },
     })
-    return {
-      currentState,
-      count,
-    }
+
+    return db.event.findFirstOrThrow({
+      where: {
+        id: eventId,
+      },
+    })
   })
 }
 
