@@ -64,9 +64,9 @@ export const QUERY = () => gql`
   }
 `
 
-export const Loading = () => <Locations />
+export const Loading = () => <Locations withPadding />
 
-export const Empty = () => <Locations locations={[]} />
+export const Empty = () => <Locations withPadding locations={[]} />
 
 export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
