@@ -1,5 +1,6 @@
 import { useSearchLocationContext } from 'src/components/LocationContext/locationContext'
 import Locations from 'src/components/Locations/Locations'
+import LocationsAndEvents from 'src/components/LocationsAndEvents/LocationsAndEvents'
 import NearbyLocationsCell from 'src/components/NearbyLocationsCell'
 
 const SearchNearby = () => {
@@ -14,7 +15,7 @@ const SearchNearby = () => {
           location={`${searchLocation.lat},${searchLocation.lng}`}
         />
       ) : (
-        <Locations />
+        <LocationsAndEvents />
       )}
     </>
   )

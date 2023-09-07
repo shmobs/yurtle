@@ -51,7 +51,7 @@ export function EventsByStatus({
   if (!eventsByStatus) {
     return (
       <div>
-        <EventsSection />
+        <EventsSection withPadding />
       </div>
     )
   }
