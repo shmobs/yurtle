@@ -34,8 +34,8 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
     },
     {
       name: 'Search',
-      href: routes.searchForVenue(),
-      current: useMatch(routes.searchForVenue()).match,
+      href: routes.textSearch(),
+      current: useMatch(routes.textSearch()).match,
     },
   ]
 
@@ -44,6 +44,11 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
       name: 'My Events',
       href: routes.myEvents(),
       current: useMatch(routes.myEvents()).match,
+    },
+    {
+      name: 'My Locations',
+      href: routes.myLocations(),
+      current: useMatch(routes.myLocations()).match,
     },
   ]
 

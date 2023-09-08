@@ -20,14 +20,15 @@ const Routes = () => {
         <Route path="/event/{id}" page={EventPage} name="event" />
         <Route path="/business/{id}" page={BusinessPage} name="business" />
         <Route path="/my-events" page={MyEventsPage} name="myEvents" />
+        <Route path="/my-locations" page={MyLocationsPage} name="myLocations" />
         <Route path="/privacy" page={PrivacyPage} name="privacy" />
         <Route notfound page={NotFoundPage} />
       </Set>
       <Set wrap={SiteLayout} withoutPadding>
         <Route path="/" page={SearchNearbyPage} name="home" />
         <Route path="/location/{id}" page={LocationPage} name="location" />
-        <Route path="/text-search" page={TextSearchPage} name="searchForVenue" />
-        <Route path="/text-search/{searchQuery}" page={TextSearchPage} name="searchForVenueWithQuery" />
+        <Route path="/text-search" page={TextSearchPage} name="textSearch" />
+        <Route path="/text-search/{searchQuery}" page={TextSearchPage} name="textSearchWithQuery" />
       </Set>
     </Router>
   )

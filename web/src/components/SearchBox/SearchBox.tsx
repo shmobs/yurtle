@@ -26,7 +26,7 @@ const SearchBox = ({ initialValue }: ISearchBoxProps) => {
 
   const onSubmit = ({ searchQuery }: IFormSearch) => {
     if (searchQuery) {
-      navigate(routes.searchForVenueWithQuery({ searchQuery }))
+      navigate(routes.textSearchWithQuery({ searchQuery }))
     }
   }
 

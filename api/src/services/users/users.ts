@@ -6,6 +6,8 @@ import type {
 
 import { db } from 'src/lib/db'
 
+import { getMapboxStaticImageUrl } from '../mapSearch/mapSearchUtils'
+
 export const users: QueryResolvers['users'] = () => {
   return db.user.findMany()
 }
@@ -66,7 +68,9 @@ export const User: UserRelationResolvers = {
     })
     return maybeEventRSVPs ?? []
   },
-  managedLocations: async (_obj, { root }) => {
+
+  // @ts-expect-error it's complaining because the mapboxStaticImageUrl field isn't part of the Location prisma model, but if it's requested, we return it
+  managedLocations: async (_obj, { root, info }) => {
     const maybeManagedLocations = await db.location.findMany({
       where: {
         managedBy: {
@@ -76,6 +80,26 @@ export const User: UserRelationResolvers = {
         },
       },
     })
-    return maybeManagedLocations ?? []
+
+    if (!maybeManagedLocations) {
+      return []
+    }
+
+    // Check if mapboxStaticImageUrl is part of the GraphQL query
+    const shouldIncludeMapboxStaticImageUrl = info.fieldNodes.some(
+      (node) => node.name.value === 'mapboxStaticImageUrl'
+    )
+
+    if (shouldIncludeMapboxStaticImageUrl) {
+      return maybeManagedLocations.map((location) => {
+        const mapboxStaticImageUrl = getMapboxStaticImageUrl(
+          location.latitude,
+          location.longitude
+        )
+        return { ...location, mapboxStaticImageUrl }
+      })
+    } else {
+      return maybeManagedLocations
+    }
   },
 }
