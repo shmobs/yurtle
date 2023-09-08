@@ -20,6 +20,8 @@ export const schema = gql`
     """
     isManagedByCurrentUser: Boolean
 
+    mapboxStaticImageUrl: String!
+
     latitude: Float!
     longitude: Float!
 

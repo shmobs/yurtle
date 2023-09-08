@@ -8,6 +8,7 @@ import { ICurrentUser, requireLocationClaimAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 import { placeDetails } from '../mapSearch/mapSearch'
+import { getMapboxStaticImageUrl } from '../mapSearch/mapSearchUtils'
 
 import { gmapsPlaceDetailsToLocationDetails } from './locationsUtils'
 
@@ -158,13 +159,7 @@ export const Location: LocationRelationResolvers = {
     return maybeManagedBy.some((user) => user.id === currentUser.id)
   },
 
-  // events: async (_obj, { root }) => {
-  //   const maybeEvents = await db.location
-  //     .findUnique({ where: { id: root?.id } })
-  //     .events({ orderBy: [{ status: 'asc' }, { date: 'asc' }] })
-  //   if (!maybeEvents) {
-  //     throw new Error(`Events with id ${root?.id} not found`)
-  //   }
-  //   return maybeEvents
-  // },
+  mapboxStaticImageUrl: async (_obj, { root }) => {
+    return getMapboxStaticImageUrl(root.latitude, root.longitude)
+  },
 }
