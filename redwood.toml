@@ -8,6 +8,7 @@
 [web]
   title = "Yurtle"
   port = 8910
+  host = "local.dev.app"
   apiUrl = "/.redwood/functions"
   includeEnvironmentVariables = [
     "MAPBOX_PUBLIC_KEY", "RWJS_API_URL", "GOOGLE_CLIENT_ID", "APPLE_CLIENT_ID"

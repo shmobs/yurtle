@@ -9,12 +9,22 @@ dns.setDefaultResultOrder('verbatim')
 
 import redwood from '@redwoodjs/vite'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 const viteConfig: UserConfig = {
   plugins: [redwood()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  server: {
+    https: isProd
+      ? undefined
+      : {
+          key: '../certs/key.pem',
+          cert: '../certs/cert.pem',
+        },
   },
 }
 
