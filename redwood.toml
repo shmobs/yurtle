@@ -10,7 +10,7 @@
   port = 8910
   apiUrl = "/.redwood/functions"
   includeEnvironmentVariables = [
-    "MAPBOX_PUBLIC_KEY", "RWJS_API_URL", "GOOGLE_CLIENT_ID"
+    "MAPBOX_PUBLIC_KEY", "RWJS_API_URL", "GOOGLE_CLIENT_ID", "APPLE_CLIENT_ID"
   ]
 [api]
   port = 8911
