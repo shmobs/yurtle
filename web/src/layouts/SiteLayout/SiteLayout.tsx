@@ -14,6 +14,7 @@ import SetLocationPopover from 'src/components/LocationContext/SetLocationPopove
 import { cn } from 'src/lib/utils'
 
 import UserProfileImg from './UserProfileImg'
+import YurtleLogo from './YurtleLogo'
 
 export const HeaderSlot = createSlot('header')
 
@@ -78,11 +79,7 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                     <div className="flex w-10 items-center px-2 sm:w-full lg:px-0">
                       <div className="flex-shrink-0">
                         <Link to={routes.home()}>
-                          <img
-                            className="block h-8 w-8"
-                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
-                            alt="Your Company"
-                          />
+                          <YurtleLogo className="h-10 w-10" />
                         </Link>
                       </div>
                       <div className="hidden lg:ml-10 lg:block">
