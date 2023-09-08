@@ -178,7 +178,7 @@ export const handler = async (
     oAuthModelAccessor: 'oAuth',
     // You can instead do `enabledProviders: {}`, but I find it more clear to be explicitly not enabling these
     // We'll enable at least one of these later on, but leave it like this for now
-    enabledProviders: { apple: false, github: false, google: true },
+    enabledProviders: { apple: true, github: false, google: true },
   })
 
   switch (event.path) {
