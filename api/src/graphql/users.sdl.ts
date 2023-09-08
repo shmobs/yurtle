@@ -5,6 +5,7 @@ export const schema = gql`
     username: String!
     eventInterests: [Event!]!
     eventRSVPs: [Event!]!
+    managedLocations: [Location!]!
     createdAt: DateTime!
     updatedAt: DateTime!
   }

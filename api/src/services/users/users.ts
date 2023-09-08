@@ -66,4 +66,16 @@ export const User: UserRelationResolvers = {
     })
     return maybeEventRSVPs ?? []
   },
+  managedLocations: async (_obj, { root }) => {
+    const maybeManagedLocations = await db.location.findMany({
+      where: {
+        managedBy: {
+          some: {
+            id: root?.id,
+          },
+        },
+      },
+    })
+    return maybeManagedLocations ?? []
+  },
 }
