@@ -3,8 +3,8 @@ export const schema = gql`
     id: String!
     email: String!
     username: String!
-    EventInterests: [Event!]!
-    EventRSVPs: [Event!]!
+    eventInterests: [Event!]!
+    eventRSVPs: [Event!]!
     createdAt: DateTime!
     updatedAt: DateTime!
   }

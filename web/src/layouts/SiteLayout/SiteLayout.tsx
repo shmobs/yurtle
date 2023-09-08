@@ -38,6 +38,15 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
       current: useMatch(routes.searchForVenue()).match,
     },
   ]
+
+  const navSignedIn = [
+    {
+      name: 'My Events',
+      href: routes.myEvents(),
+      current: useMatch(routes.myEvents()).match,
+    },
+  ]
+
   const userNavigationLoggedIn = [
     {
       name: 'Sign out',
@@ -84,7 +93,10 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                       </div>
                       <div className="hidden lg:ml-10 lg:block">
                         <div className="flex space-x-4">
-                          {navigation.map((item) => (
+                          {(user
+                            ? [...navigation, ...navSignedIn]
+                            : navigation
+                          ).map((item) => (
                             <Link
                               key={item.name}
                               to={item.href}

@@ -19,6 +19,7 @@ const Routes = () => {
         <Route path="/sign-in-sign-up" page={AuthPage} name="auth" />
         <Route path="/event/{id}" page={EventPage} name="event" />
         <Route path="/business/{id}" page={BusinessPage} name="business" />
+        <Route path="/my-events" page={MyEventsPage} name="myEvents" />
         <Route path="/privacy" page={PrivacyPage} name="privacy" />
         <Route notfound page={NotFoundPage} />
       </Set>

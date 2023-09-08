@@ -36,11 +36,16 @@ export const deleteUser: MutationResolvers['deleteUser'] = ({ id }) => {
 }
 
 export const User: UserRelationResolvers = {
-  EventInterests: async (_obj, { root }) => {
+  eventInterests: async (_obj, { root }) => {
     const maybeEventInterests = await db.event.findMany({
       where: {
         interests: {
-          every: {
+          some: {
+            userId: root?.id,
+          },
+        },
+        rsvps: {
+          none: {
             userId: root?.id,
           },
         },
@@ -49,11 +54,11 @@ export const User: UserRelationResolvers = {
 
     return maybeEventInterests ?? []
   },
-  EventRSVPs: async (_obj, { root }) => {
+  eventRSVPs: async (_obj, { root }) => {
     const maybeEventRSVPs = await db.event.findMany({
       where: {
         rsvps: {
-          every: {
+          some: {
             userId: root?.id,
           },
         },
