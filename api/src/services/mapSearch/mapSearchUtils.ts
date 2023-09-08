@@ -11,7 +11,7 @@ type GmapsApiResponseType =
   | GMapsApiSearchNearbyResponseType
   | GMapsApiTextSearchResponseType
 
-export async function addRendyLocationIds<T extends GmapsApiResponseType>(
+export async function addYurtleLocationIds<T extends GmapsApiResponseType>(
   apiResponse: T
 ): Promise<T> {
   // Create a deep copy of apiResponse
@@ -35,10 +35,10 @@ export async function addRendyLocationIds<T extends GmapsApiResponseType>(
     gmapsPlaceIdToLocation.set(location.gmapsPlaceId, location)
   })
 
-  // Add rendyLocationId to each result in responseCopy if a matching Location record exists, otherwise set it to undefined
+  // Add yurtleLocationId to each result in responseCopy if a matching Location record exists, otherwise set it to undefined
   responseCopy.results = responseCopy.results.map((result) => {
     const location = gmapsPlaceIdToLocation.get(result.place_id)
-    result.rendyLocationId = location ? location.id : undefined
+    result.yurtleLocationId = location ? location.id : undefined
     return result
   }) as T['results']
 

@@ -29,7 +29,7 @@ export const QUERY = () => gql`
 
       results {
         place_id
-        rendyLocationId
+        yurtleLocationId
         mapboxStaticImageUrl
         name
         formatted_address
@@ -71,7 +71,7 @@ const standardizeLocations = (
     // the formatted address string is hella long, so just grab the first part of it, which is likely the street address
     const addressTrimmed = location.formatted_address.split(',')[0]
     return {
-      id: location.rendyLocationId || undefined,
+      id: location.yurtleLocationId || undefined,
       gmapsPlaceId: location.place_id,
       businessName: location.name,
       backgroundImageUrl: location.mapboxStaticImageUrl,

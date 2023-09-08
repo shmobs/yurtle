@@ -130,10 +130,10 @@ export default function Hero() {
           <div className="hidden sm:mb-8 sm:flex sm:justify-center"></div>
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Welcome to Rendy
+              Welcome to Yurtle
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Rendy (prounced 'ronday') is the best place to find local events.
+              Yurtle (prounced 'ronday') is the best place to find local events.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a

@@ -10,7 +10,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
     results: [
       {
         place_id: 'ChIJNZLT4BETkFQRFNbiNXHxHNw',
-        rendyLocationId: 'clln4vl3k000cjrafpdsza22w',
+        yurtleLocationId: 'clln4vl3k000cjrafpdsza22w',
         name: 'Grand Central Bakery - Wedgwood cafe',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -65,7 +65,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJiTb9u48TkFQRt40opG6Aorc',
-        rendyLocationId: 'clln4ryw90003jraf8ljztcq5',
+        yurtleLocationId: 'clln4ryw90003jraf8ljztcq5',
         name: 'Thai of Wedgwood',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -112,7 +112,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJSYDlnY8TkFQRUQaj8Liw7XA',
-        rendyLocationId: 'cllxetnnd0000jrff2h53r0k4',
+        yurtleLocationId: 'cllxetnnd0000jrff2h53r0k4',
         name: 'Subway',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -165,7 +165,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJRW4GXo4TkFQRr2RyPesLeZ0',
-        rendyLocationId: 'clm2ithfb0000jr8pv4182kgs',
+        yurtleLocationId: 'clm2ithfb0000jr8pv4182kgs',
         name: "Sophie's Tacos",
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -212,7 +212,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJyQbFP1wTkFQR_5RAen7SzNI',
-        rendyLocationId: null,
+        yurtleLocationId: null,
         name: 'Not Just Fish and Chips',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -259,7 +259,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJK7TC6iATkFQRY2koUQW7cbM',
-        rendyLocationId: 'cllyad4rq0000jr6a4b4v0t0p',
+        yurtleLocationId: 'cllyad4rq0000jr6a4b4v0t0p',
         name: 'Chopsticks Cuisine',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -306,7 +306,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJu2GDf4UTkFQR6MKEeJduW4Y',
-        rendyLocationId: 'clln6bzgr0010jrvz3e9x50mt',
+        yurtleLocationId: 'clln6bzgr0010jrvz3e9x50mt',
         name: 'Veraci Pizza Wedgwood',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -359,7 +359,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJoQKUjoUTkFQR3lTPxhAn_2c',
-        rendyLocationId: 'cllu464hq0009jrs0doaeghss',
+        yurtleLocationId: 'cllu464hq0009jrs0doaeghss',
         name: 'Starbucks',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -413,7 +413,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJFcebRZITkFQRhOt-YyS3qzU',
-        rendyLocationId: 'clln4vfin0009jraf4nd7t3xx',
+        yurtleLocationId: 'clln4vfin0009jraf4nd7t3xx',
         name: 'Wedgwood Broiler',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -460,7 +460,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJ_3iXdokTkFQREaYFTJxAuGw',
-        rendyLocationId: 'clln652wd000fjrvzdhkktu5d',
+        yurtleLocationId: 'clln652wd000fjrvzdhkktu5d',
         name: 'Jet City Pizza',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -513,7 +513,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJucJfPZMTkFQRUppYthTF3Cc',
-        rendyLocationId: 'clln6a80r000ujrvz8eyx99j0',
+        yurtleLocationId: 'clln6a80r000ujrvz8eyx99j0',
         name: 'Cafe Javasti',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -567,7 +567,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJ2WN804ATkFQR-Ye67hPCwqg',
-        rendyLocationId: 'cllu8dc0r0000jrvtl3cche5n',
+        yurtleLocationId: 'cllu8dc0r0000jrvtl3cche5n',
         name: 'Ridge Pizza NE',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -614,7 +614,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJa6MENIcTkFQRfaseSfa5bIk',
-        rendyLocationId: 'clln69mgf000ojrvz4fufyl41',
+        yurtleLocationId: 'clln69mgf000ojrvz4fufyl41',
         name: 'Bryant Corner Cafe',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -668,7 +668,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJoxc87HgUkFQR0XIL3iu1798',
-        rendyLocationId: 'clltqx5kl0003jrs8ik893wd5',
+        yurtleLocationId: 'clltqx5kl0003jrs8ik893wd5',
         name: 'Zouave Restaurant',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -715,7 +715,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJ8Qh7sCIVkFQRmVZO5ikxqDQ',
-        rendyLocationId: 'clm9k5mgl0003jrydodxw532c',
+        yurtleLocationId: 'clm9k5mgl0003jrydodxw532c',
         name: 'Kricket Club',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -762,7 +762,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJ679-rHkUkFQREVsDVFnTmLo',
-        rendyLocationId: null,
+        yurtleLocationId: null,
         name: 'Wataru',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -809,7 +809,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJPX3CgsYVkFQRxaw9TEMCkKg',
-        rendyLocationId: null,
+        yurtleLocationId: null,
         name: 'Isarn Thai Soul Kitchen',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -856,7 +856,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJ-73ml3kUkFQRb9M6jfYscUI',
-        rendyLocationId: null,
+        yurtleLocationId: null,
         name: 'Ravenna Varsity Restaurant',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -903,7 +903,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJR3lSmHkUkFQR8Nav-37o3F0',
-        rendyLocationId: null,
+        yurtleLocationId: null,
         name: 'Harissa Mediterranean Cuisine',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:
@@ -950,7 +950,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
       {
         place_id: 'ChIJMbK_k3kUkFQRIWL4yy1N0Go',
-        rendyLocationId: null,
+        yurtleLocationId: null,
         name: 'JuneBaby',
         business_status: 'OPERATIONAL',
         mapboxStaticImageUrl:

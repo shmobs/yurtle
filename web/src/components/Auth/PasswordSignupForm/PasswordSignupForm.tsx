@@ -33,7 +33,7 @@ const PasswordSignupForm = ({ onComplete }: IPasswordSignupFormProps) => {
       toast.error(response.error)
     } else {
       // user is signed in automatically
-      toast.success('Welcome to Rendy!')
+      toast.success('Welcome to Yurtle!')
       onComplete && onComplete()
     }
   }
@@ -58,7 +58,7 @@ const PasswordSignupForm = ({ onComplete }: IPasswordSignupFormProps) => {
       <TextField
         label="Email"
         name="email"
-        placeholder="ari@rendy.app"
+        placeholder="ari@yurtle.app"
         validation={{ required: true }}
       />
 

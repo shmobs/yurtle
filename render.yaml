@@ -5,7 +5,7 @@
 #####
 
 services:
-- name: rendy-web
+- name: yurtle-web
   type: web
   env: static
   buildCommand: yarn install && yarn rw deploy render web
@@ -23,12 +23,12 @@ services:
 # example:
 #   destination: https://myredwoodproject-api.onrender.com/*
 #####
-    destination: https://rendy-api.onrender.com/*
+    destination: https://yurtle-api.onrender.com/*
   - type: rewrite
     source: /*
     destination: /200.html
 
-- name: rendy-api
+- name: yurtle-api
   type: web
   plan: free
   env: node

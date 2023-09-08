@@ -29,7 +29,7 @@ const PasswordLoginForm = ({ onComplete }: IPasswordLoginFormProps) => {
       toast.error(response.error)
     } else {
       // user is signed in automatically
-      toast.success('Welcome to Rendy!')
+      toast.success('Welcome to Yurtle!')
       onComplete && onComplete()
     }
   }

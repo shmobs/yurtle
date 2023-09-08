@@ -30,7 +30,7 @@ export const QUERY = () => gql`
 
       results {
         place_id
-        rendyLocationId
+        yurtleLocationId
         name
         business_status
         mapboxStaticImageUrl
@@ -79,7 +79,7 @@ const standardizeLocations = (
   if (!nearbyLocations.results) return []
   return nearbyLocations.results.map((location) => {
     return {
-      id: location.rendyLocationId || undefined,
+      id: location.yurtleLocationId || undefined,
       gmapsPlaceId: location.place_id,
       businessName: location.name,
       backgroundImageUrl: location.mapboxStaticImageUrl,

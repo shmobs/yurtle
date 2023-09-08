@@ -84,7 +84,7 @@ export const schema = gql`
     """
     If a matching Location record exists in Prisma, this will be set to the id of that record.
     """
-    rendyLocationId: String
+    yurtleLocationId: String
     """
     This field gets added so that the frontend can display a mapbox static image for each result.
     """
@@ -107,7 +107,7 @@ export const schema = gql`
     """
     If a matching Location record exists in Prisma, this will be set to the id of that record.
     """
-    rendyLocationId: String
+    yurtleLocationId: String
     """
     This field gets added so that the frontend can display a mapbox static image for each result.
     """

@@ -46,7 +46,7 @@ const PrivacyPage = () => {
           </li>
           <li>
             <p>
-              <strong>Application</strong> refers to Rendy, the software program
+              <strong>Application</strong> refers to Yurtle, the software program
               provided by the Company.
             </p>
           </li>
@@ -54,7 +54,7 @@ const PrivacyPage = () => {
             <p>
               <strong>Company</strong> (referred to as either &quot;the
               Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot;
-              in this Agreement) refers to Rendy.
+              in this Agreement) refers to Yurtle.
             </p>
           </li>
           <li>
@@ -108,13 +108,13 @@ const PrivacyPage = () => {
           </li>
           <li>
             <p>
-              <strong>Website</strong> refers to Rendy, accessible from{' '}
+              <strong>Website</strong> refers to Yurtle, accessible from{' '}
               <a
-                href="rendy.app"
+                href="yurtle.app"
                 rel="external nofollow noopener"
                 target="_blank"
               >
-                rendy.app
+                yurtle.app
               </a>
             </p>
           </li>
@@ -524,7 +524,7 @@ const PrivacyPage = () => {
           us:
         </p>
         <ul>
-          <li>By email: privacy@rendy.app</li>
+          <li>By email: privacy@yurtle.app</li>
         </ul>
       </div>
     </>

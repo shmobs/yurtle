@@ -13,7 +13,7 @@ import {
 
 import { db } from 'src/lib/db'
 
-import { addMapboxStaticImages, addRendyLocationIds } from './mapSearchUtils'
+import { addMapboxStaticImages, addYurtleLocationIds } from './mapSearchUtils'
 
 export const searchNearby: QueryResolvers['searchNearby'] = async ({
   location,
@@ -45,9 +45,9 @@ export const searchNearby: QueryResolvers['searchNearby'] = async ({
 
   const resContent = (await res.json()) as SearchNearbyResponse
 
-  const withRendyLocationIds = await addRendyLocationIds(resContent)
+  const withYurtleLocationIds = await addYurtleLocationIds(resContent)
   const withMapboxStaticImages = await addMapboxStaticImages(
-    withRendyLocationIds
+    withYurtleLocationIds
   )
 
   return withMapboxStaticImages
@@ -80,12 +80,12 @@ export const textSearch: QueryResolvers['textSearch'] = async ({
 
   const resContent = (await res.json()) as TextSearchResponse
 
-  const withRendyLocationIds = await addRendyLocationIds(resContent)
+  const withYurtleLocationIds = await addYurtleLocationIds(resContent)
   const withMapboxStaticImages = await addMapboxStaticImages(
-    withRendyLocationIds
+    withYurtleLocationIds
   )
 
-  return await addRendyLocationIds(withMapboxStaticImages)
+  return await addYurtleLocationIds(withMapboxStaticImages)
 }
 
 export const placeDetails: QueryResolvers['placeDetails'] = async ({
