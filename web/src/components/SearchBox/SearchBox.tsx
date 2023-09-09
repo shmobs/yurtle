@@ -32,7 +32,7 @@ const SearchBox = ({ initialValue }: ISearchBoxProps) => {
 
   return (
     <Form<IFormSearch>
-      className="mx-auto flex w-11/12 items-center justify-center space-x-2 pt-5 sm:w-96 md:pt-10"
+      className="flex w-full flex-col items-center justify-center px-4 pt-5 sm:mx-auto sm:w-[500px] sm:space-x-2 md:flex-row md:pt-10"
       onSubmit={onSubmit}
       formMethods={formMethods}
     >
@@ -46,7 +46,11 @@ const SearchBox = ({ initialValue }: ISearchBoxProps) => {
         disabled={!searchLocation}
         defaultValue={initialValue}
       />
-      <Button className="mb-3" type="submit" disabled={!searchLocation}>
+      <Button
+        className="h-14 w-full text-lg sm:mb-3 sm:h-10 md:w-auto md:text-base"
+        type="submit"
+        disabled={!searchLocation}
+      >
         Search
       </Button>
     </Form>
