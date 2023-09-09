@@ -52,6 +52,14 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
     },
   ]
 
+  const navSignedOut = [
+    {
+      name: 'Log In or Sign Up',
+      href: routes.auth(),
+      current: useMatch(routes.auth()).match,
+    },
+  ]
+
   const userNavigationLoggedIn = [
     {
       name: 'Sign out',
@@ -68,14 +76,9 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
     },
   ]
 
-  const userNavigationSignedOut = [
-    {
-      name: 'Sign In or Sign Up',
-      onClick: () => {
-        navigate(routes.auth())
-      },
-    },
-  ]
+  const navItems = user
+    ? [...navigation, ...navSignedIn]
+    : [...navigation, ...navSignedOut]
 
   return (
     <>
@@ -98,10 +101,7 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                       </div>
                       <div className="hidden lg:ml-10 lg:block">
                         <div className="flex space-x-4">
-                          {(user
-                            ? [...navigation, ...navSignedIn]
-                            : navigation
-                          ).map((item) => (
+                          {navItems.map((item) => (
                             <Link
                               key={item.name}
                               to={item.href}
@@ -156,45 +156,47 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                         </button> */}
 
                         {/* Profile dropdown */}
-                        <Menu as="div" className="relative ml-3 flex-shrink-0">
-                          <div>
-                            <Menu.Button className="relative flex rounded-full bg-indigo-600 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
-                              <span className="absolute -inset-1.5" />
-                              <span className="sr-only">Open user menu</span>
-                              <UserProfileImg className="h-9 w-9 rounded-full fill-white" />
-                            </Menu.Button>
-                          </div>
-                          <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-100"
-                            enterFrom="transform opacity-0 scale-95"
-                            enterTo="transform opacity-100 scale-100"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 scale-100"
-                            leaveTo="transform opacity-0 scale-95"
+                        {user && (
+                          <Menu
+                            as="div"
+                            className="relative ml-3 flex-shrink-0"
                           >
-                            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                              {(user
-                                ? userNavigationLoggedIn
-                                : userNavigationSignedOut
-                              ).map((item) => (
-                                <Menu.Item key={item.name}>
-                                  {({ active }) => (
-                                    <button
-                                      onClick={item.onClick}
-                                      className={cn(
-                                        active ? 'bg-gray-100' : '',
-                                        'block px-4 py-2 text-sm text-gray-700'
-                                      )}
-                                    >
-                                      {item.name}
-                                    </button>
-                                  )}
-                                </Menu.Item>
-                              ))}
-                            </Menu.Items>
-                          </Transition>
-                        </Menu>
+                            <div>
+                              <Menu.Button className="relative flex rounded-full bg-indigo-600 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
+                                <span className="absolute -inset-1.5" />
+                                <span className="sr-only">Open user menu</span>
+                                <UserProfileImg className="h-9 w-9 rounded-full fill-white" />
+                              </Menu.Button>
+                            </div>
+                            <Transition
+                              as={Fragment}
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
+                            >
+                              <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                {userNavigationLoggedIn.map((item) => (
+                                  <Menu.Item key={item.name}>
+                                    {({ active }) => (
+                                      <button
+                                        onClick={item.onClick}
+                                        className={cn(
+                                          active ? 'bg-gray-100' : '',
+                                          'block px-4 py-2 text-sm text-gray-700'
+                                        )}
+                                      >
+                                        {item.name}
+                                      </button>
+                                    )}
+                                  </Menu.Item>
+                                ))}
+                              </Menu.Items>
+                            </Transition>
+                          </Menu>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -202,11 +204,10 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
 
                 <Disclosure.Panel className="lg:hidden">
                   <div className="space-y-1 px-2 pb-3 pt-2">
-                    {navigation.map((item) => (
-                      <Disclosure.Button
+                    {navItems.map((item) => (
+                      <Link
                         key={item.name}
-                        as="a"
-                        href={item.href}
+                        to={item.href}
                         className={cn(
                           item.current
                             ? 'bg-indigo-700 text-white'
@@ -216,12 +217,12 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </Disclosure.Button>
+                      </Link>
                     ))}
                   </div>
-                  <div className="border-t border-indigo-700 pb-3 pt-4">
-                    {/* user info */}
-                    {user && (
+                  {/* user info */}
+                  {user && (
+                    <div className="border-t border-indigo-700 pb-3 pt-4">
                       <div className="flex items-center overflow-clip px-5">
                         <div className="flex-shrink-0">
                           <UserProfileImg className="h-10 w-10 rounded-full fill-white" />
@@ -244,23 +245,21 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
                       </button> */}
                       </div>
-                    )}
-                    <div className="mt-3 space-y-1 px-2">
-                      {(user
-                        ? userNavigationLoggedIn
-                        : userNavigationSignedOut
-                      ).map((item) => (
-                        <Disclosure.Button
-                          key={item.name}
-                          as="button"
-                          onClick={item.onClick}
-                          className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
-                        >
-                          {item.name}
-                        </Disclosure.Button>
-                      ))}
+
+                      <div className="mt-3 space-y-1 px-2">
+                        {userNavigationLoggedIn.map((item) => (
+                          <Disclosure.Button
+                            key={item.name}
+                            as="button"
+                            onClick={item.onClick}
+                            className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
+                          >
+                            {item.name}
+                          </Disclosure.Button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </Disclosure.Panel>
               </>
             )}
