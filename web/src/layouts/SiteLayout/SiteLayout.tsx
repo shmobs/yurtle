@@ -13,8 +13,8 @@ import AddressLink from 'src/components/AddressLink/AddressLink'
 import SetLocationPopover from 'src/components/LocationContext/SetLocationPopover'
 import { cn } from 'src/lib/utils'
 
+import YurtleLogo from './logos/YurtleLogo'
 import UserProfileImg from './UserProfileImg'
-import YurtleLogo from './YurtleLogo'
 
 export const HeaderSlot = createSlot('header')
 
