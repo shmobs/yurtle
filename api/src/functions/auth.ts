@@ -5,10 +5,38 @@ import { DbAuthHandler, DbAuthHandlerOptions } from '@redwoodjs/auth-dbauth-api'
 
 import { db } from 'src/lib/db'
 
+// sometimes body is an empty string, sometimes it's a JSON string, sometimes it's query string params for some reason
+export const parseEventBodyAsString = (event: APIGatewayProxyEvent) => {
+  if (!event.body) {
+    return null
+  }
+
+  let body = ''
+
+  if (event.isBase64Encoded) {
+    body = Buffer.from(event.body, 'base64').toString('utf-8')
+  } else {
+    body = event.body
+  }
+
+  // Check if the body is already valid JSON
+  try {
+    JSON.parse(body)
+    return body
+  } catch (error) {
+    // If it's not valid JSON, try parsing as query string and convert to JSON string
+    const searchParams = new URLSearchParams(body)
+    const result = Object.fromEntries(searchParams)
+
+    return JSON.stringify(result)
+  }
+}
+
 export const handler = async (
   event: APIGatewayProxyEvent,
   context: Context
 ) => {
+  event.body = parseEventBodyAsString(event)
   const forgotPasswordOptions: DbAuthHandlerOptions['forgotPassword'] = {
     // handler() is invoked after verifying that a user was found with the given
     // username. This is where you can send the user an email with a link to

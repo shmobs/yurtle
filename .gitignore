@@ -21,3 +21,5 @@ api/src/lib/generateGraphiQLHeader.*
 !.yarn/sdks
 !.yarn/versions
 certs/*
+.yalc
+yalc.lock

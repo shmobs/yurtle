@@ -7766,9 +7766,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spoonjoy/redwoodjs-dbauth-oauth-api@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@spoonjoy/redwoodjs-dbauth-oauth-api@npm:1.2.1"
+"@spoonjoy/redwoodjs-dbauth-oauth-api@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@spoonjoy/redwoodjs-dbauth-oauth-api@npm:1.2.2"
   dependencies:
     "@prisma/client": 4.15.0
     "@redwoodjs/api": 5.0.0
@@ -7778,19 +7778,19 @@ __metadata:
     jsonwebtoken: ^9.0.0
     md5: ^2.3.0
     uuid: ^9.0.0
-  checksum: ae6942577a4ad95b159ef7a853e66e8f129ffb13b78db75b183d96b9b18a0fd8b682f6aab9b7e1eee8b55073439f435143718f48efbca5bc0553337c71f81064
+  checksum: be5a9a76ed7689c1c2853b80c6ffca9b1d7bc3a896ce1ca97251c64e767831caf2b6068b409441f3ad9746c63fc687b79665953f75ccbed7dc4fcb3a0a96e503
   languageName: node
   linkType: hard
 
-"@spoonjoy/redwoodjs-dbauth-oauth-web@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@spoonjoy/redwoodjs-dbauth-oauth-web@npm:1.2.0"
+"@spoonjoy/redwoodjs-dbauth-oauth-web@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@spoonjoy/redwoodjs-dbauth-oauth-web@npm:1.2.2"
   peerDependencies:
     "@redwoodjs/core": ^5.4.1
     "@redwoodjs/router": ^5.4.1
     react: 18.2.0
     react-dom: 18.2.0
-  checksum: 4853014630d4d815d1c4fcff7b2e71086f9ad3378df5db3faca6498667c566895c02e729523f2f664734090d0796df46f3c925b4bc2ea199d036e51d66fc4ca0
+  checksum: 71e4091cb4a9eaa2cd4ba54e4faaa33fec0c37ebee248c26f6c7d78e2f53596d6e15f119916cf184dc65c427af7cfb155caf169407b322b621b303ddd72b48e0
   languageName: node
   linkType: hard
 
@@ -10911,7 +10911,7 @@ __metadata:
     "@redwoodjs/api": 6.1.1
     "@redwoodjs/auth-dbauth-api": 6.1.1
     "@redwoodjs/graphql-server": 6.1.1
-    "@spoonjoy/redwoodjs-dbauth-oauth-api": ^1.2.1
+    "@spoonjoy/redwoodjs-dbauth-oauth-api": ^1.2.2
     "@whatwg-node/fetch": ^0.9.9
     lodash: ^4.17.21
   languageName: unknown
@@ -26798,7 +26798,7 @@ __metadata:
     "@redwoodjs/router": 6.1.1
     "@redwoodjs/vite": 6.1.1
     "@redwoodjs/web": 6.1.1
-    "@spoonjoy/redwoodjs-dbauth-oauth-web": ^1.2.0
+    "@spoonjoy/redwoodjs-dbauth-oauth-web": ^1.2.2
     "@tailwindcss/typography": ^0.5.9
     "@types/mapbox-gl": ^2.7.13
     "@types/node": ^20.5.0
