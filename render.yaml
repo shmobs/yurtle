@@ -30,7 +30,7 @@ services:
 
 - name: yurtle-api
   type: web
-  plan: free
+  plan: standard
   env: node
   region: oregon
   buildCommand: yarn && yarn rw build api
