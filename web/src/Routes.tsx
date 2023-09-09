@@ -18,10 +18,10 @@ const Routes = () => {
       <Set wrap={SiteLayout}>
         <Route path="/sign-in-sign-up" page={AuthPage} name="auth" />
         <Route path="/event/{id}" page={EventPage} name="event" />
-        <Route path="/business/{id}" page={BusinessPage} name="business" />
         <Route path="/my-events" page={MyEventsPage} name="myEvents" />
         <Route path="/my-locations" page={MyLocationsPage} name="myLocations" />
         <Route path="/privacy" page={PrivacyPage} name="privacy" />
+        <Route path="/business/{id}" page={BusinessPage} name="business" />
         <Route notfound page={NotFoundPage} />
       </Set>
       <Set wrap={SiteLayout} withoutPadding>

@@ -4,7 +4,7 @@ export const schema = gql`
     name: String!
     description: String!
     website: String
-    locations: [Location]!
+    locations: [Location!]!
     createdAt: DateTime!
     updatedAt: DateTime!
   }
