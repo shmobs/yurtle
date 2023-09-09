@@ -90,15 +90,11 @@ const Location = ({ location }: ILocationProps) => {
             REQUESTED: location.eventsRequested,
             SCHEDULED: location.eventsScheduled,
             SUGGESTED: (
-              <section>
-                <SectionHeader
-                  withPadding
-                  title="Curated event suggestions"
-                  subtitle="We've curated these for this venue. To express interest or see more information, just tap on it!"
-                />
-
-                <PlaceVibesCell locationId={location.id} />
-              </section>
+              <PlaceVibesCell
+                withPadding
+                locationId={location.id}
+                locationName={location.business.name}
+              />
             ),
           }}
         />

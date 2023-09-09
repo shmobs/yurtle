@@ -4,6 +4,12 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 import { EVENT_SHORT_INFO_FRAGMENT } from '../EventCell/eventFragments'
 import Vibes from '../Vibes/Vibes'
+import VibesLoading from '../VibesLoading/VibesLoading'
+
+interface IPlaceVibesCellExtraProps {
+  locationName: string
+  withPadding?: boolean
+}
 
 // fragments in redwood are broken, so need to do this or the type generator will fail
 export const QUERY = () => gql`
@@ -18,7 +24,12 @@ export const QUERY = () => gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = ({
+  locationName,
+  withPadding,
+}: IPlaceVibesCellExtraProps) => (
+  <VibesLoading withPadding={withPadding} locationName={locationName} />
+)
 
 export const Empty = () => <div>Empty</div>
 
@@ -28,6 +39,14 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({
   placeVibes,
-}: CellSuccessProps<GetPlaceVibesQuery>) => {
-  return <Vibes placeVibes={placeVibes} />
+  locationName,
+  withPadding,
+}: CellSuccessProps<GetPlaceVibesQuery> & IPlaceVibesCellExtraProps) => {
+  return (
+    <Vibes
+      placeVibes={placeVibes}
+      locationName={locationName}
+      withPadding={withPadding}
+    />
+  )
 }
