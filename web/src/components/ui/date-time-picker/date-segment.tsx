@@ -23,7 +23,7 @@ function DateSegment({ segment, state }: DateSegmentProps) {
       ref={ref}
       aria-label={segment.text}
       className={cn(
-        'focus:rounded-[2px] focus:bg-accent focus:text-accent-foreground focus:outline-none',
+        'focus:rounded-[2px] focus:bg-accent focus:text-gray-900 focus:outline-none',
         segment.type !== 'literal' ? 'px-[1px]' : '',
         segment.isPlaceholder ? 'text-muted-foreground' : ''
       )}

@@ -67,7 +67,10 @@ const MapView = ({ lat, long, zoom }: IMapViewProps) => {
         zoom: zoom,
         dragPan: false,
         scrollZoom: false,
-        touchZoomRotate: true,
+        touchZoomRotate: false,
+        touchPitch: false,
+        trackResize: true,
+        doubleClickZoom: false,
       })
 
       // create the marker

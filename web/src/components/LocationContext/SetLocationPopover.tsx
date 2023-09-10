@@ -107,7 +107,9 @@ const SetLocationPopover = () => {
               aria-expanded={open}
               className={cn(
                 'w-[225px] justify-between sm:w-[325px]',
-                !open && 'border-indigo-900 bg-indigo-800 text-indigo-300'
+                !open
+                  ? 'border-indigo-900 bg-indigo-800 text-indigo-300'
+                  : 'text-gray-900'
               )}
               disabled={isPopoverButtonDisabled}
             >

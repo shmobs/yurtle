@@ -147,19 +147,21 @@ const getVibesFromGPT = async (
   const prompt = `
   Given a venue with the following details: ${locationInfo}
   Generate a list of community events that could be held there.
+  Provide events ranging from realistic to fantastical, and use as much location and venue specific detail as possible.
+
   Do not include any events like those that already exist: ${existingEventNames.join()}
 
   Please provide ${vibeCount} event suggestions.
   `
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-4-0613',
-    // model: 'gpt-3.5-turbo-0613',
+    // model: 'gpt-4-0613',
+    model: 'gpt-3.5-turbo-16k-0613',
     messages: [
       {
         role: 'system',
         content:
-          'You are the Valuable Insights Based Event Suggester (VIBES). Your purpose is to generate a list of fun and engaging community events that could be held at a given venue.',
+          'You are the Valuable Insights Based Event Suggester (VIBES). Your purpose is to generate a list of fun and engaging community events that could be held at a given venue, using as much location and venue specific detail as possible.',
       },
       {
         role: 'user',
@@ -219,18 +221,20 @@ const getVibesFromGPT = async (
       const functionArgsStr = responseMessage.function_call.arguments
       const functionArgs = JSON.parse(functionArgsStr)
       const functionArgsArray = functionArgs.vibes as Vibe[]
-      if (functionArgsArray.length !== vibeCount) {
-        throw new Error(
-          `GPT returned the wrong number of vibes. Expected ${vibeCount}, got ${functionArgsArray.length}`
-        )
-      }
-      if (
-        functionArgsArray[0].eventName &&
-        functionArgsArray[0].eventType &&
-        functionArgsArray[0].eventDescription
-      ) {
-        return functionArgsArray
-      }
+      // TODO disabling this check for now because gpt4 is slow, but gpt3.5 doesn't always return the right number of vibes, but we're prioritizing speed for now
+      // if (functionArgsArray.length !== vibeCount) {
+      //   throw new Error(
+      //     `GPT returned the wrong number of vibes. Expected ${vibeCount}, got ${functionArgsArray.length}`
+      //   )
+      // }
+
+      // return only the vibes that have all the required fields
+      return functionArgsArray.filter(
+        (functionArg) =>
+          functionArg.eventName &&
+          functionArg.eventType &&
+          functionArg.eventDescription
+      )
     } else {
       throw new Error(
         `GPT returned the wrong data structure for returnVibes, response message is ${responseMessage}`

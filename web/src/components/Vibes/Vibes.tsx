@@ -19,7 +19,7 @@ const Vibes = ({ placeVibes, locationName, withPadding }: IVibesProps) => {
       <SectionHeader
         withPadding={withPadding}
         title="Curated event suggestions"
-        subtitle={`We're curating these for ${locationName}. To express interest or see more information, just tap on it!`}
+        subtitle={`We've curating these for ${locationName}. To express interest or see more information, just tap on it!`}
       />
       <div className="h-full w-full">
         <HorizontalSnapScroll items={[...placeVibeCards]} />

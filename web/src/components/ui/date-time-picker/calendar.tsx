@@ -166,7 +166,7 @@ function CalendarCell({ state, date }: CalendarCellProps) {
         className={cn(
           buttonProps.className,
           'h-9 w-9',
-          isToday ? 'bg-accent text-accent-foreground' : '',
+          isToday ? 'bg-accent text-gray-900' : '',
           isSelected
             ? 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground'
             : '',
