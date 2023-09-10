@@ -68,7 +68,7 @@ const ScheduleEventDialog = ({
           <DialogTitle className="pb-5 text-center">
             {action === 'reschedule' ? 'Reschedule' : 'Schedule'} {eventName}
           </DialogTitle>
-          <DialogDescription className="pb-5 text-left">
+          <DialogDescription className="pb-5 text-left text-xs sm:text-sm">
             {action === 'reschedule'
               ? 'To change the event date and time, pick a new date and time, and then click the Reschedule button.'
               : 'To schedule this event, pick a date and time, and then click the Schedule button.'}

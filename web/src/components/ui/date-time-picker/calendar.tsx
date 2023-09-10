@@ -112,7 +112,7 @@ function CalendarGrid({ state, ...props }: CalendarGridProps) {
       </thead>
       <tbody>
         {[...new Array(weeksInMonth).keys()].map((weekIndex) => (
-          <tr className="mt-2 flex w-full" key={weekIndex}>
+          <tr className="flex w-full sm:mt-2" key={weekIndex}>
             {state
               .getDatesInWeek(weekIndex)
               .map((date, i) =>
