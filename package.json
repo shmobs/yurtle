@@ -7,9 +7,10 @@
     ]
   },
   "devDependencies": {
-    "@redwoodjs/auth-dbauth-setup": "6.1.1",
-    "@redwoodjs/cli-storybook": "6.1.1",
-    "@redwoodjs/core": "6.1.1",
+    "@babel/plugin-transform-runtime": "^7.22.15",
+    "@redwoodjs/auth-dbauth-setup": "6.2.0",
+    "@redwoodjs/cli-storybook": "6.2.0",
+    "@redwoodjs/core": "6.2.0",
     "prettier-plugin-tailwindcss": "^0.1.13"
   },
   "eslintConfig": {
@@ -28,6 +29,6 @@
   },
   "packageManager": "yarn@3.6.1",
   "dependencies": {
-    "@tabler/icons-react": "^2.32.0"
+    "babel-plugin-graphql-tag": "^3.3.0"
   }
 }
