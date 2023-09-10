@@ -34,7 +34,7 @@ const AboutPage = () => {
           />
         </div>
         <div className="mx-5 pb-32 pt-10 sm:pb-20 md:pt-20">
-          <p className="prose mx-auto mb-14 text-justify">
+          <p className="prose mx-auto mb-32 text-justify md:mb-20">
             <span className="text-2xl">Yurtle,</span> inspired by the enduring
             spirit of turtles and the community-centric ethos of Dr. Seuss's
             "Yertle the Turtle," champions the power of{' '}
@@ -52,7 +52,7 @@ const AboutPage = () => {
             also generates creative event ideas, fostering a vibrant ecosystem
             of event creation and participation. This homage to both the natural
             world and a beloved literary classic encapsulates our mission:{' '}
-            <strong className="text-lg">
+            <strong>
               to make every event a meaningful journey, and every participant a
               crucial part of the community.
             </strong>
