@@ -10,47 +10,55 @@ import ManagerBadge from '../ManagerBadge/ManagerBadge'
 import MapView from '../Mapbox/Map'
 import SectionHeader from '../SectionHeader'
 import { Button } from '../ui/button'
+import { Skeleton } from '../ui/skeleton'
 
 interface ILocationProps {
-  location: LocationQuery['location']
+  location?: LocationQuery['location']
 }
 
 const Location = ({ location }: ILocationProps) => {
-  const [isClaimed, setIsClaimed] = React.useState(!!location.managedBy.length)
+  const [isClaimed, setIsClaimed] = React.useState(!!location?.managedBy.length)
   const [isClaimDialogOpen, setIsClaimDialogOpen] = React.useState(false)
   const [isClaimedByCurrentUser, setIsClaimedByCurrentUser] = React.useState(
-    location.isManagedByCurrentUser
+    !!location?.isManagedByCurrentUser
   )
 
   return (
     <>
-      <SimplePageHeader
-        title={location.business.name}
-        subtitle={location.address}
-        subtitleIsAddress
-      />
-
-      <ClaimLocationDialog
-        locationId={location.id}
-        setIsClaimed={(_state) => {
-          setIsClaimed(true)
-          setIsClaimedByCurrentUser(true)
-        }}
-        isOpen={isClaimDialogOpen}
-        setIsOpen={setIsClaimDialogOpen}
-      />
+      {location && (
+        <SimplePageHeader
+          title={location.business.name}
+          subtitle={location.address}
+          subtitleIsAddress
+        />
+      )}
+      {location && (
+        <ClaimLocationDialog
+          locationId={location.id}
+          setIsClaimed={(_state) => {
+            setIsClaimed(true)
+            setIsClaimedByCurrentUser(true)
+          }}
+          isOpen={isClaimDialogOpen}
+          setIsOpen={setIsClaimDialogOpen}
+        />
+      )}
 
       <main className="relative z-0 flex-1 overflow-y-auto rounded bg-white focus:outline-none sm:pb-10">
         <div
           id="map"
           className="relative h-36 w-full overflow-clip border-t-2 border-white shadow sm:h-56 sm:rounded-t-md sm:border-l-2 sm:border-r-2"
         >
-          <MapView
-            lat={location.latitude}
-            long={location.longitude}
-            zoom={16}
-          />
-          {!isClaimed ? (
+          {location ? (
+            <MapView
+              lat={location.latitude}
+              long={location.longitude}
+              zoom={16}
+            />
+          ) : (
+            <Skeleton className="rounded-none" />
+          )}
+          {location && !isClaimed ? (
             <AuthRequiredDialog
               title="Log in or sign up to claim this venue"
               description="Claiming this venue will allow you to schedule events here."
@@ -78,27 +86,34 @@ const Location = ({ location }: ILocationProps) => {
 
         {isClaimedByCurrentUser && <ManagerBadge location="location" />}
 
-        <SectionHeader
-          withPadding
-          title="Venue Description"
-          subtitle={location.business.description}
-        />
-
-        <EventsByStatus
-          withPadding
-          usageLocation="location"
-          eventsByStatus={{
-            REQUESTED: location.eventsRequested,
-            SCHEDULED: location.eventsScheduled,
-            SUGGESTED: (
-              <PlaceVibesCell
-                withPadding
-                locationId={location.id}
-                locationName={location.business.name}
-              />
-            ),
-          }}
-        />
+        {location ? (
+          <SectionHeader
+            withPadding
+            title="Venue Description"
+            subtitle={location.business.description}
+          />
+        ) : (
+          <SectionHeader withPadding className="mb-5" />
+        )}
+        {location ? (
+          <EventsByStatus
+            withPadding
+            usageLocation="location"
+            eventsByStatus={{
+              REQUESTED: location.eventsRequested,
+              SCHEDULED: location.eventsScheduled,
+              SUGGESTED: (
+                <PlaceVibesCell
+                  withPadding
+                  locationId={location.id}
+                  locationName={location.business.name}
+                />
+              ),
+            }}
+          />
+        ) : (
+          <EventsByStatus usageLocation="location" />
+        )}
       </main>
     </>
   )
