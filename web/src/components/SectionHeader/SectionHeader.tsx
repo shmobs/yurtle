@@ -1,7 +1,8 @@
 import { cn } from 'src/lib/utils'
+import { Skeleton } from '../ui/skeleton'
 
 interface ISectionHeaderProps {
-  title: string | JSX.Element
+  title?: string | JSX.Element
   subtitle?: string
   className?: string
   /**
@@ -21,8 +22,10 @@ const SectionHeader = ({
       id="section-header"
       className={cn('mx-2 mt-5', withPadding && 'px-5 sm:px-6', className)}
     >
-      <h3 className="text-xl">{title}</h3>
-      <p className="mx-4 mb-3 text-sm leading-5 sm:text-base">{subtitle}</p>
+      {title ? <h3 className="text-xl">{title}</h3> : <Skeleton className='h-8' />}
+      {title ?
+      <p className="mx-4 mb-3 text-sm leading-5 sm:text-base">{subtitle}</p> : <><Skeleton className='h-4 mt-2 mb-2' /><Skeleton className='h-4 mb-2' /><Skeleton className='h-4' /></>
+    }
     </header>
   )
 }

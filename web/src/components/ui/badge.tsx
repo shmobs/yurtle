@@ -17,6 +17,7 @@ const badgeVariants = cva(
         indigo: 'bg-indigo-100 text-indigo-700',
         purple: 'bg-purple-100 text-purple-700',
         pink: 'bg-pink-100 text-pink-700',
+        loading: "loading"
       },
     },
     defaultVariants: {

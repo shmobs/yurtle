@@ -4,7 +4,7 @@ import { Badge } from 'src/components/ui/badge'
 import { cn } from 'src/lib/utils'
 
 interface IEventStatusBadgeProps {
-  status: EventStatus
+  status: EventStatus | "loading"
   interestCount?: number | null
   attendingCount?: number | null
   className?: string
@@ -19,8 +19,11 @@ const EventStatusBadge = ({
 }: IEventStatusBadgeProps) => (
   <div className={cn('inline-flex gap-2', className)}>
     <Badge
+      className={ status === 'loading' ? 'w-24' : undefined}
       variant={(() => {
         switch (status) {
+          case 'loading':
+            return 'loading'
           case 'SUGGESTED':
             return 'indigo'
           case 'REQUESTED':
@@ -32,7 +35,7 @@ const EventStatusBadge = ({
         }
       })()}
     >
-      {status.toLocaleLowerCase()}
+      {status !== 'loading' && status.toLocaleLowerCase()}
       {status === 'REQUESTED' && ` by ${interestCount}`}
     </Badge>
     {status === 'SCHEDULED' && (
