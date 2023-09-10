@@ -60,6 +60,14 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
     },
   ]
 
+  const endNavItems = [
+    {
+      name: 'About Yurtle',
+      href: routes.about(),
+      current: useMatch(routes.about()).match,
+    },
+  ]
+
   const userNavigationLoggedIn = [
     {
       name: 'Sign out',
@@ -77,8 +85,8 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
   ]
 
   const navItems = user
-    ? [...navigation, ...navSignedIn]
-    : [...navigation, ...navSignedOut]
+    ? [...navigation, ...navSignedIn, ...endNavItems]
+    : [...navigation, ...navSignedOut, ...endNavItems]
 
   return (
     <>

@@ -29,6 +29,7 @@ const Routes = () => {
         <Route path="/location/{id}" page={LocationPage} name="location" />
         <Route path="/text-search" page={TextSearchPage} name="textSearch" />
         <Route path="/text-search/{searchQuery}" page={TextSearchPage} name="textSearchWithQuery" />
+        <Route path="/about" page={AboutPage} name="about" />
       </Set>
     </Router>
   )
