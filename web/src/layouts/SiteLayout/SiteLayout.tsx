@@ -315,7 +315,11 @@ export const SimplePageHeader = ({
 }) => {
   return (
     <>
-      <MetaTags title={title} />
+      <MetaTags
+        title={title}
+        ogUrl={`https://${window.location.origin + window.location.pathname}`}
+        ogContentUrl="https://yurtle.app/yurtle-og-image.png"
+      />
       <HeaderSlot.Plug id={id ? id : title} deps={[id, title]}>
         <span>{title}</span>
         {subtitle && (
