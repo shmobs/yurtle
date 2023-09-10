@@ -21,7 +21,7 @@ export const QUERY = () => gql`
   }
 `
 
-export const Loading = () => <EventsByStatus />
+export const Loading = () => <EventsByStatus usageLocation="myEvents" />
 
 export const Empty = () => <div>Empty</div>
 
@@ -32,6 +32,7 @@ export const Failure = ({ error }: CellFailureProps) => (
 export const Success = ({ events }: CellSuccessProps<UsersEventsQuery>) => {
   return (
     <EventsByStatus
+      usageLocation="myEvents"
       eventsByStatus={{
         REQUESTED: events.eventInterests,
         SCHEDULED: events.eventRSVPs,

@@ -65,7 +65,11 @@ const LocationsAndEvents = ({
           <Locations withPadding locations={locations} />
         </SwiperSlide>
         <SwiperSlide>
-          <EventsByStatus withPadding eventsByStatus={eventsByStatus} />
+          <EventsByStatus
+            withPadding
+            usageLocation="search"
+            eventsByStatus={eventsByStatus}
+          />
         </SwiperSlide>
       </Swiper>
     </div>

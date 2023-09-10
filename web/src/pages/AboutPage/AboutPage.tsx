@@ -10,7 +10,8 @@ const AboutPage = () => {
       <MetaTags
         title="About Us"
         description="'Yurtle,' inspired by the enduring spirit of turtles and the community-centric ethosof Dr. Seuss's 'Yertle the Turtle,' champions the power of local engagement, inclusivity, and community. Our turtle logo, a testament to the values of deliberate exploration and sustainability, mirrors our platform's commitment to responsible community involvement. Just as every turtle mattered in Yertle's stack, every user, event, and small business holds significance on our platform. Yurtle not only connects users with nearby small businesses and events, but also generates creative event ideas, fostering a vibrant ecosystem of event creation and participation. This homage to both the natural world and a beloved literary classic encapsulates our mission: to make every event a meaningful journey, and every participant, a crucial part of the community."
-        ogUrl={`https://${window.location.origin + window.location.pathname}`}
+        // @ts-expect-error it wants hardcoded 'http' or 'https'
+        ogUrl={window.location.origin + window.location.pathname}
         ogContentUrl="https://yurtle.app/yurtle-og-image.png"
       />
       <HeaderSlot.Plug id="about">

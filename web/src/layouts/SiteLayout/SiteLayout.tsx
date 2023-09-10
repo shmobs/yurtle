@@ -317,7 +317,8 @@ export const SimplePageHeader = ({
     <>
       <MetaTags
         title={title}
-        ogUrl={`https://${window.location.origin + window.location.pathname}`}
+        // @ts-expect-error it wants hardcoded 'http' or 'https'
+        ogUrl={window.location.origin + window.location.pathname}
         ogContentUrl="https://yurtle.app/yurtle-og-image.png"
       />
       <HeaderSlot.Plug id={id ? id : title} deps={[id, title]}>

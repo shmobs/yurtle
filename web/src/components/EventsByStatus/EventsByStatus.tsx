@@ -12,9 +12,9 @@ export type LabelsConfigType = {
   [key in EventStatus]: IEventsSectionLabels
 }
 
-const statusConfig: Partial<LabelsConfigType> = {
+const statusConfigLocation: Partial<LabelsConfigType> = {
   SCHEDULED: {
-    titleIfEmpty: 'There are not currently any scheduled events',
+    titleIfEmpty: 'There are not currently any scheduled events at this venue',
     subtitleIfEmpty:
       'Check out open requests or curated suggestions to express interest!',
     titleIfNotEmpty: 'Scheduled events',
@@ -22,7 +22,8 @@ const statusConfig: Partial<LabelsConfigType> = {
       'These events are currently scheduled. To RSVP or see more information, just tap on it!',
   },
   REQUESTED: {
-    titleIfEmpty: 'There are not currently any open event requests',
+    titleIfEmpty:
+      'There are not currently any open event requests at this venue',
     subtitleIfEmpty: 'Check out our curated suggestions to create a request!',
     titleIfNotEmpty: 'Open event requests',
     subtitleIfNotEmpty:
@@ -38,14 +39,64 @@ const statusConfig: Partial<LabelsConfigType> = {
   },
 }
 
+const statusConfigSearch: Partial<LabelsConfigType> = {
+  SCHEDULED: {
+    titleIfEmpty:
+      'There are not currently any scheduled events in your search area',
+    subtitleIfEmpty:
+      'Check out requests or suggestions or browse venues to find events!',
+    titleIfNotEmpty: 'Scheduled events in your search area',
+    subtitleIfNotEmpty:
+      'These events are currently scheduled. To RSVP or see more information, just tap on it!',
+  },
+  REQUESTED: {
+    titleIfEmpty:
+      'There are not currently any open event requests in your search area',
+    subtitleIfEmpty:
+      'Check out our curated suggestions or browse venues to find events!',
+    titleIfNotEmpty: 'Open event requests in your search area',
+    subtitleIfNotEmpty:
+      'The community has requested these events. To express interest or see more information, just tap on it!',
+  },
+  SUGGESTED: {
+    // there should NEVER be empty suggested requests, but just in case...
+    titleIfEmpty: 'There are not currently any suggested events',
+    subtitleIfEmpty: 'View scheduled events above to join!',
+    titleIfNotEmpty: 'Curated event suggestions',
+    subtitleIfNotEmpty:
+      "We've curated these for this venue. To express interest or see more information, just tap on it!",
+  },
+}
+
+const statusConfigMyEvents: Partial<LabelsConfigType> = {
+  SCHEDULED: {
+    titleIfEmpty: 'You have not RSVPed to any events yet',
+    subtitleIfEmpty:
+      'Check out requests or suggestions or browse venues to find events!',
+    titleIfNotEmpty: "Events you're attending",
+    subtitleIfNotEmpty:
+      'You have RSVPed to these events. To see more information, just tap on it!',
+  },
+  REQUESTED: {
+    titleIfEmpty: 'You have not expressed interest in any events yet',
+    subtitleIfEmpty:
+      'Check out our curated suggestions or browse venues to find events!',
+    titleIfNotEmpty: 'Events you are interested in',
+    subtitleIfNotEmpty:
+      'You have expressed interest in these events. To see more information, just tap on it!',
+  },
+}
+
 interface IEventsByStatusProps {
   eventsByStatus?: Partial<EventData>
   withPadding?: boolean
+  usageLocation: 'location' | 'search' | 'myEvents'
 }
 
 export function EventsByStatus({
   eventsByStatus,
   withPadding,
+  usageLocation,
 }: IEventsByStatusProps) {
   // loading state
   if (!eventsByStatus) {
@@ -90,7 +141,17 @@ export function EventsByStatus({
       {mergedData.map((events) => {
         const key = Object.keys(events)[0] as EventStatus
         const value = events[key]
-        const labels = statusConfig[key]
+        const labels = (() => {
+          switch (usageLocation) {
+            case 'location':
+              return statusConfigLocation[key]
+            case 'myEvents':
+              return statusConfigMyEvents[key]
+            case 'search':
+            default:
+              return statusConfigSearch[key]
+          }
+        })()
         if (value && labels) {
           if (Array.isArray(value)) {
             return (
