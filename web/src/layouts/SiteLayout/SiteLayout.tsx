@@ -272,9 +272,9 @@ const SiteLayout = ({ children, withoutPadding = false }: SiteLayoutProps) => {
               </>
             )}
           </Disclosure>
-          <header className="py-10">
+          <header className="py-10 min-h-[116px]">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold tracking-tight text-white min-h-[100px]">
+              <h1 className="text-3xl font-bold tracking-tight text-white">
                 <HeaderSlot />
               </h1>
             </div>
