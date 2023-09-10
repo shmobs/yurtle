@@ -20,8 +20,8 @@ const Routes = () => {
         <Route path="/event/{id}" page={EventPage} name="event" />
         <Route path="/my-events" page={MyEventsPage} name="myEvents" />
         <Route path="/my-locations" page={MyLocationsPage} name="myLocations" />
-        <Route path="/privacy" page={PrivacyPage} name="privacy" />
         <Route path="/business/{id}" page={BusinessPage} name="business" />
+        <Route path="/privacy" page={PrivacyPage} name="privacy" prerender />
         <Route notfound page={NotFoundPage} />
       </Set>
       <Set wrap={SiteLayout} withoutPadding>
@@ -29,7 +29,7 @@ const Routes = () => {
         <Route path="/location/{id}" page={LocationPage} name="location" />
         <Route path="/text-search" page={TextSearchPage} name="textSearch" />
         <Route path="/text-search/{searchQuery}" page={TextSearchPage} name="textSearchWithQuery" />
-        <Route path="/about" page={AboutPage} name="about" />
+        <Route path="/about" page={AboutPage} name="about" prerender />
       </Set>
     </Router>
   )
