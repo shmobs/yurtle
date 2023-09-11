@@ -58,7 +58,8 @@ const Location = ({ location }: ILocationProps) => {
           ) : (
             <Skeleton className="rounded-none" />
           )}
-          {location && !isClaimed ? (
+          {/* don't *really* need to check for isClaimedByCurrentUser if we're already checking for isClaimed but redundancy can't hurt */}
+          {location && !isClaimed && !isClaimedByCurrentUser ? (
             <AuthRequiredDialog
               title="Log in or sign up to claim this venue"
               description="Claiming this venue will allow you to schedule events here."
