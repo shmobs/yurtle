@@ -13,6 +13,9 @@ const VibesLoading = ({ locationName, withPadding }: IVibesLoadingProps) => (
       title="Curated event suggestions"
       subtitle={`We're curating suggestions for ${locationName}, this will only take a moment...`}
     />
+    <div className="-mt-2 text-center text-xl font-bold text-indigo-700">
+      Loading...
+    </div>
     <Player
       className="max-w-sm"
       autoplay
@@ -20,7 +23,7 @@ const VibesLoading = ({ locationName, withPadding }: IVibesLoadingProps) => (
       src="/animations/yurtle-meditating-animation.json"
       style={{
         background: 'transparent',
-        marginTop: '-3rem',
+        marginTop: '-4rem',
         marginBottom: '-3rem',
       }}
     />
