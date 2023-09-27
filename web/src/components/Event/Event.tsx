@@ -124,7 +124,7 @@ const Event = ({ event }: IEventProps) => {
         />
       )}
 
-      <div className="md:flex md:min-h-full md:gap-5">
+      <div className="md:flex md:min-h-full md:gap-5 lg:m-5 lg:gap-10">
         {/* Event info */}
         <div className="md:w-1/2">
           <div className="md:flex md:h-full md:flex-col">
