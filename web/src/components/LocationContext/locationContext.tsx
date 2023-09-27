@@ -23,6 +23,17 @@ const SearchLocationContext = React.createContext<
   ISearchLocationContext | undefined
 >(undefined)
 
+function createHumanReadableName(
+  neighborhood?: string,
+  place?: string,
+  region?: string,
+  country?: string
+): string {
+  return [neighborhood, place, region, country]
+    .filter((part) => part && part.trim() !== '')
+    .join(', ')
+}
+
 interface ILocationProviderProps {
   children: React.ReactNode
 }
@@ -49,7 +60,12 @@ export const LocationProvider = ({ children }: ILocationProviderProps) => {
     setSearchLocation({
       lng: lng,
       lat: lat,
-      humanReadableName: `${neighborhood}, ${place}, ${region}, ${country}`,
+      humanReadableName: createHumanReadableName(
+        neighborhood,
+        place,
+        region,
+        country
+      ),
     })
   }
 
