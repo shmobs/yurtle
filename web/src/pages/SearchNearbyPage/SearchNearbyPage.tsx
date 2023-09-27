@@ -4,7 +4,10 @@ import { SimplePageHeader } from 'src/layouts/SiteLayout/SiteLayout'
 const SearchNearbyPage = () => {
   return (
     <>
-      <SimplePageHeader title="Nearby Venues & Events" />
+      <SimplePageHeader
+        title="Nearby Venues & Events"
+        subtitle="Welcome to your gateway to local exploration. Dive into our separate tabs to discover amazing venues and exciting events in your area."
+      />
       <SearchNearby />
     </>
   )

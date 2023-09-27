@@ -17,7 +17,7 @@ interface IEventLinkProps {
 const EventLink = ({ eventId }: IEventLinkProps) => (
   <Link
     to={routes.event({ id: eventId })}
-    className="absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-indigo-900/0 text-center text-white transition-colors group-hover:bg-indigo-900/50"
+    className="absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-indigo-900/0 text-center text-white transition-colors"
   />
 )
 interface IEventCardProps {
@@ -56,7 +56,7 @@ const EventCard = ({ event, hideBadges }: IEventCardProps) => {
       )}
     >
       <EventLink eventId={eventId} />
-      <div className="relative z-10 h-full w-full overflow-y-scroll bg-indigo-900/60 p-5 text-white">
+      <div className="relative z-20 h-full w-full overflow-y-scroll bg-indigo-900/60 p-5 text-white">
         <CardTitle className="text-base sm:text-xl">{name}</CardTitle>
         <CardDescription className="mb-2 italic text-white sm:mb-3">
           {type}
@@ -85,12 +85,14 @@ const EventCard = ({ event, hideBadges }: IEventCardProps) => {
         {date && (
           <EventDate className="mb-2 text-xs text-white" dateStr={date} />
         )}
-        <CardDescription className="prose font-light tracking-wide text-white">
+        <CardDescription className="prose font-normal tracking-wide text-white">
           {description}
         </CardDescription>
       </div>
+      {/* Bg overlay */}
+      <div className="absolute inset-0 z-10 bg-indigo-900/50 transition-colors group-hover:bg-indigo-900/70" />
       <div
-        className="absolute left-0 top-0 z-0 h-full w-full blur-[2px]"
+        className="absolute left-0 top-0 z-0 h-full w-full blur-[10px]"
         style={{
           backgroundImage: `url('https://source.unsplash.com/250x250/?${name}')`,
           backgroundPosition: 'center',
