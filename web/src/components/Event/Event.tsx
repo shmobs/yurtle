@@ -13,12 +13,12 @@ import MapView from '../Mapbox/Map'
 import ScheduleEventDialog from '../ScheduleEventDialog/ScheduleEventDialog'
 import SectionHeader from '../SectionHeader'
 import { Button } from '../ui/button'
+import { Skeleton } from '../ui/skeleton'
 
 import InterestedBtn from './InterestedBtn'
 import RSVPBtn from './RSVPButton'
 import ScheduleBtn from './ScheduleBtn'
 import { useSetEventInterestOrRSVPMutation } from './useSetEventInterestOrRSVPMutation'
-import { Skeleton } from '../ui/skeleton'
 
 const LocationBtn = ({
   locationId,
@@ -32,13 +32,13 @@ const LocationBtn = ({
     className={cn('mt-4 flex justify-center md:mt-5 md:justify-end', className)}
   >
     {locationId ? (
-      <Button asChild>
+      <Button variant="secondary" asChild>
         <Link to={routes.location({ id: locationId })}>
           View other events at this venue
         </Link>
       </Button>
     ) : (
-      <Skeleton className='h-10 w-60' />
+      <Skeleton className="h-10 w-60" />
     )}
   </div>
 )
@@ -148,19 +148,23 @@ const Event = ({ event }: IEventProps) => {
                   event={event}
                   setScheduleEventDialogOpen={setScheduleEventDialogOpen}
                 />
-              ) : event ? (status === 'SCHEDULED' ? (
-                <RSVPBtn
-                  onSetEventRSVP={onSetEventRSVP}
-                  setInterestOrRSVPLoading={setInterestOrRSVPLoading}
-                  isAttending={isAttending}
-                />
+              ) : event ? (
+                status === 'SCHEDULED' ? (
+                  <RSVPBtn
+                    onSetEventRSVP={onSetEventRSVP}
+                    setInterestOrRSVPLoading={setInterestOrRSVPLoading}
+                    isAttending={isAttending}
+                  />
+                ) : (
+                  <InterestedBtn
+                    onSetEventInterest={onSetEventInterest}
+                    setInterestOrRSVPLoading={setInterestOrRSVPLoading}
+                    isInterested={isInterested}
+                  />
+                )
               ) : (
-                <InterestedBtn
-                  onSetEventInterest={onSetEventInterest}
-                  setInterestOrRSVPLoading={setInterestOrRSVPLoading}
-                  isInterested={isInterested}
-                />
-              )) : <Skeleton className='h-10 w-32' />}
+                <Skeleton className="h-10 w-32" />
+              )}
             </div>
             <SectionHeader
               title={

@@ -62,9 +62,9 @@ const statusConfigSearch: Partial<LabelsConfigType> = {
     // there should NEVER be empty suggested requests, but just in case...
     titleIfEmpty: 'There are not currently any suggested events',
     subtitleIfEmpty: 'View scheduled events above to join!',
-    titleIfNotEmpty: 'Curated event suggestions',
+    titleIfNotEmpty: 'Curated event suggestions in your search area',
     subtitleIfNotEmpty:
-      "We've curated these for this venue. To express interest or see more information, just tap on it!",
+      "We've curated these for venues in this area. To express interest or see more information, just tap on it!",
   },
 }
 
@@ -137,7 +137,7 @@ export function EventsByStatus({
   const mergedData = [...nonEmpty, ...empty]
 
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       {mergedData.map((events) => {
         const key = Object.keys(events)[0] as EventStatus
         const value = events[key]

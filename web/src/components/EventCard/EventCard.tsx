@@ -50,7 +50,7 @@ const EventCard = ({ event, hideBadges }: IEventCardProps) => {
     <Card
       key={name}
       className={cn(
-        'group relative h-full w-full overflow-clip',
+        'group relative h-full w-full overflow-clip transition-shadow',
         status === 'SUGGESTED' &&
           'border-4 border-dashed border-gray-300 transition-all hover:border-gray-400'
       )}

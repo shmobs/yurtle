@@ -18,15 +18,14 @@ const InterestedBtn = ({
       <Button
         className="flex gap-2"
         onClick={() => onSetEventInterest()}
-        variant="outline"
         disabled={setInterestOrRSVPLoading}
       >
-        Interested <Checkbox checked={isInterested} />
+        Interested <Checkbox onDarkBg checked={isInterested} />
       </Button>
     }
     openDialogButton={
-      <Button className="flex gap-2" variant="outline">
-        Interested <Checkbox checked={isInterested} />
+      <Button className="flex gap-2">
+        Interested <Checkbox onDarkBg checked={isInterested} />
       </Button>
     }
     onAuthenticated={onSetEventInterest}

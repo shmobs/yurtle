@@ -18,15 +18,14 @@ const RSVPBtn = ({
       <Button
         className="flex gap-2"
         onClick={() => onSetEventRSVP()}
-        variant="outline"
         disabled={setInterestOrRSVPLoading}
       >
-        Going <Checkbox checked={isAttending} />
+        Going <Checkbox onDarkBg checked={isAttending} />
       </Button>
     }
     openDialogButton={
-      <Button className="flex gap-2" variant="outline">
-        Going <Checkbox checked={isAttending} />
+      <Button className="flex gap-2">
+        Going <Checkbox onDarkBg checked={isAttending} />
       </Button>
     }
     onAuthenticated={onSetEventRSVP}
