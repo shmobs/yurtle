@@ -179,7 +179,13 @@ const SetLocationPopover = () => {
             : 'invisible bg-background/0 backdrop-blur-none',
           'absolute bottom-0 left-0 right-0 top-0 z-10 transition-all'
         )}
-      />
+      >
+        {searchLocation === null && (
+          <div className="relative top-1/2 w-full px-10 text-center text-xl text-gray-900">
+            You must set a location to use Yurtle!
+          </div>
+        )}
+      </div>
     </>
   )
 }
