@@ -22,7 +22,13 @@ const TextSearchPage = ({
     : 'Search for Venues and Events'
   return (
     <div className="flex flex-col gap-2">
-      <SimplePageHeader title={title} />
+      <SimplePageHeader
+        title={title}
+        subtitle={
+          !searchQuery &&
+          'Your local adventure starts here. Use our search tool to find the best venues and events near you.'
+        }
+      />
 
       <SearchBox initialValue={searchQuery} />
 
