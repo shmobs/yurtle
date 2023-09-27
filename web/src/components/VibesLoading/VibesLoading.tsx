@@ -13,8 +13,8 @@ const VibesLoading = ({ locationName, withPadding }: IVibesLoadingProps) => (
       title="Curated event suggestions"
       subtitle={`We're curating suggestions for ${locationName}, this will only take a moment...`}
     />
-    <div className="-mt-2 text-center text-xl font-bold text-indigo-700">
-      Loading...
+    <div className="-mt-2 mb-2 text-center text-xl font-bold text-indigo-700 sm:mb-0">
+      Thinking up some suggestions...
     </div>
     <Player
       className="max-w-sm"
