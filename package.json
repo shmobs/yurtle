@@ -8,9 +8,9 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.22.15",
-    "@redwoodjs/auth-dbauth-setup": "6.2.3",
-    "@redwoodjs/cli-storybook": "6.2.3",
-    "@redwoodjs/core": "6.2.3",
+    "@redwoodjs/auth-dbauth-setup": "6.3.2",
+    "@redwoodjs/cli-storybook": "6.3.2",
+    "@redwoodjs/core": "6.3.2",
     "prettier-plugin-tailwindcss": "^0.1.13"
   },
   "eslintConfig": {

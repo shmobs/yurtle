@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@redwoodjs/api": "6.2.3",
-    "@redwoodjs/auth-dbauth-api": "6.2.3",
-    "@redwoodjs/graphql-server": "6.2.3",
+    "@redwoodjs/api": "6.3.2",
+    "@redwoodjs/auth-dbauth-api": "6.3.2",
+    "@redwoodjs/graphql-server": "6.3.2",
     "@spoonjoy/redwoodjs-dbauth-oauth-api": "^1.2.2",
     "@whatwg-node/fetch": "^0.9.9",
     "lodash": "^4.17.21"
